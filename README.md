@@ -21,3 +21,8 @@ mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dson
 ```
 
 Replace "<SONAR_TOKEN>" with sonarcloud token.
+
+## Sonarqube Badges
+
+You can find sonarqube badges here:\
+https://github.com/QualInsight/qualinsight-plugins-sonarqube-badges/wiki/Measure-badges
