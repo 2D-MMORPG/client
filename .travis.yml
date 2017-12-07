@@ -13,14 +13,26 @@ cache:
     - $HOME/.cache
     - $HOME/.m2
 
+addons:
+  sonarcloud:
+    organization: "2d-mmorpg" # the key of the org you chose at step #3
+    token:
+      secure: "GrLpXChahiJRYJ7FGRgKL9nUh0a+oPCbEEu6O9e0WXhio7zGuUp3P4RoiVVbN1ISB7AWbrnVwrfiZMBuL+0qOMqi/7Ch6jftyTUMFX1718VGP9XePxnNA6lMVaRim0BROw3yt7FUAMF+QrT2MSB++KjUM6gpLDlV6Oy6b3Wljaw1TYbKtZp4yTL4GWhKlfU06gWhRrf4mlt39Jp+NxauLSfHeugd4hXl2F4gSlGoNUCIsVonctyuGk+My7G3JY+igJttbRLvvbsSdGZGA17zK9cCcKuV4Qd6WrO0dW6GTMu9PppLaNyYXV/73gKLwn/xZ28p2pB1qax+WTglXT0fKNJkY80gbGXjJnLxUCibPgMk0qdAVDMUQ3P9UVHbIGPIxM7P3Y1roC64dtO2j50pMG2Cvyj2+KZDDcHdydnrD5kKHkWLdp2lWamBuBZ/zVNcSU/VESkv782MMHO1abDUtLAmwgD1eINScjbQ9n5tvneGoMMLtCs+XFaYC2x6pS4mLXzTbmivL3IvgPt0VwdadesOyZu/jt02H9/tTkGfJmOCQQrdwksItcIsO6lZqlD5rbf17IlsbDFaWm6sYI89kSdCrs5n8Z0YR1Wh/f+p0uZyykG0XJ2ap7sXBKdnNg8DP5FodW36y0Lp6xJ6f2uzwEy+zGYQqAJ4oVtYH0B3amw=" # encrypted value of your token
+
 before_install:
 # - chmod +x gradlew
+
+# https://github.com/SonarSource/sq-com_example_java-maven-travis
 
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn clean verify
   - mvn clean install
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+
+  # other script steps might be done before running the actual analysis
+#  - sonar-scanner
+   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 notifications:
 email: false
