@@ -111,12 +111,15 @@ public class HashUtils {
             mdSha1 = MessageDigest.getInstance("SHA-512");
         } catch (NoSuchAlgorithmException e1) {
             e1.printStackTrace();
+            throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+
+            throw new RuntimeException("UnsupportedEncodingException: " + e.getLocalizedMessage());
         }
         byte[] data = mdSha1.digest();
         try {
@@ -227,21 +230,35 @@ public class HashUtils {
     }
 
     private static byte[] createFileChecksum(File file) throws Exception {
-        InputStream fis =  new FileInputStream(file);
+        InputStream fis = null;
 
-        byte[] buffer = new byte[1024];
-        MessageDigest complete = MessageDigest.getInstance("MD5");
-        int numRead;
+        try {
+            fis =  new FileInputStream(file);
 
-        do {
-            numRead = fis.read(buffer);
-            if (numRead > 0) {
-                complete.update(buffer, 0, numRead);
+            byte[] buffer = new byte[1024];
+            MessageDigest complete = MessageDigest.getInstance("MD5");
+            int numRead;
+
+            do {
+                numRead = fis.read(buffer);
+                if (numRead > 0) {
+                    complete.update(buffer, 0, numRead);
+                }
+            } while (numRead != -1);
+
+            fis.close();
+            return complete.digest();
+        } catch (Exception e) {
+            if (fis != null) {
+                fis.close();
             }
-        } while (numRead != -1);
 
-        fis.close();
-        return complete.digest();
+            throw e;
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
+        }
     }
 
 }
