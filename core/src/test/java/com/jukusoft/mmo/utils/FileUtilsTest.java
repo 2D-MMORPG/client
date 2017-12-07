@@ -112,7 +112,7 @@ public class FileUtilsTest {
         FileUtils.readFile("", StandardCharsets.UTF_8);
     }
 
-    @Test(expected = FileNotFoundException.class)
+    @Test(expected = IOException.class)
     public void testReadFileFileNotExists () throws IOException {
         FileUtils.readFile("./not-existent-file.txt", StandardCharsets.UTF_8);
     }
@@ -127,7 +127,7 @@ public class FileUtilsTest {
         FileUtils.readLines("", StandardCharsets.UTF_8);
     }
 
-    @Test(expected = FileNotFoundException.class)
+    @Test(expected = IOException.class)
     public void testReadLinesFileNotExists () throws IOException {
         FileUtils.readLines("./not-existent-file.txt", StandardCharsets.UTF_8);
     }
