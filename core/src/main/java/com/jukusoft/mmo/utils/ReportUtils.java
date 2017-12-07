@@ -109,7 +109,7 @@ public class ReportUtils {
         ProcessorInfo info = HardwareInfo.getProcessorInfo();
         params.put("cpu_cache_size", info.getCacheSize());
         params.put("cpu_family", info.getFamily());
-        params.put("cpu_fullinfo", info.getFullInfo());
+        //params.put("cpu_fullinfo", info.getFullInfo());
         params.put("cpu_speed (MHZ)", info.getMhz());
         params.put("cpu_model", info.getModel());
         params.put("cpu_model_name", info.getModelName());
