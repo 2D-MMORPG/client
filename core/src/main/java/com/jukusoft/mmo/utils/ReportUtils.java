@@ -90,7 +90,7 @@ public class ReportUtils {
             }
 
             //log response
-            LOGGER.log(Level.WARNING, "\n\n================\nServer response\n================\n\n" + response);
+            LOGGER.log(Level.WARNING, "\n\n================\nServer response\n================\n\n{0}", response);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             System.exit(0);
