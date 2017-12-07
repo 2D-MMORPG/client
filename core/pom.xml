@@ -33,6 +33,13 @@
             <artifactId>vertx-core</artifactId>
             <version>${vertx.version}</version>
         </dependency>
+
+        <!-- get hardware information -->
+        <dependency>
+            <groupId>org.jhardware</groupId>
+            <artifactId>jHardware</artifactId>
+            <version>${jhardware.version}</version>
+        </dependency>
     </dependencies>
 
 

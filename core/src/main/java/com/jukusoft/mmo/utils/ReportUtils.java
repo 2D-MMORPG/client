@@ -1,6 +1,9 @@
 package com.jukusoft.mmo.utils;
 
 import com.teamunify.i18n.I;
+import org.jutils.jhardware.HardwareInfo;
+import org.jutils.jhardware.model.MemoryInfo;
+import org.jutils.jhardware.model.ProcessorInfo;
 
 import java.io.*;
 import java.net.*;
@@ -102,6 +105,15 @@ public class ReportUtils {
         params.put("cpu_arch_w6432", System.getenv("PROCESSOR_ARCHITEW6432"));
         params.put("number_of_processors", System.getenv("NUMBER_OF_PROCESSORS"));
 
+        //get more detailed cpu information
+        ProcessorInfo info = HardwareInfo.getProcessorInfo();
+        params.put("cpu_cache_size", info.getCacheSize());
+        params.put("cpu_family", info.getFamily());
+        params.put("cpu_fullinfo", info.getFullInfo());
+        params.put("cpu_speed (MHZ)", info.getMhz());
+        params.put("cpu_model", info.getModel());
+        params.put("cpu_model_name", info.getModelName());
+
         //get RAM information (in bytes --> MB)
         float freeMemory = Runtime.getRuntime().freeMemory() / 1024 / 1024;
         float maxMemory = Runtime.getRuntime().maxMemory() / 1024 / 1024;
@@ -110,6 +122,16 @@ public class ReportUtils {
         params.put("free_memory", freeMemory + "MB");
         params.put("max_memory", maxMemory + "MB");
         params.put("total_memory", totalMemory + "MB");
+
+        //add java version
+        params.put("java_version", System.getProperty("java.version"));
+        params.put("java_vendor", System.getProperty("java.vendor"));
+        params.put("jvm_spec_version", System.getProperty("java.vm.specification.version"));
+        params.put("jvm_version", System.getProperty("java.vm.version"));
+
+        params.put("file_seperator", System.getProperty("file.separator"));
+        params.put("path_seperator", System.getProperty("path.separator"));
+        params.put("line_seperator", System.getProperty("line.separator"));
 
         try {
             params.put("language", I.getLanguage());
@@ -120,7 +142,7 @@ public class ReportUtils {
     }
 
     private static void logSendedInformation (Map<String,Object> params) {
-        System.err.println("send anonymous exception report to server...\n\nData:\n");
+        System.err.println("send anonymous exception report to server...\n\n================\nData\n================\n");
 
         for (Map.Entry<String,Object> entry : params.entrySet()) {
             System.err.println("" + entry.getKey() + " = " + entry.getValue());

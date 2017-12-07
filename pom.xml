@@ -23,6 +23,13 @@
         <!-- JUnit version -->
         <junit.version>4.12</junit.version>
 
+        <!-- logger version -->
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>2.10.0</log4j.version>
+
+        <!-- jhardware to get hardware information -->
+        <jhardware.version>0.8.5</jhardware.version>
+
         <!-- vertx.io version -->
         <vertx.version>3.5.0</vertx.version>
 
