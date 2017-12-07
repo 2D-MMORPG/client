@@ -18,4 +18,25 @@ public class HashUtilsTest {
         assertEquals(expectedHash, HashUtils.computeSHA256Hash(password, salt));
     }
 
+    @Test
+    public void testToHex () {
+        assertEquals("00", HashUtils.toHex(new byte[] {0x00}));
+        assertEquals("01020304", HashUtils.toHex(new byte[] {0x01, 0x02, 0x03, 0x04}));
+    }
+
+    @Test
+    public void testComputePasswordSHAHash () {
+        assertEquals("7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w==", HashUtils.computePasswordSHAHash("test"));
+    }
+
+    @Test
+    public void testComputeSHA256Hash () {
+        assertEquals("4edf07edc95b2fdcbcaf2378fd12d8ac212c2aa6e326c59c3e629be3039d6432", HashUtils.computeSHA256Hash("test", "salt"));
+    }
+
+    @Test
+    public void testComputeMD5Hash () {
+        assertEquals("098f6bcd4621d373cade4e832627b4f6", HashUtils.computeMD5Hash("test"));
+    }
+
 }
