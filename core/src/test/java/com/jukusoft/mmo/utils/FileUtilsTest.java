@@ -13,27 +13,27 @@ public class FileUtilsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWriteFileConstructor () throws IOException {
+    public void testWrite () throws IOException {
         FileUtils.writeFile(null, "", StandardCharsets.UTF_8);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWriteFileConstructor1 () throws IOException {
+    public void testWrite1 () throws IOException {
         FileUtils.writeFile("", "", StandardCharsets.UTF_8);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWriteFileConstructor2 () throws IOException {
+    public void testWrite2 () throws IOException {
         FileUtils.writeFile("./test.txt", null, StandardCharsets.UTF_8);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testWriteFileConstructor3 () throws IOException {
+    public void test3 () throws IOException {
         FileUtils.writeFile("./test.txt", "", StandardCharsets.UTF_8);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWriteFileConstructor4 () throws IOException {
+    public void test4 () throws IOException {
         FileUtils.writeFile("./test.txt", "test", null);
     }
 
