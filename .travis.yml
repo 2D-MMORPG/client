@@ -28,11 +28,10 @@ script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn clean verify
   - mvn clean install
-#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
   # other script steps might be done before running the actual analysis
 #  - sonar-scanner
-   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 notifications:
 email: false
