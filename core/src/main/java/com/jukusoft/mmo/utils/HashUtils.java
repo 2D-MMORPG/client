@@ -37,7 +37,7 @@ public class HashUtils {
      * @deprecated because it isnt used anymore
     */
     @Deprecated
-    private static String convertToHex(byte[] data) throws IOException {
+    private static String convertToHex(byte[] data) {
         //create new instance of string buffer
         StringBuilder stringBuffer = new StringBuilder();
         String hex = "";
@@ -82,7 +82,7 @@ public class HashUtils {
     @Deprecated
     public static String computeSHAHash(String password) {
         MessageDigest mdSha1 = null;
-        String SHAHash = "";
+        String shaHash = "";
 
         try
         {
@@ -99,13 +99,9 @@ public class HashUtils {
         }
 
         byte[] data = mdSha1.digest();
-        try {
-            SHAHash = convertToHex(data);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-        }
+        shaHash = convertToHex(data);
 
-        return SHAHash;
+        return shaHash;
     }
 
     /**
@@ -117,7 +113,7 @@ public class HashUtils {
      */
     public static String computePasswordSHAHash(String password) {
         MessageDigest mdSha1 = null;
-        String SHAHash = "";
+        String shaHash = "";
 
         try
         {
@@ -134,13 +130,9 @@ public class HashUtils {
             throw new RuntimeException("UnsupportedEncodingException: " + e.getLocalizedMessage());
         }
         byte[] data = mdSha1.digest();
-        try {
-            SHAHash = convertToHex(data);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-        }
+        shaHash = convertToHex(data);
 
-        return SHAHash;
+        return shaHash;
     }
 
     /**
@@ -152,8 +144,6 @@ public class HashUtils {
      * @return sha hash
     */
     public static String computeSHA256Hash (String password, String salt) {
-        String str = password + "" + salt;
-
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -177,7 +167,7 @@ public class HashUtils {
      * @return hash
     */
     public static String computeMD5Hash(String password) {
-        StringBuilder MD5Hash = new StringBuilder();
+        StringBuilder md5Hash = new StringBuilder();
 
         try {
             // Create MD5 Hash
@@ -190,7 +180,7 @@ public class HashUtils {
                 String h = Integer.toHexString(0xFF & messageDigest[i]);
                 while (h.length() < 2)
                     h = "0" + h;
-                MD5Hash.append(h);
+                md5Hash.append(h);
             }
 
         }
@@ -199,7 +189,7 @@ public class HashUtils {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
-        return MD5Hash.toString();
+        return md5Hash.toString();
     }
 
     /**
