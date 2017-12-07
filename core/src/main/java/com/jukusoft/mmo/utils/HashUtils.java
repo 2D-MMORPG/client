@@ -74,13 +74,16 @@ public class HashUtils {
             mdSha1 = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e1) {
             e1.printStackTrace();
+            throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
+
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
         byte[] data = mdSha1.digest();
         try {
             SHAHash = convertToHex(data);
