@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 public class HashUtils {
 
     protected static final Logger LOGGER = Logger.getLogger("HashUtils");
+    protected static final String LOG_MESSAGE = "an exception was thrown";
 
     /**
      * private constructor, so other classes cannot create an instance of HashUtils
@@ -59,8 +60,7 @@ public class HashUtils {
     public static String toHex (byte[] data) {
         StringBuilder hash = new StringBuilder();
 
-        for (int i = 0; i < data.length; i++)
-        {
+        for (int i = 0; i < data.length; i++) {
             String h = Integer.toHexString(0xFF & data[i]);
             while (h.length() < 2)
                 h = "0" + h;
@@ -88,21 +88,21 @@ public class HashUtils {
         {
             mdSha1 = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e1) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e1);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e1);
             throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
 
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
         byte[] data = mdSha1.digest();
         try {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
         return SHAHash;
@@ -123,13 +123,13 @@ public class HashUtils {
         {
             mdSha1 = MessageDigest.getInstance("SHA-512");
         } catch (NoSuchAlgorithmException e1) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e1);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e1);
             throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
 
             throw new RuntimeException("UnsupportedEncodingException: " + e.getLocalizedMessage());
         }
@@ -137,7 +137,7 @@ public class HashUtils {
         try {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
         return SHAHash;
@@ -160,10 +160,10 @@ public class HashUtils {
             byte[] data = digest.digest((password + salt).getBytes("UTF-8"));
             return toHex(data);
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             return null;
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             return null;
         }
     }
@@ -196,7 +196,7 @@ public class HashUtils {
         }
         catch (NoSuchAlgorithmException e)
         {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
         return MD5Hash.toString();
