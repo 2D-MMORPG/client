@@ -1,11 +1,30 @@
 package com.jukusoft.mmo.utils;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class FileUtilsTest {
+
+    @BeforeClass
+    public static void beforeClass () {
+        //
+    }
+    @AfterClass
+    public static void afterClass () {
+        //delete file, if file exists
+        if (new File("./test2.txt").exists()) {
+            //delete temporary file
+            new File("./test2.txt").delete();
+        }
+    }
 
     @Test
     public void testConstructor () {
@@ -28,13 +47,91 @@ public class FileUtilsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test3 () throws IOException {
+    public void testWrite3 () throws IOException {
         FileUtils.writeFile("./test.txt", "", StandardCharsets.UTF_8);
     }
 
     @Test(expected = NullPointerException.class)
-    public void test4 () throws IOException {
+    public void testWrite4 () throws IOException {
         FileUtils.writeFile("./test.txt", "test", null);
+    }
+
+    @Test
+    public void testWrite5 () throws IOException {
+        //write temporary file
+        FileUtils.writeFile("./test.txt", "test", StandardCharsets.UTF_8);
+
+        //check, if file exists
+        assertEquals(true, new File("./test.txt").exists());
+
+        //delete temporary file
+        new File("./test.txt").delete();
+    }
+
+    @Test
+    public void testWriteAndRead () throws IOException {
+        //write temporary file
+        FileUtils.writeFile("./test2.txt", "test2", StandardCharsets.UTF_8);
+
+        //read temporary file
+        String content = FileUtils.readFile("./test2.txt", StandardCharsets.UTF_8);
+
+        //delete temporary file
+        new File("./test2.txt").delete();
+
+        //compare content
+        assertEquals("test2", content);
+    }
+
+    @Test
+    public void testOverride () throws IOException {
+        //write temporary file
+        FileUtils.writeFile("./test.txt", "test", StandardCharsets.UTF_8);
+
+        //write same temporary file again
+        FileUtils.writeFile("./test.txt", "test2", StandardCharsets.UTF_8);
+
+        //read temporary file
+        String content = FileUtils.readFile("./test.txt", StandardCharsets.UTF_8);
+
+        //delete temporary file
+        new File("./test.txt").delete();
+
+        //compare content
+        assertEquals("test2", content);
+    }
+
+    @Test
+    public void testReadLines () throws IOException {
+        //write temporary file
+        FileUtils.writeFile("./test2.txt", "test2", StandardCharsets.UTF_8);
+
+        //read lines as list
+        List<String> lines = FileUtils.readLines("./test2.txt", StandardCharsets.UTF_8);
+
+        //delete temporary file
+        new File("./test2.txt").delete();
+
+        //there should be only one line in file
+        assertEquals(1, lines.size());
+        assertEquals("test2", lines.get(0));
+    }
+
+    @Test
+    public void testReadLines2 () throws IOException {
+        //write temporary file
+        FileUtils.writeFile("./test2.txt", "test2\nline2", StandardCharsets.UTF_8);
+
+        //read lines as list
+        List<String> lines = FileUtils.readLines("./test2.txt", StandardCharsets.UTF_8);
+
+        //delete temporary file
+        new File("./test2.txt").delete();
+
+        //there should be only one line in file
+        assertEquals(2, lines.size());
+        assertEquals("test2", lines.get(0));
+        assertEquals("line2", lines.get(1));
     }
 
 }

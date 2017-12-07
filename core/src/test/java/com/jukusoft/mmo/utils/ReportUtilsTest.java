@@ -1,14 +1,29 @@
 package com.jukusoft.mmo.utils;
 
 import org.apache.commons.lang.NullArgumentException;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 
 public class ReportUtilsTest {
+
+    @BeforeClass
+    public static void beforeClass () {
+        //
+    }
+
+    @AfterClass
+    public static void afterClass () {
+        if (new File("null").exists()) {
+            new File("null").delete();
+        }
+    }
 
     @Test(expected = NullPointerException.class)
     public void testSendExceptionToServer () {
