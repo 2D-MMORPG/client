@@ -74,7 +74,7 @@ public class ReportUtils {
             }
 
             //log response
-            System.out.println("\n\n========\nServer response\n========\n\n" + response);
+            System.out.println("\n\n================\nServer response\n================\n\n" + response);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.exit(0);
