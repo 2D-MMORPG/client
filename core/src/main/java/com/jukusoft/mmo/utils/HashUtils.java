@@ -149,10 +149,7 @@ public class HashUtils {
 
             byte[] data = digest.digest((password + salt).getBytes("UTF-8"));
             return toHex(data);
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-            return null;
-        } catch (IOException e) {
+        } catch (NoSuchAlgorithmException | IOException e) {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             return null;
         }
