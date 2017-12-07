@@ -11,6 +11,9 @@
 
     <modules>
         <module>core</module>
+        <module>engine</module>
+        <module>game</module>
+        <module>desktop</module>
     </modules>
 
     <properties>
@@ -24,6 +27,12 @@
         <vertx.version>3.5.0</vertx.version>
 
         <easy-i18n.version>0.9.11</easy-i18n.version>
+
+        <!-- libGDX version -->
+        <libgdx.version>1.9.6</libgdx.version>
+
+        <!-- for libGDX tests -->
+        <mockito.version>2.2.7</mockito.version>
 
         <!-- file encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
