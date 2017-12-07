@@ -10,7 +10,9 @@ public class LogUtilsTest {
 
     @Test
     public void testCreateLogDirIfAbsent () {
-        LogUtils.createLogDirIfAbsent("junit-test");
+        AppUtils.setAppName("junit-test");
+
+        LogUtils.createLogDirIfAbsent();
 
         //check, if directory exists
         assertEquals(true, new File(LogUtils.getLogPath("junit-test")).exists());

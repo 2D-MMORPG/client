@@ -16,6 +16,15 @@ public class LogUtils {
     }
 
     /**
+     * get path to log directory
+     *
+     * @return log directory path, in most cases user.home/.APPNAME/logs/
+     */
+    public static String getLogPath () {
+        return getLogPath(AppUtils.getAppName());
+    }
+
+    /**
     * create logs directory, if directory doesnt exists
     */
     public static void createLogDirIfAbsent () {
