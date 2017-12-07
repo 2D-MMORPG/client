@@ -32,6 +32,8 @@ public class HashUtils {
 
     /**
     * convert byte data to hex
+     *
+     * @deprecated because it isnt used anymore
     */
     @Deprecated
     private static String convertToHex(byte[] data) throws IOException {
@@ -72,6 +74,8 @@ public class HashUtils {
     * generates SHA Hash
      *
      * @param password text
+     *
+     * @deprecated because it isnt used anymore
      *
      * @return hash
     */
