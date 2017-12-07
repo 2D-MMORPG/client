@@ -3,6 +3,7 @@ package com.jukusoft.mmo.desktop;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jukusoft.mmo.game.Game;
+import com.jukusoft.mmo.utils.LogUtils;
 import com.jukusoft.mmo.utils.ReportUtils;
 
 import java.util.logging.Level;
@@ -23,6 +24,9 @@ public class DesktopLauncher {
      * start method for game application
      */
     public static void main(String[] args) {
+        //create log directory, if not exists
+        LogUtils.createLogDirIfAbsent("2d-mmorpg");
+
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("2D MMORPG");
         config.setWindowedMode(WIDTH, HEIGHT);
