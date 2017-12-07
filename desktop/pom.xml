@@ -12,7 +12,7 @@
     <artifactId>desktop</artifactId>
 
     <properties>
-        <mainClass>com.jukusoft.mmo.desktop.Main</mainClass>
+        <mainClass>com.jukusoft.mmo.desktop.DesktopLauncher</mainClass>
     </properties>
 
     <dependencies>
@@ -21,6 +21,13 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+        </dependency>
+
+        <!-- core -->
+        <dependency>
+            <groupId>com.jukusoft.mmo</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- game -->
