@@ -1,0 +1,2 @@
+Test file for HashUtils JUnit test.
+Dont change this file!

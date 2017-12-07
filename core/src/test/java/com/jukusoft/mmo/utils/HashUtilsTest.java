@@ -2,9 +2,16 @@ package com.jukusoft.mmo.utils;
 
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 public class HashUtilsTest {
+
+    @Test
+    public void testConstructor () {
+        new HashUtils();
+    }
 
     @Test
     public void testHashSHA256 () {
@@ -37,6 +44,11 @@ public class HashUtilsTest {
     @Test
     public void testComputeMD5Hash () {
         assertEquals("098f6bcd4621d373cade4e832627b4f6", HashUtils.computeMD5Hash("test"));
+    }
+
+    @Test
+    public void ComputeMD5FileHash () throws Exception {
+        assertEquals("cf4e96739d454bc2b9e4f2a6ffecb13d", HashUtils.computeMD5FileHash(new File("../test-file.txt")));
     }
 
 }

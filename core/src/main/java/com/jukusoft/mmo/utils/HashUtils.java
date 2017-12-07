@@ -27,7 +27,7 @@ public class HashUtils {
     /**
      * private constructor, so other classes cannot create an instance of HashUtils
      */
-    private HashUtils () {
+    protected HashUtils () {
         //
     }
 
