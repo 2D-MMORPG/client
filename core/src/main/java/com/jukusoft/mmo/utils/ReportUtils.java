@@ -2,7 +2,6 @@ package com.jukusoft.mmo.utils;
 
 import com.teamunify.i18n.I;
 import org.jutils.jhardware.HardwareInfo;
-import org.jutils.jhardware.model.MemoryInfo;
 import org.jutils.jhardware.model.ProcessorInfo;
 
 import java.io.*;
@@ -22,6 +21,8 @@ import java.util.logging.Logger;
 public class ReportUtils {
 
     public static final String SERVER_URL = "http://mmo.jukusoft.com/api/send_exception.php";
+    protected static final String UTF8 = "UTF-8";
+    protected static final String LOG_MESSAGE = "an exception was thrown";
 
     //logger
     protected static final Logger LOGGER = Logger.getLogger("ReportUtils");
@@ -63,12 +64,12 @@ public class ReportUtils {
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String,Object> param : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append(URLEncoder.encode(param.getKey(), UTF8));
                 postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), UTF8));
             }
 
-            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+            byte[] postDataBytes = postData.toString().getBytes(UTF8);
 
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("POST");
@@ -80,7 +81,7 @@ public class ReportUtils {
             //log sended information
             logSendedInformation(params);
 
-            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8));
 
             String response = "";
 
@@ -91,14 +92,14 @@ public class ReportUtils {
             //log response
             System.out.println("\n\n================\nServer response\n================\n\n" + response);
         } catch (MalformedURLException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             System.exit(0);
         } catch (UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         } catch (ProtocolException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
     }
 
