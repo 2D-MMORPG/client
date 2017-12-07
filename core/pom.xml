@@ -11,5 +11,22 @@
 
     <artifactId>core</artifactId>
 
+    <dependencies>
+        <!-- JUnit tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- i18n support (translations) -->
+        <dependency>
+            <groupId>com.teamunify</groupId>
+            <artifactId>easy-i18n</artifactId>
+            <version>${easy-i18n.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
