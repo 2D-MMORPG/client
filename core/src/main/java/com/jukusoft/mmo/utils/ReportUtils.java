@@ -91,15 +91,9 @@ public class ReportUtils {
 
             //log response
             LOGGER.log(Level.WARNING, "\n\n================\nServer response\n================\n\n" + response);
-        } catch (MalformedURLException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-            System.exit(0);
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-        } catch (ProtocolException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
+            System.exit(0);
         }
     }
 
@@ -122,7 +116,6 @@ public class ReportUtils {
         ProcessorInfo info = HardwareInfo.getProcessorInfo();
         params.put("cpu_cache_size", info.getCacheSize());
         params.put("cpu_family", info.getFamily());
-        //params.put("cpu_fullinfo", info.getFullInfo());
         params.put("cpu_speed (MHZ)", info.getMhz());
         params.put("cpu_model", info.getModel());
         params.put("cpu_model_name", info.getModelName());
