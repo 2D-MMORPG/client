@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class HashUtils {
 
-    protected static Logger LOGGER = Logger.getLogger("HashUtils");
+    protected static final Logger LOGGER = Logger.getLogger("HashUtils");
 
     /**
     * convert byte data to hex

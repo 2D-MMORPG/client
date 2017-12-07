@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
 * Utility class to send exception reports to jukusoft.com server
@@ -19,7 +21,10 @@ import java.util.Map;
 */
 public class ReportUtils {
 
-    public static String SERVER_URL = "http://mmo.jukusoft.com/api/send_exception.php";
+    public static final String SERVER_URL = "http://mmo.jukusoft.com/api/send_exception.php";
+
+    //logger
+    protected static final Logger LOGGER = Logger.getLogger("ReportUtils");
 
     /**
     * send client exception to server, so developers can fix it
@@ -79,14 +84,14 @@ public class ReportUtils {
             //log response
             System.out.println("\n\n================\nServer response\n================\n\n" + response);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
             System.exit(0);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
     }
 
