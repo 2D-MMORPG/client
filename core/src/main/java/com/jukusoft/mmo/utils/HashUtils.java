@@ -38,7 +38,7 @@ public class HashUtils {
     @Deprecated
     private static String convertToHex(byte[] data) throws IOException {
         //create new instance of string buffer
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         String hex = "";
 
         //encode byte data with base64
@@ -57,7 +57,7 @@ public class HashUtils {
      * @return hex string
     */
     public static String toHex (byte[] data) {
-        StringBuffer hash = new StringBuffer();
+        StringBuilder hash = new StringBuilder();
 
         for (int i = 0; i < data.length; i++)
         {
@@ -177,7 +177,7 @@ public class HashUtils {
      * @return hash
     */
     public static String computeMD5Hash(String password) {
-        StringBuffer MD5Hash = new StringBuffer();
+        StringBuilder MD5Hash = new StringBuilder();
 
         try {
             // Create MD5 Hash
