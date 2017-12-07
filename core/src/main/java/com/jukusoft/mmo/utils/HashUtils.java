@@ -71,40 +71,6 @@ public class HashUtils {
     }
 
     /**
-    * generates SHA Hash
-     *
-     * @param password text
-     *
-     * @deprecated because it isnt used anymore
-     *
-     * @return hash
-    */
-    @Deprecated
-    public static String computeSHAHash(String password) {
-        MessageDigest mdSha1 = null;
-        String shaHash = "";
-
-        try
-        {
-            mdSha1 = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException e1) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e1);
-            throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
-        }
-
-        try {
-            mdSha1.update(password.getBytes("ASCII"));
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
-        }
-
-        byte[] data = mdSha1.digest();
-        shaHash = convertToHex(data);
-
-        return shaHash;
-    }
-
-    /**
      * generates SHA-512 Hash for passwords
      *
      * @param password text
