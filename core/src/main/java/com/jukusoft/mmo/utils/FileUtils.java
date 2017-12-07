@@ -72,8 +72,20 @@ public class FileUtils {
      * @return list of lines from file
      */
     public static List<String> readLines(String path, Charset charset) throws IOException {
+        if (path == null) {
+            throw new NullPointerException("path cannot be null.");
+        }
+
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("path cannot be empty.");
+        }
+
         if (!(new File(path)).exists()) {
             throw new FileNotFoundException("Couldnt find file: " + path);
+        }
+
+        if (!new File(path).canRead()) {
+            throw new IOException("File isnt readable, please correct permissions: " + path);
         }
 
         return Files.readAllLines(Paths.get(path), charset);
