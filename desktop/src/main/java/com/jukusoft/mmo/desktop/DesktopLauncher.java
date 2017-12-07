@@ -3,7 +3,9 @@ package com.jukusoft.mmo.desktop;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jukusoft.mmo.game.Game;
+import com.jukusoft.mmo.utils.AppUtils;
 import com.jukusoft.mmo.utils.LogUtils;
+import com.jukusoft.mmo.utils.MapCacheUtils;
 import com.jukusoft.mmo.utils.ReportUtils;
 
 import java.util.logging.Level;
@@ -24,8 +26,14 @@ public class DesktopLauncher {
      * start method for game application
      */
     public static void main(String[] args) {
+        //set application name for app directory in user.home directory
+        AppUtils.setAppName("2d-mmorpg");
+
         //create log directory, if not exists
-        LogUtils.createLogDirIfAbsent("2d-mmorpg");
+        LogUtils.createLogDirIfAbsent();
+
+        //create map cache directory, if directory does not exists
+        MapCacheUtils.createMapCacheDirIfAbsent();
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("2D MMORPG");

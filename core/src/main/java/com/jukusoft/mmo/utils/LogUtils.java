@@ -9,7 +9,7 @@ public class LogUtils {
      *
      * @param appName name of application
      *
-     * @return log directory path, in most cases user.home/.APPNAME/logs
+     * @return log directory path, in most cases user.home/.APPNAME/logs/
     */
     public static String getLogPath (String appName) {
         return FileUtils.getAppHomeDir(appName) + "/logs/";
@@ -17,11 +17,9 @@ public class LogUtils {
 
     /**
     * create logs directory, if directory doesnt exists
-     *
-     * @param appName name of application
     */
-    public static void createLogDirIfAbsent (String appName) {
-        String path = getLogPath(appName);
+    public static void createLogDirIfAbsent () {
+        String path = getLogPath(AppUtils.getAppName());
 
         //create directory, if not exists
         if (!new File(path).exists()) {
