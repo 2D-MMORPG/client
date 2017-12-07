@@ -33,7 +33,7 @@ public class DesktopLauncher {
             // start game
             new Lwjgl3Application(new Game(), config);
         } catch (Exception e) {
-            Logger.getLogger("DesktopLauncher").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger("DesktopLauncher").log(Level.SEVERE, "an exception was thrown, sended report to server now", e);
 
             //send exception to server
             ReportUtils.sendExceptionToServer(e);

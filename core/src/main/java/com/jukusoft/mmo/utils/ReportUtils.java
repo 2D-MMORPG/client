@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.utils;
 
 import com.teamunify.i18n.I;
+import io.vertx.core.json.JsonObject;
 import org.jutils.jhardware.HardwareInfo;
 import org.jutils.jhardware.model.GraphicsCard;
 import org.jutils.jhardware.model.GraphicsCardInfo;
@@ -49,11 +50,11 @@ public class ReportUtils {
         try {
             URL url = new URL(SERVER_URL);
 
-            Map<String,Object> params = new LinkedHashMap<>();
-            params.put("exception_class", cause.getClass().getName());
-            params.put("exception_message", cause.getMessage());
-            params.put("localized_message", cause.getLocalizedMessage());
-            params.put("class_name", cause.getStackTrace()[0].getClassName());
+            Map<String,Object> exceptionInfo = new LinkedHashMap<>();
+            exceptionInfo.put("exception_class", cause.getClass().getName());
+            exceptionInfo.put("exception_message", cause.getMessage());
+            exceptionInfo.put("localized_message", cause.getLocalizedMessage());
+            exceptionInfo.put("class_name", cause.getStackTrace()[0].getClassName());
 
             //convert stacktrace into string
             StringWriter sw = new StringWriter();
@@ -62,10 +63,16 @@ public class ReportUtils {
             String sStackTrace = sw.toString(); // stack trace as a string
 
             //add stacktrace to message
-            params.put("stacktrace", sStackTrace);
+            exceptionInfo.put("stacktrace", sStackTrace);
 
             //add system information
-            addSystemInformationToMap(params);
+            addSystemInformationToMap(exceptionInfo);
+
+            //create new json object
+            JsonObject json = new JsonObject(exceptionInfo);
+
+            Map<String,Object> params = new LinkedHashMap<>();
+            params.put("data", json.encode());
 
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -85,7 +92,7 @@ public class ReportUtils {
             conn.getOutputStream().write(postDataBytes);
 
             //log sended information
-            logSendedInformation(params);
+            logSendedInformation(exceptionInfo);
 
             Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8));
 
