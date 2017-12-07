@@ -67,8 +67,14 @@ public class ReportUtils {
 
             Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
-            /*for (int c; (c = in.read()) >= 0;)
-                System.out.print((char)c);*/
+            String response = "";
+
+            for (int c; (c = in.read()) >= 0;) {
+                response += (char) c;
+            }
+
+            //log response
+            System.out.println("\n\n========\nServer response\n========\n\n" + response);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.exit(0);
