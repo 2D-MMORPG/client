@@ -2,6 +2,8 @@ package com.jukusoft.mmo.utils;
 
 import com.teamunify.i18n.I;
 import org.jutils.jhardware.HardwareInfo;
+import org.jutils.jhardware.model.GraphicsCard;
+import org.jutils.jhardware.model.GraphicsCardInfo;
 import org.jutils.jhardware.model.ProcessorInfo;
 
 import java.io.*;
@@ -132,6 +134,20 @@ public class ReportUtils {
         params.put("free_memory", freeMemory + "MB");
         params.put("max_memory", maxMemory + "MB");
         params.put("total_memory", totalMemory + "MB");
+
+        //get graphics card information
+        GraphicsCardInfo graphicsCardInfo = HardwareInfo.getGraphicsCardInfo();
+        params.put("count_of_gpus", graphicsCardInfo.getGraphicsCards().size());
+
+        int i = 0;
+
+        for (GraphicsCard graphicsCard : graphicsCardInfo.getGraphicsCards()) {
+            params.put("gpu_" + i + "_name", graphicsCard.getName());
+            params.put("gpu_" + i + "_manufacturer", graphicsCard.getManufacturer());
+            params.put("gpu_" + i + "_chiptype", graphicsCard.getChipType());
+            params.put("gpu_" + i + "_devicetype", graphicsCard.getDeviceType());
+            params.put("gpu_" + i + "_dactype", graphicsCard.getDacType());
+        }
 
         //add java version
         params.put("java_version", System.getProperty("java.version"));
