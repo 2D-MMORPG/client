@@ -84,6 +84,8 @@ public class ReportUtils {
 
             byte[] postDataBytes = postData.toString().getBytes(UTF8);
 
+            LOGGER.log(Level.SEVERE, "Send anonymous exception information to game server...");
+
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
