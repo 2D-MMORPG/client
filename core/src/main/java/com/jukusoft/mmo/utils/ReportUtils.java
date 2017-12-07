@@ -27,6 +27,13 @@ public class ReportUtils {
     protected static final Logger LOGGER = Logger.getLogger("ReportUtils");
 
     /**
+     * private constructor, so other classes cannot create an instance of ReportUtils
+     */
+    private ReportUtils () {
+        //
+    }
+
+    /**
     * send client exception to server, so developers can fix it
      *
      * @param cause catched exception

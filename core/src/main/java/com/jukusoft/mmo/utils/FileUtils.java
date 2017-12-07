@@ -17,6 +17,13 @@ import java.util.List;
 public class FileUtils {
 
     /**
+    * private constructor, so other classes cannot create an instance of FileUtils
+    */
+    private FileUtils () {
+        //
+    }
+
+    /**
      * read content from file
      *
      * @param path

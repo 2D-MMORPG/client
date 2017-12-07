@@ -5,8 +5,6 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jukusoft.mmo.game.Game;
 import com.jukusoft.mmo.utils.ReportUtils;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,8 +15,9 @@ import java.util.logging.Logger;
  */
 public class DesktopLauncher {
 
-    protected static int WIDTH = 1280;
-    protected static int HEIGHT = 720;
+    //dimension of window
+    protected static final int WIDTH = 1280;
+    protected static final int HEIGHT = 720;
 
     /**
      * start method for game application
@@ -27,11 +26,8 @@ public class DesktopLauncher {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("2D MMORPG");
         config.setWindowedMode(WIDTH, HEIGHT);
-        //config.setWindowIcon("./data/icon/app_icon.png");
+        config.setWindowIcon("./data/icon/app_icon.png");
         config.setResizable(true);
-
-        //https://gamedev.stackexchange.com/questions/109047/how-to-close-an-app-correctly-on-desktop
-        //config.forceExit = false;
 
         try {
             // start game

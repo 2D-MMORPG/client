@@ -24,6 +24,13 @@ public class HashUtils {
     protected static final Logger LOGGER = Logger.getLogger("HashUtils");
 
     /**
+     * private constructor, so other classes cannot create an instance of HashUtils
+     */
+    private HashUtils () {
+        //
+    }
+
+    /**
     * convert byte data to hex
     */
     @Deprecated
