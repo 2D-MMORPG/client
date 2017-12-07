@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/2D-MMORPG/client.svg?branch=master)](https://travis-ci.org/2D-MMORPG/client)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/2D-MMORPG/planning.svg?columns=all)](https://waffle.io/2D-MMORPG/planning) 
+[![Lines of Code](https://sonarcloud.io/api/badges/measure?key=com.jukusoft.mmo%3Ammorpg-client&metric=ncloc)](https://sonarcloud.io/dashboard/index/com.jukusoft.mmo%3Ammorpg-client)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.jukusoft.mmo%3Ammorpg-client)](https://sonarcloud.io/dashboard/index/com.jukusoft.mmo%3Ammorpg-client) 
+[![Security Rating](https://sonarcloud.io/api/badges/measure?key=com.jukusoft.mmo%3Ammorpg-client&metric=new_security_rating)](https://sonarcloud.io/dashboard/index/com.jukusoft.mmo%3Ammorpg-client)  
 \
 2D MMORPG client
 
