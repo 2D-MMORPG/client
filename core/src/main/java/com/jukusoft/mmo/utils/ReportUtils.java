@@ -90,7 +90,7 @@ public class ReportUtils {
             }
 
             //log response
-            System.out.println("\n\n================\nServer response\n================\n\n" + response);
+            LOGGER.log(Level.WARNING, "\n\n================\nServer response\n================\n\n" + response);
         } catch (MalformedURLException e) {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             System.exit(0);
@@ -155,10 +155,10 @@ public class ReportUtils {
     }
 
     private static void logSendedInformation (Map<String,Object> params) {
-        System.err.println("send anonymous exception report to server...\n\n================\nData\n================\n");
+        LOGGER.log(Level.WARNING, "send anonymous exception report to server...\n\n================\nData\n================\n");
 
         for (Map.Entry<String,Object> entry : params.entrySet()) {
-            System.err.println("" + entry.getKey() + " = " + entry.getValue());
+            LOGGER.log(Level.WARNING, "" + entry.getKey() + " = " + entry.getValue());
         }
     }
 
