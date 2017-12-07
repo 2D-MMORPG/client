@@ -40,6 +40,10 @@ public class ReportUtils {
      * @param cause catched exception
     */
     public static void sendExceptionToServer (Throwable cause) {
+        if (cause == null) {
+            throw new NullPointerException("cause cannot be null.");
+        }
+
         try {
             URL url = new URL(SERVER_URL);
 
@@ -97,7 +101,7 @@ public class ReportUtils {
         }
     }
 
-    private static void addSystemInformationToMap (Map<String,Object> params) {
+    protected static void addSystemInformationToMap (Map<String,Object> params) {
         //add OS information
         params.put("os_name", System.getProperty("os.name"));
         params.put("os_arch", System.getProperty("os.arch"));
