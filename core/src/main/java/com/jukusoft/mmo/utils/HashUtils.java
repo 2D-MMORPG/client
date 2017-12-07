@@ -13,11 +13,15 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Justin on 26.01.2015.
  */
 public class HashUtils {
+
+    protected static Logger LOGGER = Logger.getLogger("HashUtils");
 
     /**
     * convert byte data to hex
@@ -80,8 +84,7 @@ public class HashUtils {
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         byte[] data = mdSha1.digest();
@@ -89,7 +92,7 @@ public class HashUtils {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         return SHAHash;
@@ -117,7 +120,7 @@ public class HashUtils {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
 
             throw new RuntimeException("UnsupportedEncodingException: " + e.getLocalizedMessage());
         }
@@ -126,7 +129,7 @@ public class HashUtils {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         return SHAHash;
@@ -160,7 +163,7 @@ public class HashUtils {
             }
 
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         return hash.toString();*/
@@ -171,10 +174,10 @@ public class HashUtils {
             byte[] data = digest.digest((password + salt).getBytes("UTF-8"));
             return toHex(data);
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
             return null;
         }
     }
@@ -207,7 +210,7 @@ public class HashUtils {
         }
         catch (NoSuchAlgorithmException e)
         {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         return MD5Hash.toString();
