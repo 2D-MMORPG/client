@@ -28,7 +28,8 @@ script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn clean verify
   - mvn clean install
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=2d-mmorpg
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=2d-mmorpg
   # other script steps might be done before running the actual analysis
 #  - sonar-scanner
 
