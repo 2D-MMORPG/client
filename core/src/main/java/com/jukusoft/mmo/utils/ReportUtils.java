@@ -115,9 +115,9 @@ public class ReportUtils {
         params.put("cpu_model_name", info.getModelName());
 
         //get RAM information (in bytes --> MB)
-        float freeMemory = Runtime.getRuntime().freeMemory() / 1024f / 1024f;
-        float maxMemory = Runtime.getRuntime().maxMemory() / 1024f / 1024f;
-        float totalMemory = Runtime.getRuntime().totalMemory() / 1024f / 1024f;
+        float freeMemory = ((float) Runtime.getRuntime().freeMemory()) / 1024f / 1024f;
+        float maxMemory = ((float) Runtime.getRuntime().maxMemory()) / 1024f / 1024f;
+        float totalMemory = ((float) Runtime.getRuntime().totalMemory()) / 1024f / 1024f;
 
         params.put("free_memory", freeMemory + "MB");
         params.put("max_memory", maxMemory + "MB");
