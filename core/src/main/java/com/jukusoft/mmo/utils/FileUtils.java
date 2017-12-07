@@ -19,7 +19,7 @@ public class FileUtils {
     /**
     * private constructor, so other classes cannot create an instance of FileUtils
     */
-    private FileUtils () {
+    protected FileUtils () {
         //
     }
 
@@ -84,6 +84,26 @@ public class FileUtils {
      * @throws IOException
      */
     public static void writeFile(String path, String content, Charset encoding) throws IOException {
+        if (path == null) {
+            throw new NullPointerException("path cannot be null.");
+        }
+
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("path cannot be empty.");
+        }
+
+        if (content == null) {
+            throw new NullPointerException("content cannot be null.");
+        }
+
+        if (content.isEmpty()) {
+            throw new IllegalArgumentException("content cannot be empty.");
+        }
+
+        if (encoding == null) {
+            throw new NullPointerException("encoding cannot be null.");
+        }
+
         Files.write(Paths.get(path), content.getBytes(encoding), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
