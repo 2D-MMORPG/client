@@ -13,6 +13,14 @@ cache:
     - $HOME/.cache
     - $HOME/.m2
 
+# https://github.com/travis-ci/travis-ci/issues/7182
+# https://docs.travis-ci.com/user/encryption-keys/
+# https://github.com/SonarSource/sq-com_example_java-maven-travis/blob/master/.travis.yml
+# https://docs.travis-ci.com/user/sonarcloud/
+# https://about.sonarcloud.io/get-started/
+# https://docs.travis-ci.com/user/sonarcloud/s
+# https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
+
 addons:
   sonarcloud:
     organization: "2d-mmorpg" # the key of the org you chose at step #3
