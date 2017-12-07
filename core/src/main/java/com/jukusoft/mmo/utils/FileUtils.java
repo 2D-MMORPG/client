@@ -36,6 +36,14 @@ public class FileUtils {
      * @return content of file as string
      */
     public static String readFile(String path, Charset encoding) throws IOException {
+        if (path == null) {
+            throw new NullPointerException("path cannot be null.");
+        }
+
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("path cannot be empty.");
+        }
+
         if (!new File(path).exists()) {
             throw new IOException("File doesnt exists: " + path);
         }

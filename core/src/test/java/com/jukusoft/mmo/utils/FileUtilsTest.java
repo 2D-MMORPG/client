@@ -101,6 +101,21 @@ public class FileUtilsTest {
         assertEquals("test2", content);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testReadLinesNullPath () throws IOException {
+        FileUtils.readLines(null, StandardCharsets.UTF_8);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testReadLinesEmptyPath () throws IOException {
+        FileUtils.readLines("", StandardCharsets.UTF_8);
+    }
+
+    @Test(expected = IOException.class)
+    public void testReadLinesFileNotExists () throws IOException {
+        FileUtils.readLines("./not-existent-file.txt", StandardCharsets.UTF_8);
+    }
+
     @Test
     public void testReadLines () throws IOException {
         //write temporary file
