@@ -26,6 +26,13 @@
             <artifactId>easy-i18n</artifactId>
             <version>${easy-i18n.version}</version>
         </dependency>
+
+        <!-- vert.x -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>${vertx.version}</version>
+        </dependency>
     </dependencies>
 
 
