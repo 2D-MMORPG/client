@@ -7,6 +7,8 @@ import com.jukusoft.mmo.utils.ReportUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Starts the application for the desktop-based builds.
@@ -35,7 +37,7 @@ public class DesktopLauncher {
             // start game
             new Lwjgl3Application(new Game(), config);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger("DesktopLauncher").log(Level.SEVERE, "an exception was thrown", e);
 
             //send exception to server
             ReportUtils.sendExceptionToServer(e);

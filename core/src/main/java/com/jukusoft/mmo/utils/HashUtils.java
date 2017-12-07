@@ -77,7 +77,7 @@ public class HashUtils {
         {
             mdSha1 = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e1);
             throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
 
@@ -91,7 +91,6 @@ public class HashUtils {
         try {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
@@ -113,13 +112,12 @@ public class HashUtils {
         {
             mdSha1 = MessageDigest.getInstance("SHA-512");
         } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e1);
             throw new RuntimeException("NoSuchAlgorithmException: " + e1.getLocalizedMessage());
         }
         try {
             mdSha1.update(password.getBytes("ASCII"));
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             LOGGER.log(Level.SEVERE, "an exception was thrown", e);
 
             throw new RuntimeException("UnsupportedEncodingException: " + e.getLocalizedMessage());
@@ -128,7 +126,6 @@ public class HashUtils {
         try {
             SHAHash = convertToHex(data);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
 
@@ -145,28 +142,6 @@ public class HashUtils {
     */
     public static String computeSHA256Hash (String password, String salt) {
         String str = password + "" + salt;
-
-        /*StringBuffer hash = new StringBuffer();
-
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(str.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            for (int i = 0; i < messageDigest.length; i++)
-            {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hash.append(h);
-            }
-
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
-        }
-
-        return hash.toString();*/
 
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
