@@ -8,6 +8,13 @@ import java.io.File;
 public class MapCacheUtils {
 
     /**
+     * protected constructor
+     */
+    protected MapCacheUtils () {
+        //
+    }
+
+    /**
      * get path to maps cache directory
      *
      * @param appName name of application
