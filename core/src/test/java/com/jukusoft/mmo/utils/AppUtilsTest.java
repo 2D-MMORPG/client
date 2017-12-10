@@ -18,4 +18,21 @@ public class AppUtilsTest {
         assertEquals("test-app", AppUtils.getAppName());
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testEmptyAppName () {
+        AppUtils.appName = "";
+
+        AppUtils.getAppName();
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testNullSetter () {
+        AppUtils.setAppName(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testEmptySetter () {
+        AppUtils.setAppName("");
+    }
+
 }
