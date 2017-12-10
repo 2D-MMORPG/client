@@ -11,6 +11,9 @@
 !window.cfg
 !*window.cfg
 
+!assembly.xml
+!*assembly.xml
+
 ### Windows ###
 # Windows image file caches
 Thumbs.db
