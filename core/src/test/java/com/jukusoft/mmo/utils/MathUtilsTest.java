@@ -23,6 +23,10 @@ public class MathUtilsTest {
         assertEquals(true, MathUtils.overlapping(3, 1, 4, 2));
         assertEquals(false, MathUtils.overlapping(2.99f, 1, 4, 3));
         assertEquals(true, MathUtils.overlapping(2, 1, 4, 2));
+
+        //check equal ranges
+        assertEquals(true, MathUtils.overlapping(2, 2, 2, 2));
+        assertEquals(true, MathUtils.overlapping(2, 3, 2, 3));
     }
 
 }
