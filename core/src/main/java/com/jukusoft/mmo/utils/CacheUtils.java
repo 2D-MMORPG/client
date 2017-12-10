@@ -41,6 +41,18 @@ public class CacheUtils {
         }
     }
 
+    /**
+     * create maps cache directory, if directory doesnt exists
+     */
+    public static void createCacheDirIfAbsent (String cacheDir) {
+        String path = getCacheDir(cacheDir);
+
+        //create directory, if not exists
+        if (!new File(path).exists()) {
+            new File(path).mkdirs();
+        }
+    }
+
     public static String getCacheDir (String appName, String cacheDir) {
         return getCachePath(appName) + "" + cacheDir + "/";
     }

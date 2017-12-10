@@ -45,6 +45,20 @@ public class CacheUtilsTest {
     }
 
     @Test
+    public void testCreateCacheDirIfAbsent3 () {
+        AppUtils.setAppName("junit-test");
+
+        if (new File(CacheUtils.getCachePath("junit-test")).exists()) {
+            new File(CacheUtils.getCachePath("junit-test")).delete();
+        }
+
+        CacheUtils.createCacheDirIfAbsent("my-cache");
+
+        //check if file exists
+        assertEquals(true, new File(CacheUtils.getCacheDir("junit-test", "my-cache")).exists());
+    }
+
+    @Test
     public void testGetCacheDir () {
         AppUtils.setAppName("junit-test");
 
