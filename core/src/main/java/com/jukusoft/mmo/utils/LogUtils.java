@@ -5,6 +5,13 @@ import java.io.File;
 public class LogUtils {
 
     /**
+    * protected constructor
+    */
+    protected LogUtils () {
+        //
+    }
+
+    /**
     * get path to log directory
      *
      * @param appName name of application

@@ -9,6 +9,11 @@ import static org.junit.Assert.assertEquals;
 public class LogUtilsTest {
 
     @Test
+    public void testConstructor () {
+        new LogUtils();
+    }
+
+    @Test
     public void testCreateLogDirIfAbsent () {
         AppUtils.setAppName("junit-test");
 

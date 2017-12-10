@@ -4,6 +4,13 @@ public class AppUtils {
 
     protected static String appName = "";
 
+    /**
+     * protected constructor
+     */
+    protected AppUtils () {
+        //
+    }
+
     public static String getAppName () {
         if (appName.isEmpty()) {
             throw new IllegalStateException("app name wasnt initialized yet, call AppUtils.setAppName() before.");
