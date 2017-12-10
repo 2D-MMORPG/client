@@ -3,6 +3,8 @@ package com.jukusoft.mmo.server;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,7 +34,20 @@ public class ServerFinderTest {
     public void testServerListURL () throws IOException {
         ServerFinder serverFinder = new ServerFinder("../data/config/junit-server.cfg");
 
-        assertEquals("http://mmo.jukusoft.com/api/serverlist.json", serverFinder.getServerListURL());
+        assertEquals("http://mmo.jukusoft.com/api/junit-serverlist.json", serverFinder.getServerListURL());
+    }
+
+    @Test
+    public void testGetContent () throws IOException {
+        ServerFinder serverFinder = new ServerFinder("../data/config/junit-server.cfg");
+
+        String content = serverFinder.getContent(serverFinder.getServerListURL());
+
+        Logger.getAnonymousLogger().log(Level.INFO, "website content: " + content);
+
+        //check json format
+        assertEquals(true, content.startsWith("{"));
+        assertEquals(true, content.endsWith("}"));
     }
 
 }

@@ -3,11 +3,17 @@ package com.jukusoft.mmo.server;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ServerFinder {
+
+    protected static final String UTF8 = "UTF-8";
 
     //ini4j instance
     protected Ini ini = null;
@@ -43,6 +49,43 @@ public class ServerFinder {
 
     public String getServerListURL () {
         return this.section.get("serverlist");
+    }
+
+    protected String getContent (String serverURL) throws IOException {
+        URL url = new URL(serverURL);
+
+        Map<String,Object> params = new LinkedHashMap<>();
+
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String,Object> param : params.entrySet()) {
+            if (postData.length() != 0) postData.append('&');
+            postData.append(URLEncoder.encode(param.getKey(), UTF8));
+            postData.append('=');
+            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), UTF8));
+        }
+
+        byte[] postDataBytes = postData.toString().getBytes(UTF8);
+
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postDataBytes);
+
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8));
+
+        String response = "";
+
+        for (int c; (c = in.read()) >= 0;) {
+            response += (char) c;
+        }
+
+        while (!response.startsWith("{") && response.length() > 0) {
+            response = response.substring(1, response.length());
+        }
+
+        return response;
     }
 
 }
