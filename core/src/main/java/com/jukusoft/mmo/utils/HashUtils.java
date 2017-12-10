@@ -10,6 +10,7 @@
 package com.jukusoft.mmo.utils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -174,7 +175,13 @@ public class HashUtils {
             throw new NullPointerException("file cannot be null.");
         }
 
-        InputStream fis = null;
+        //read content of file
+        String content = FileUtils.readFile(file.getAbsolutePath(), StandardCharsets.UTF_8);
+
+        //hash content
+        return computeMD5Hash(content).getBytes(StandardCharsets.UTF_8);
+
+        /*InputStream fis = null;
 
         try {
             fis =  new FileInputStream(file);
@@ -202,7 +209,7 @@ public class HashUtils {
             if (fis != null) {
                 fis.close();
             }
-        }
+        }*/
     }
 
 }
