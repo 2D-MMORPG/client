@@ -27,6 +27,9 @@ public class MathUtilsTest {
         //check equal ranges
         assertEquals(true, MathUtils.overlapping(2, 2, 2, 2));
         assertEquals(true, MathUtils.overlapping(2, 3, 2, 3));
+
+        assertEquals(true, MathUtils.overlapping(2, 3, 1, 5));
+        assertEquals(true, MathUtils.overlapping(1, 5, 2, 3));
     }
 
 }
