@@ -29,6 +29,11 @@ public class RandomUtilsTest {
     }
 
     @Test
+    public void testRollTheDice2 () {
+        assertEquals(true, RandomUtils.rollTheDice(1));
+    }
+
+    @Test
     public void testGetRandomFloat () {
         //define range
         float min = 1;
