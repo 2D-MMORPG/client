@@ -25,6 +25,11 @@ public class FileUtilsTest {
             //delete temporary file
             new File("./test2.txt").delete();
         }
+
+        //delete test file, if exists
+        if (new File("junit-test-file.txt").exists()) {
+            new File("junit-test-file.txt").delete();
+        }
     }
 
     @Test
@@ -116,6 +121,22 @@ public class FileUtilsTest {
     public void testReadFileFileNotExists () throws IOException {
         FileUtils.readFile("./not-existent-file.txt", StandardCharsets.UTF_8);
     }
+
+    /*@Test (expected = IOException.class)
+    public void testReadFileCannotRead () throws Exception {
+        //delete test file, if exists
+        if (new File("junit-test-file.txt").exists()) {
+            new File("junit-test-file.txt").delete();
+        }
+
+        //create new file and make it not readable
+        File file = new File("junit-test-file.txt");
+        file.createNewFile();
+        file.setReadable(false);
+
+        //read file
+        FileUtils.readFile(file.getAbsolutePath(), StandardCharsets.UTF_8);
+    }*/
 
     @Test(expected = NullPointerException.class)
     public void testReadLinesNullPath () throws IOException {

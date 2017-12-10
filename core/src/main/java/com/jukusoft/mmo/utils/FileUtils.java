@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class FileUtils {
 
+    //constant strings for exceptions
+    private static final String PATH_CANNOT_NULL = "path cannot be null.";
+    private static final String PATH_CANNOT_EMPTY = "path cannot be empty.";
+
     /**
     * private constructor, so other classes cannot create an instance of FileUtils
     */
@@ -37,11 +41,11 @@ public class FileUtils {
      */
     public static String readFile(String path, Charset encoding) throws IOException {
         if (path == null) {
-            throw new NullPointerException("path cannot be null.");
+            throw new NullPointerException(PATH_CANNOT_NULL);
         }
 
         if (path.isEmpty()) {
-            throw new IllegalArgumentException("path cannot be empty.");
+            throw new IllegalArgumentException(PATH_CANNOT_EMPTY);
         }
 
         if (!new File(path).exists()) {
@@ -73,11 +77,11 @@ public class FileUtils {
      */
     public static List<String> readLines(String path, Charset charset) throws IOException {
         if (path == null) {
-            throw new NullPointerException("path cannot be null.");
+            throw new NullPointerException(PATH_CANNOT_NULL);
         }
 
         if (path.isEmpty()) {
-            throw new IllegalArgumentException("path cannot be empty.");
+            throw new IllegalArgumentException(PATH_CANNOT_EMPTY);
         }
 
         if (!(new File(path)).exists()) {
@@ -105,11 +109,11 @@ public class FileUtils {
      */
     public static void writeFile(String path, String content, Charset encoding) throws IOException {
         if (path == null) {
-            throw new NullPointerException("path cannot be null.");
+            throw new NullPointerException(PATH_CANNOT_NULL);
         }
 
         if (path.isEmpty()) {
-            throw new IllegalArgumentException("path cannot be empty.");
+            throw new IllegalArgumentException(PATH_CANNOT_EMPTY);
         }
 
         if (content == null) {
