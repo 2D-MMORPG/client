@@ -2,6 +2,7 @@ package com.jukusoft.mmo.desktop;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.jukusoft.mmo.desktop.config.WindowConfig;
 import com.jukusoft.mmo.game.Game;
 import com.jukusoft.mmo.utils.AppUtils;
 import com.jukusoft.mmo.utils.LogUtils;
@@ -22,6 +23,11 @@ public class DesktopLauncher {
     protected static final int WIDTH = 1280;
     protected static final int HEIGHT = 720;
 
+    //
+    public DesktopLauncher () {
+        //
+    }
+
     /**
      * start method for game application
      */
@@ -29,19 +35,25 @@ public class DesktopLauncher {
         //set application name for app directory in user.home directory
         AppUtils.setAppName("2d-mmorpg");
 
-        //create log directory, if not exists
-        LogUtils.createLogDirIfAbsent();
-
-        //create map cache directory, if directory does not exists
-        MapCacheUtils.createMapCacheDirIfAbsent();
-
-        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setTitle("2D MMORPG");
-        config.setWindowedMode(WIDTH, HEIGHT);
-        config.setWindowIcon("./data/icon/icon.png");
-        config.setResizable(true);
-
         try {
+            //create log directory, if not exists
+            LogUtils.createLogDirIfAbsent();
+
+            //create map cache directory, if directory does not exists
+            MapCacheUtils.createMapCacheDirIfAbsent();
+
+            //load window config
+            WindowConfig windowConfig = new WindowConfig("./data/config/window.cfg");
+
+            Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+            config.setTitle("2D MMORPG");
+            config.setWindowedMode(WIDTH, HEIGHT);
+            config.setWindowIcon("./data/icon/icon.png");
+            config.setResizable(true);
+
+            //load window config
+            windowConfig.fillConfig(config);
+
             // start game
             new Lwjgl3Application(new Game(), config);
         } catch (Exception e) {

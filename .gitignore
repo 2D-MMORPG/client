@@ -14,11 +14,6 @@
 !assembly.xml
 !*assembly.xml
 
-*null
-null
-
-!*.java
-
 ### Windows ###
 # Windows image file caches
 Thumbs.db
@@ -187,3 +182,4 @@ engine/src/
 game/src/main/resources/
 game/src/test/
 src/
+desktop/null
