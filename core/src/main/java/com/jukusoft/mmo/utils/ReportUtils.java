@@ -33,7 +33,7 @@ public class ReportUtils {
     /**
      * private constructor, so other classes cannot create an instance of ReportUtils
      */
-    private ReportUtils () {
+    protected ReportUtils () {
         //
     }
 
@@ -42,7 +42,7 @@ public class ReportUtils {
      *
      * @param cause catched exception
     */
-    public static void sendExceptionToServer (Throwable cause) {
+    public static void sendExceptionToServer (Throwable cause, boolean send) {
         if (cause == null) {
             throw new NullPointerException("cause cannot be null.");
         }
@@ -86,23 +86,25 @@ public class ReportUtils {
 
             LOGGER.log(Level.SEVERE, "Send anonymous exception information to game server...");
 
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-            conn.setDoOutput(true);
-            conn.getOutputStream().write(postDataBytes);
+            String response = "";
+
+            if (send) {
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                conn.setDoOutput(true);
+                conn.getOutputStream().write(postDataBytes);
+
+                Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8));
+
+                for (int c; (c = in.read()) >= 0;) {
+                    response += (char) c;
+                }
+            }
 
             //log sended information
             logSendedInformation(exceptionInfo);
-
-            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF8));
-
-            String response = "";
-
-            for (int c; (c = in.read()) >= 0;) {
-                response += (char) c;
-            }
 
             //log response
             LOGGER.log(Level.WARNING, "\n\n================\nServer response\n================\n\n{0}", response);
@@ -110,6 +112,15 @@ public class ReportUtils {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
             System.exit(0);
         }
+    }
+
+    /**
+     * send client exception to server, so developers can fix it
+     *
+     * @param cause catched exception
+     */
+    public static void sendExceptionToServer (Throwable cause) {
+        sendExceptionToServer(cause, true);
     }
 
     protected static void addSystemInformationToMap (Map<String,Object> params) {
@@ -176,7 +187,7 @@ public class ReportUtils {
         }
     }
 
-    private static void logSendedInformation (Map<String,Object> params) {
+    protected static void logSendedInformation (Map<String,Object> params) {
         LOGGER.log(Level.WARNING, "send anonymous exception report to server...\n\n================\nData\n================\n");
 
         for (Map.Entry<String,Object> entry : params.entrySet()) {

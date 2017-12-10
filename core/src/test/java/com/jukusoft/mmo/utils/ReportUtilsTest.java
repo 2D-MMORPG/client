@@ -25,9 +25,19 @@ public class ReportUtilsTest {
         }
     }
 
+    @Test
+    public void testConstructor () {
+        new ReportUtils();
+    }
+
     @Test(expected = NullPointerException.class)
     public void testSendExceptionToServer () {
         ReportUtils.sendExceptionToServer(null);
+    }
+
+    @Test
+    public void testSendExceptionToServer1 () {
+        ReportUtils.sendExceptionToServer(new RuntimeException("test"), false);
     }
 
     @Test
@@ -39,6 +49,11 @@ public class ReportUtilsTest {
         assertNotNull(params.get("os_name"));
         assertNotNull(params.get("os_arch"));
         assertNotNull(params.get("os_version"));
+    }
+
+    @Test
+    public void testLogSendedInformation () {
+        ReportUtils.logSendedInformation(new HashMap<>());
     }
 
 }
