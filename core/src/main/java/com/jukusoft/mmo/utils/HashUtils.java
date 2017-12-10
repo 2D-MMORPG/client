@@ -170,6 +170,10 @@ public class HashUtils {
     }
 
     private static byte[] createFileChecksum(File file) throws Exception {
+        if (file == null) {
+            throw new NullPointerException("file cannot be null.");
+        }
+
         InputStream fis = null;
 
         try {
