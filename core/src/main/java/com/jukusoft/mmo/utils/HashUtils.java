@@ -160,14 +160,23 @@ public class HashUtils {
      * @return hash
     */
     public static String computeMD5FileHash (File file) throws Exception {
-        byte[] b = createFileChecksum(file);
+        if (file == null) {
+            throw new NullPointerException("file cannot be null.");
+        }
+
+        //read content of file
+        String content = FileUtils.readFile(file.getAbsolutePath(), StandardCharsets.UTF_8);
+
+        return computeMD5Hash(content);
+
+        /*byte[] b = createFileChecksum(file);
         String result = "";
 
         for (int i=0; i < b.length; i++) {
             result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
         }
 
-        return result;
+        return result;*/
     }
 
     private static byte[] createFileChecksum(File file) throws Exception {
