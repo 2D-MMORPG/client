@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.desktop.config;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -43,7 +44,26 @@ public class WindowConfig {
     }
 
     public void fillConfig (Lwjgl3ApplicationConfiguration config) {
-        //
+        config.setTitle(section.get("title"));
+        config.setWindowedMode(getInt("width"), getInt("height"));
+        config.setWindowIcon(section.get("iconPath"));
+        config.setResizable(getBoolean("resizeable"));
+
+        if (getBoolean("fullscreen")) {
+            throw new UnsupportedOperationException("fullscreen isnt supported yet.");
+        }
+    }
+
+    protected int getInt (String key) {
+        return Integer.parseInt(this.section.get(key));
+    }
+
+    protected int getIntOrDefault (String key, int defaultValue) {
+        return Integer.parseInt(this.section.getOrDefault(key, "" + defaultValue));
+    }
+
+    protected boolean getBoolean (String key) {
+        return Boolean.parseBoolean(this.section.get(key));
     }
 
 }
