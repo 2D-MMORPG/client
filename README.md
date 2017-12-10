@@ -10,6 +10,13 @@
 \
 2D MMORPG client
 
+## Supported platforms
+
+  - Windows
+  - Linux
+
+**Mac OS isn't supported officially!**
+
 ## HowTo: Translate
 
 First download [PoEdit](https://poedit.net/).\
