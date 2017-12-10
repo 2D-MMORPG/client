@@ -37,9 +37,14 @@ public class WindowConfigTest {
         new WindowConfig("../data/config/junit-window.cfg").getIntOrDefault("width", 1280);
     }
 
-    @Test
+    @Test (expected = NumberFormatException.class)
     public void testGetBoolean () throws IOException {
         new WindowConfig("../data/config/junit-window.cfg").getInt("resizeable");
+    }
+
+    @Test
+    public void testGetBoolean1 () throws IOException {
+        new WindowConfig("../data/config/junit-window.cfg").getBoolean("resizeable");
     }
 
     @Test
