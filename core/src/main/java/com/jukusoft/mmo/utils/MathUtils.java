@@ -6,6 +6,13 @@ package com.jukusoft.mmo.utils;
 public class MathUtils {
 
     /**
+    * protected constructor
+    */
+    protected MathUtils () {
+        //
+    }
+
+    /**
     * check, if ranges are overlapping
      *
      * @param minA minimum value of range A
@@ -25,7 +32,7 @@ public class MathUtils {
 
         if (maxB < minB) {
             // swap values
-            float b = minB;
+            float b = maxB;
             maxB = minB;
             minB = b;
         }
