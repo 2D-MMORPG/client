@@ -8,6 +8,9 @@
 .cfg
 *.cfg
 
+!window.cfg
+!*window.cfg
+
 ### Windows ###
 # Windows image file caches
 Thumbs.db
@@ -167,3 +170,12 @@ release.properties
 # opengl
 *.cglsl
 /gradle.properties
+core/src/main/resources/
+data/config/
+data/i18n/
+desktop/src/main/resources/
+desktop/src/test/
+engine/src/
+game/src/main/resources/
+game/src/test/
+src/
