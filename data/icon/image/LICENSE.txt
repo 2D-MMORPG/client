@@ -1,0 +1,5 @@
+License: MIT License
+https://opensource.org/licenses/MIT
+
+Author: Ionicons - http://ionicons.com/
+Found at: https://www.iconfinder.com/icons/211677/image_icon#size=128
