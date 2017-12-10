@@ -135,20 +135,17 @@ public class HashUtils {
         try {
             // Create MD5 Hash
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(password.getBytes());
+            digest.update(password.getBytes("UTF-8"));
             byte messageDigest[] = digest.digest();
 
-            for (int i = 0; i < messageDigest.length; i++)
-            {
+            for (int i = 0; i < messageDigest.length; i++) {
                 String h = Integer.toHexString(0xFF & messageDigest[i]);
                 while (h.length() < 2)
                     h = "0" + h;
                 md5Hash.append(h);
             }
 
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             LOGGER.log(Level.SEVERE, LOG_MESSAGE, e);
         }
 
@@ -168,6 +165,7 @@ public class HashUtils {
         for (int i=0; i < b.length; i++) {
             result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
         }
+
         return result;
     }
 
