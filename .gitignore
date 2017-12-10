@@ -168,10 +168,3 @@ release.properties
 # opengl
 *.cglsl
 /gradle.properties
-core/src/main/resources/
-data/i18n/
-desktop/src/main/resources/
-engine/src/
-game/src/main/resources/
-game/src/test/
-src/
