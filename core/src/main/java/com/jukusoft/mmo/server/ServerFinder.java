@@ -7,7 +7,6 @@ import org.ini4j.Profile;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -90,6 +89,7 @@ public class ServerFinder {
         URL url = new URL(serverURL);
 
         Map<String,Object> params = new LinkedHashMap<>();
+        params.put("channel", "*");
 
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : params.entrySet()) {
