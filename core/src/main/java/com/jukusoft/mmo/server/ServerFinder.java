@@ -116,6 +116,10 @@ public class ServerFinder {
             response += (char) c;
         }
 
+        while (!response.startsWith("{") && response.length() > 0) {
+            response = response.substring(1, response.length());
+        }
+
         return response;
     }
 
