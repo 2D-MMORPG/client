@@ -46,6 +46,11 @@ public class HashUtilsTest {
         assertEquals("098f6bcd4621d373cade4e832627b4f6", HashUtils.computeMD5Hash("test"));
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testComputeNullFileHash () throws Exception {
+        HashUtils.computeMD5FileHash(null);
+    }
+
     @Test
     public void testComputeMD5FileHash () throws Exception {
         //assertEquals("cf4e96739d454bc2b9e4f2a6ffecb13d", HashUtils.computeMD5FileHash(new File("../test-file.txt")));
