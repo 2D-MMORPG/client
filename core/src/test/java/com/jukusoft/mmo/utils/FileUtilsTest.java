@@ -30,6 +30,11 @@ public class FileUtilsTest {
         if (new File("junit-test-file.txt").exists()) {
             new File("junit-test-file.txt").delete();
         }
+
+        //delete test file, if exists
+        if (new File("null").exists()) {
+            new File("null").delete();
+        }
     }
 
     @Test
