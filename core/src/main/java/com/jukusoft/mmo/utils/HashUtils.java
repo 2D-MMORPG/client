@@ -181,7 +181,7 @@ public class HashUtils {
         return result;*/
     }
 
-    private static byte[] createFileChecksum(File file) throws Exception {
+    /*private static byte[] createFileChecksum(File file) throws Exception {
         if (file == null) {
             throw new NullPointerException("file cannot be null.");
         }
@@ -215,6 +215,6 @@ public class HashUtils {
                 fis.close();
             }
         }
-    }
+    }*/
 
 }
