@@ -25,37 +25,62 @@ public class CacheUtilsTest {
         AppUtils.setAppName("test-app");
 
         CacheUtils.createCacheDirIfAbsent();
+        CacheUtils.createCacheDirIfAbsent("my-cache");
 
         //check if file exists
         assertEquals(true, new File(CacheUtils.getCachePath()).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("test-app", "my-cache")).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("my-cache")).exists());
     }
 
     @Test
     public void testCreateCacheDirIfAbsent2 () {
         AppUtils.setAppName("junit-test");
 
-        if (new File(CacheUtils.getCachePath("junit-test")).exists()) {
-            new File(CacheUtils.getCachePath("junit-test")).delete();
+        if (new File(CacheUtils.getCacheDir("my-cache")).exists()) {
+            new File(CacheUtils.getCacheDir("my-cache")).delete();
         }
 
         CacheUtils.createCacheDirIfAbsent();
+        CacheUtils.createCacheDirIfAbsent("my-cache");
 
         //check if file exists
-        assertEquals(true, new File(CacheUtils.getCachePath("junit-test")).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("junit-test", "my-cache")).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("my-cache")).exists());
     }
 
     @Test
     public void testCreateCacheDirIfAbsent3 () {
         AppUtils.setAppName("junit-test");
 
-        if (new File(CacheUtils.getCachePath("junit-test")).exists()) {
-            new File(CacheUtils.getCachePath("junit-test")).delete();
+        if (new File(CacheUtils.getCacheDir("my-cache")).exists()) {
+            new File(CacheUtils.getCacheDir("my-cache")).delete();
         }
 
         CacheUtils.createCacheDirIfAbsent("my-cache");
 
         //check if file exists
         assertEquals(true, new File(CacheUtils.getCacheDir("junit-test", "my-cache")).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("my-cache")).exists());
+    }
+
+    @Test
+    public void testCreateCacheDirIfAbsent4 () {
+        AppUtils.setAppName("junit-test");
+
+        if (new File(CacheUtils.getCacheDir("my-cache")).exists()) {
+            new File(CacheUtils.getCacheDir("my-cache")).delete();
+        }
+
+        if (new File(CacheUtils.getCachePath()).exists()) {
+            new File(CacheUtils.getCachePath()).delete();
+        }
+
+        CacheUtils.createCacheDirIfAbsent("my-cache");
+
+        //check if file exists
+        assertEquals(true, new File(CacheUtils.getCacheDir("junit-test", "my-cache")).exists());
+        assertEquals(true, new File(CacheUtils.getCacheDir("my-cache")).exists());
     }
 
     @Test
