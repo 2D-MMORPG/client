@@ -26,6 +26,15 @@ public class MapCacheUtils {
     }
 
     /**
+     * get path to maps cache directory
+     *
+     * @return maps cache directory path, in most cases user.home/.APPNAME/map-cache/
+     */
+    public static String getMapCachePath () {
+        return FileUtils.getAppHomeDir(AppUtils.getAppName()) + "/map-cache/";
+    }
+
+    /**
      * create maps cache directory, if directory doesnt exists
      */
     public static void createMapCacheDirIfAbsent () {
