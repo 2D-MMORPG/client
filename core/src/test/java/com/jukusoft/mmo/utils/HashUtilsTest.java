@@ -53,7 +53,7 @@ public class HashUtilsTest {
 
     @Test
     public void testComputeMD5FileHash () throws Exception {
-        //assertEquals("cf4e96739d454bc2b9e4f2a6ffecb13d", HashUtils.computeMD5FileHash(new File("../test-file.txt")));
+        //old value: cf4e96739d454bc2b9e4f2a6ffecb13d
         assertEquals("6366346539363733396434353462633262396534663261366666656362313364", HashUtils.computeMD5FileHash(new File("../test-file.txt")));
     }
 

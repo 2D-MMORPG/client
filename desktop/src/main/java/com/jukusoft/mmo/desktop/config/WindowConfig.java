@@ -1,6 +1,5 @@
 package com.jukusoft.mmo.desktop.config;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
