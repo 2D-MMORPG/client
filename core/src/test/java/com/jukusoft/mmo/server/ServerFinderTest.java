@@ -50,4 +50,18 @@ public class ServerFinderTest {
         assertEquals(true, content.endsWith("}"));
     }
 
+    @Test
+    public void testLoad () throws IOException {
+        ServerFinder serverFinder = new ServerFinder("../data/config/junit-server.cfg");
+        serverFinder.load();
+    }
+
+    @Test
+    public void testListServer () throws IOException {
+        ServerFinder serverFinder = new ServerFinder("../data/config/junit-server.cfg");
+        serverFinder.load();
+
+        assertEquals(3, serverFinder.listServer().size());
+    }
+
 }

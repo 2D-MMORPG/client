@@ -1,5 +1,7 @@
 package com.jukusoft.mmo.server;
 
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -8,7 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ServerFinder {
@@ -20,6 +24,12 @@ public class ServerFinder {
 
     //server section in config file
     protected Profile.Section section = null;
+
+    //api content
+    protected String content = "";
+
+    //list with all proxy servers
+    protected List<Server> serverList = new ArrayList<>();
 
     /**
     * default constructor
@@ -45,6 +55,31 @@ public class ServerFinder {
 
         //get section
         this.section = this.ini.get("Server");
+    }
+
+    public void load () throws IOException {
+        //clear list
+        this.serverList.clear();
+
+        //read json file from website
+        this.content = getContent(this.getServerListURL());
+
+        //parse content
+        JsonObject json = new JsonObject(content);
+
+        JsonArray array = json.getJsonArray("server");
+
+        for (int i = 0; i < array.size(); i++) {
+            //get json object
+            JsonObject serverJson = array.getJsonObject(i);
+
+            //create new server object
+            Server server = new Server();
+            server.load(serverJson);
+
+            //add server to list
+            this.serverList.add(server);
+        }
     }
 
     public String getServerListURL () {
@@ -86,6 +121,10 @@ public class ServerFinder {
         }
 
         return response;
+    }
+
+    public List<Server> listServer () {
+        return this.serverList;
     }
 
 }
