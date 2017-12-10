@@ -33,7 +33,7 @@ public class CacheUtils {
      * create maps cache directory, if directory doesnt exists
      */
     public static void createCacheDirIfAbsent () {
-        String path = getCachePath();
+        String path = getCachePath(AppUtils.getAppName());
 
         //create directory, if not exists
         if (!new File(path).exists()) {

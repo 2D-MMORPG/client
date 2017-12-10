@@ -72,4 +72,14 @@ public class CacheUtilsTest {
         assertEquals(true, CacheUtils.getCacheDir("my-cache").endsWith("/my-cache/"));
     }
 
+    @Test
+    public void testEndsWithSlash () {
+        assertEquals(true, CacheUtils.getCacheDir("junit-test", "my-cache").endsWith("/"));
+    }
+
+    @Test
+    public void testEndsWithSlash1 () {
+        assertEquals(true, CacheUtils.getCacheDir("my-cache").endsWith("/"));
+    }
+
 }
