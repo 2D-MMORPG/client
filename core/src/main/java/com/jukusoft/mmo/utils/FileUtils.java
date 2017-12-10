@@ -52,10 +52,6 @@ public class FileUtils {
             throw new IOException("File doesnt exists: " + path);
         }
 
-        if (!new File(path).canRead()) {
-            throw new IOException("File isnt readable, please correct permissions: " + path);
-        }
-
         // read bytes from file
         byte[] encoded = Files.readAllBytes(Paths.get(path));
 
@@ -86,10 +82,6 @@ public class FileUtils {
 
         if (!(new File(path)).exists()) {
             throw new FileNotFoundException("Couldnt find file: " + path);
-        }
-
-        if (!new File(path).canRead()) {
-            throw new IOException("File isnt readable, please correct permissions: " + path);
         }
 
         return Files.readAllLines(Paths.get(path), charset);
