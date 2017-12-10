@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.desktop.config;
 
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,6 +25,15 @@ public class WindowConfigTest {
     @Test (expected = IOException.class)
     public void testNotExistentFileConstructor () throws IOException {
         new WindowConfig("not-existent-file.cfg");
+    }
+
+    @Test
+    public void testFillConfig () throws IOException {
+        WindowConfig windowConfig = new WindowConfig("../data/config/junit-window.cfg");
+
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
+        windowConfig.fillConfig(config);
     }
 
 }
