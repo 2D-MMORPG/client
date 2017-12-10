@@ -54,14 +54,14 @@ public class SocketUtils {
      *
      * @return list with own ip addresses
      */
-    public static List<String> listOwnIPs () throws UnknownHostException, SocketException {
+    public static List<String> listOwnIPs () throws SocketException {
         //create new empty list with ip addresses
         List<String> ownIPList = new ArrayList<>();
 
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
 
         //iterate through network interfaves
-        for (; networkInterfaces.hasMoreElements();) {
+        while (networkInterfaces.hasMoreElements()) {
             //get network interface
             NetworkInterface networkInterface = networkInterfaces.nextElement();
 
@@ -69,7 +69,7 @@ public class SocketUtils {
             Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
 
             //iterate through ip address enumeration
-            for (; inetAddressEnumeration.hasMoreElements();) {
+            while (inetAddressEnumeration.hasMoreElements()) {
                 //get ip address
                 InetAddress inetAddress = inetAddressEnumeration.nextElement();
 
