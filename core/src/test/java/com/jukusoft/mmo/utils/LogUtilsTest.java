@@ -29,6 +29,21 @@ public class LogUtilsTest {
     }
 
     @Test
+    public void testCreateLogDirIfAbsent2 () {
+        AppUtils.setAppName("junit-test");
+
+        if (new File(LogUtils.getLogPath()).exists()) {
+            new File(LogUtils.getLogPath()).delete();
+        }
+
+        LogUtils.createLogDirIfAbsent(LogUtils.getLogPath());
+
+        //check, if directory exists
+        assertEquals(true, new File(LogUtils.getLogPath("junit-test")).exists());
+
+    }
+
+    @Test
     public void testEndsWithSlash () {
         AppUtils.setAppName("junit-test");
 

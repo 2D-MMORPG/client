@@ -34,13 +34,18 @@ public class LogUtils {
     /**
     * create logs directory, if directory doesnt exists
     */
-    public static void createLogDirIfAbsent () {
-        String path = getLogPath(AppUtils.getAppName());
-
+    public static void createLogDirIfAbsent (String path) {
         //create directory, if not exists
         if (!new File(path).exists()) {
             new File(path).mkdirs();
         }
+    }
+
+    /**
+     * create logs directory, if directory doesnt exists
+     */
+    public static void createLogDirIfAbsent () {
+        createLogDirIfAbsent(getLogPath(AppUtils.getAppName()));
     }
 
 }
