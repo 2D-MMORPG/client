@@ -56,4 +56,13 @@ public class WindowConfigTest {
         windowConfig.fillConfig(config);
     }
 
+    @Test (expected = UnsupportedOperationException.class)
+    public void testFillConfig2 () throws IOException {
+        WindowConfig windowConfig = new WindowConfig("../data/config/junit-window2.cfg");
+
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
+        windowConfig.fillConfig(config);
+    }
+
 }
