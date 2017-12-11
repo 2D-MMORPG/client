@@ -34,10 +34,15 @@ public class DownloaderUtils {
         //check, if file already exists
         if (destFile.exists()) {
             if (overrideOnExists) {
+                //delete and create new file
                 destFile.delete();
+                destFile.createNewFile();
             } else {
                 throw new FileAlreadyExistsException("cache file '" + destPath + "' already exists.");
             }
+        } else {
+            //create new file
+            destFile.createNewFile();
         }
 
         //https://stackoverflow.com/questions/921262/how-to-download-and-save-a-file-from-internet-using-java
@@ -78,6 +83,9 @@ public class DownloaderUtils {
     }
 
     protected static String generateFilePath (String filename) {
+        //create cache directory, if not exists
+        CacheUtils.createCacheDirIfAbsent("downloaded-files");
+
         //generate cache file name
         String fileName = HashUtils.computeMD5Hash(filename);
 

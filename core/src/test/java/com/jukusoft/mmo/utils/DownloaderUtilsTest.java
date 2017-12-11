@@ -5,6 +5,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -68,6 +71,34 @@ public class DownloaderUtilsTest {
         assertEquals(true, DownloaderUtils.generateFilePath("my-file.txt").contains("/downloaded-files/"));
 
         assertEquals(true, DownloaderUtils.generateFilePath("http://my-example-domain.com/images/image.png").endsWith("/cache/downloaded-files/5600bf88a076afda4ac7641739f0bde7.png"));
+    }
+
+    @Test (expected = IOException.class)
+    public void testDownloadNotExistentFileToCache () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/not-existent-file.png", true);
+    }
+
+    @Test
+    public void testDownloadFileToCache () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+    }
+
+    @Test
+    public void testDownloadFileToCacheOverride () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+    }
+
+    @Test (expected = FileAlreadyExistsException.class)
+    public void testDownloadFileToCacheNoOverride () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", false);
+    }
+
+    @Test (expected = FileAlreadyExistsException.class)
+    public void testDownloadFileToCacheNoOverride1 () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png");
     }
 
 }
