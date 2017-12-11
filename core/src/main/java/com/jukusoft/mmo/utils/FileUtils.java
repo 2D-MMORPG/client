@@ -125,7 +125,7 @@ public class FileUtils {
         Files.write(Paths.get(path), content.getBytes(encoding), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public static void recursiveDeleteDirectory (File f) throws FileNotFoundException {
+    public static void recursiveDeleteDirectory (File f) throws IOException {
         Logger.getAnonymousLogger().log(Level.INFO, "delete directory: " + f.getAbsolutePath());
 
         //check, if it is an directory
@@ -136,9 +136,7 @@ public class FileUtils {
         }
 
         //delete directory / file
-        if (!f.delete()) {
-            throw new FileNotFoundException("Failed to delete file: " + f);
-        }
+        Files.delete(f.toPath());
     }
 
     /**
