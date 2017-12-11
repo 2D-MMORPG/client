@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.utils;
 
-import com.jukusoft.mmo.downloader.DummyDownloadListenerTest;
+import com.jukusoft.mmo.downloader.DummyDownloadListener;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -151,7 +151,7 @@ public class DownloaderUtilsTest {
             Files.createFile(file.toPath());
         }
 
-        DownloaderUtils.download("http://my-domain.de", file.getAbsolutePath(), new DummyDownloadListenerTest(), false);
+        DownloaderUtils.download("http://my-domain.de", file.getAbsolutePath(), new DummyDownloadListener(), false);
     }
 
     @Test
