@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utils for file operations
@@ -121,6 +123,22 @@ public class FileUtils {
         }
 
         Files.write(Paths.get(path), content.getBytes(encoding), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    public static void recursiveDeleteDirectory (File f) throws FileNotFoundException {
+        Logger.getAnonymousLogger().log(Level.INFO, "delete directory: " + f.getAbsolutePath());
+
+        //check, if it is an directory
+        if (f.isDirectory()) {
+            for (File c : f.listFiles()) {
+                recursiveDeleteDirectory(c);
+            }
+        }
+
+        //delete directory / file
+        if (!f.delete()) {
+            throw new FileNotFoundException("Failed to delete file: " + f);
+        }
     }
 
     /**
