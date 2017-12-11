@@ -35,14 +35,21 @@ public class DownloaderUtils {
         if (destFile.exists()) {
             if (overrideOnExists) {
                 //delete and create new file
-                destFile.delete();
-                destFile.createNewFile();
+                if (!destFile.delete()) {
+                    throw new IOException("Cannot delete file: " + destFile.getAbsolutePath());
+                }
+
+                if (!destFile.createNewFile()) {
+                    throw new IOException("Cannot create new file: " + destFile.getAbsolutePath());
+                }
             } else {
                 throw new FileAlreadyExistsException("cache file '" + destPath + "' already exists.");
             }
         } else {
             //create new file
-            destFile.createNewFile();
+            if (!destFile.createNewFile()) {
+                throw new IOException("Cannot create new file: " + destFile.getAbsolutePath());
+            }
         }
 
         //https://stackoverflow.com/questions/921262/how-to-download-and-save-a-file-from-internet-using-java
@@ -75,10 +82,6 @@ public class DownloaderUtils {
 
         String[] array = filename.split("\\.");
 
-        if (array.length == 0) {
-            return "";
-        }
-
         return array[array.length - 1];
     }
 
@@ -97,9 +100,7 @@ public class DownloaderUtils {
         }
 
         //generate file path
-        String destPath = CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
-
-        return destPath;
+        return CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
     }
 
 }
