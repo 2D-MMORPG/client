@@ -1,5 +1,8 @@
 package com.jukusoft.mmo.utils;
 
+import com.jukusoft.mmo.downloader.DownloadListener;
+import com.jukusoft.mmo.downloader.Downloader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +10,8 @@ import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Observable;
+import java.util.Observer;
 
 public class DownloaderUtils {
 
@@ -90,6 +95,52 @@ public class DownloaderUtils {
 
         //generate file path
         return CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
+    }
+
+    public static void download (String fileURL, String targetPath, DownloadListener listener, boolean overrideOnExists) throws IOException {
+        if (fileURL == null) {
+            throw new NullPointerException("fileURL cannot be null.");
+        }
+
+        if (fileURL.isEmpty()) {
+            throw new IllegalArgumentException("fileURL cannot be empty.");
+        }
+
+        if (targetPath == null) {
+            throw new NullPointerException("target file path cannot be null.");
+        }
+
+        if (targetPath.isEmpty()) {
+            throw new IllegalArgumentException("target file path cannot be empty.");
+        }
+
+        if (listener == null) {
+            throw new NullPointerException("listener cannot be null.");
+        }
+
+        File targetFile = new File(targetPath);
+
+        //check, if file exists
+        if (targetFile.exists()) {
+            if (overrideOnExists) {
+                //delete file
+                Files.delete(targetFile.toPath());
+            } else {
+                throw new FileAlreadyExistsException("target file already exists: " + targetFile.getAbsolutePath());
+            }
+        }
+
+        //create new downloader
+        Downloader downloader = new Downloader();
+
+        //add observer
+        downloader.addObserver((Observable o, Object arg) -> {
+            //update progress
+            listener.onProgress(downloader.getState(), downloader.getDownloadedBytes(), downloader.getFileSize(), downloader.getProgress());
+        });
+
+        //start downloader
+        downloader.startDownload(fileURL, targetFile);
     }
 
 }

@@ -27,10 +27,10 @@ public class Downloader extends Observable implements Runnable {
     protected URL url = null;
 
     //file size in bytes
-    protected int fileSize = 0;
+    protected volatile int fileSize = 0;
 
     //number of downloaded bytes
-    protected int downloadedBytes = 0;
+    protected volatile int downloadedBytes = 0;
 
     protected File targetFile = null;
 
@@ -99,12 +99,16 @@ public class Downloader extends Observable implements Runnable {
         return this.targetFile.getAbsolutePath();
     }
 
+    public int getDownloadedBytes () {
+        return this.downloadedBytes;
+    }
+
     /**
     * get file size in bytes
      *
      * @return file size in bytes
     */
-    public long getFileSize () {
+    public int getFileSize () {
         return this.fileSize;
     }
 
@@ -117,7 +121,7 @@ public class Downloader extends Observable implements Runnable {
         return ((float) this.downloadedBytes / this.fileSize);
     }
 
-    public STATE getStatus () {
+    public STATE getState () {
         return this.currentState;
     }
 
