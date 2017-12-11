@@ -85,6 +85,13 @@ public class DownloaderUtilsTest {
     }
 
     @Test
+    public void testDownloadFileToCache1 () throws IOException {
+        Files.deleteIfExists(new File(DownloaderUtils.generateFilePath("http://mmo.jukusoft.com/api/junit-test-image-32.png")).toPath());
+
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png");
+    }
+
+    @Test
     public void testDownloadFileToCacheWithoutExistentFile () throws IOException {
         Files.deleteIfExists(new File(DownloaderUtils.generateFilePath("http://mmo.jukusoft.com/api/junit-test-image-32.png")).toPath());
 
