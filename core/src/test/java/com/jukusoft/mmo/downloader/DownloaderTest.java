@@ -33,7 +33,7 @@ public class DownloaderTest {
             Thread.currentThread().yield();
         }
 
-        System.out.println("state: " + downloader.getStatus().name());
+        System.out.println("state: " + downloader.getState().name());
         System.out.println("target path: " + downloader.getTargetPath());
     }
 

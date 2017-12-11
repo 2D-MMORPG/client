@@ -116,4 +116,39 @@ public class DownloaderUtilsTest {
         DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png");
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testDownloadNullURL () throws IOException {
+        DownloaderUtils.download(null, "", null, false);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testDownloadEmptyURL () throws IOException {
+        DownloaderUtils.download("", "", null, false);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testDownloadNullTargetPath () throws IOException {
+        DownloaderUtils.download("http://my-domain.de", null, null, false);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testDownloadEmptyTargetPath () throws IOException {
+        DownloaderUtils.download("http://my-domain.de", "", null, false);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testDownloadNullListener () throws IOException {
+        DownloaderUtils.download("http://my-domain.de", "my-file.png", null, false);
+    }
+
+    @Test
+    public void testDownloadExistentFile () {
+        //TODO: add code here
+    }
+
+    @Test
+    public void testDownload () {
+        //TODO: add code here
+    }
+
 }
