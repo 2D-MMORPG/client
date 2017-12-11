@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.utils;
 
+import com.jukusoft.mmo.downloader.DummyDownloadListener;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -141,9 +142,17 @@ public class DownloaderUtilsTest {
         DownloaderUtils.download("http://my-domain.de", "my-file.png", null, false);
     }
 
-    @Test
-    public void testDownloadExistentFile () {
-        //TODO: add code here
+    @Test (expected = FileAlreadyExistsException.class)
+    public void testDownloadExistentFile () throws IOException {
+        CacheUtils.createCacheDirIfAbsent("my-cache-dir");
+
+        File file = new File(CacheUtils.getCacheDir("my-cache-dir") + "downloaded-file.txt");
+
+        if (!file.exists()) {
+            Files.createFile(file.toPath());
+        }
+
+        DownloaderUtils.download("http://my-domain.de", file.getAbsolutePath(), new DummyDownloadListener(), false);
     }
 
     @Test
