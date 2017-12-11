@@ -26,18 +26,8 @@ public class DownloaderUtils {
      * @return path to cached file
     */
     public static String downloadFileToCache (String fileURL, boolean overrideOnExists) throws IOException {
-        //generate cache file name
-        String fileName = HashUtils.computeMD5Hash(fileURL);
-
-        //get file name extension
-        String extension = getFileExtension(fileURL);
-
-        if (extension.isEmpty()) {
-            throw new IllegalArgumentException("Unknown file extension: " + fileURL);
-        }
-
         //generate file path
-        String destPath = CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
+        String destPath = generateFilePath(fileURL);
 
         File destFile = new File(destPath);
 
@@ -61,6 +51,10 @@ public class DownloaderUtils {
         return destPath;
     }
 
+    public static String downloadFileToCache (String fileURL) throws IOException {
+        return downloadFileToCache(fileURL, false);
+    }
+
     protected static String getFileExtension (String filename) {
         if (filename == null) {
             throw new NullPointerException("filename cannot be null.");
@@ -81,6 +75,23 @@ public class DownloaderUtils {
         }
 
         return array[array.length - 1];
+    }
+
+    protected static String generateFilePath (String filename) {
+        //generate cache file name
+        String fileName = HashUtils.computeMD5Hash(filename);
+
+        //get file name extension
+        String extension = getFileExtension(filename);
+
+        if (extension.isEmpty()) {
+            throw new IllegalArgumentException("Unknown file extension: " + filename);
+        }
+
+        //generate file path
+        String destPath = CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
+
+        return destPath;
     }
 
 }
