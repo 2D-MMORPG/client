@@ -88,10 +88,6 @@ public class DownloaderUtils {
         //get file name extension
         String extension = getFileExtension(filename);
 
-        if (extension.isEmpty()) {
-            throw new IllegalArgumentException("Unknown file extension: " + filename);
-        }
-
         //generate file path
         return CacheUtils.getCacheDir("downloaded-files") + "" + fileName + "." + extension;
     }
