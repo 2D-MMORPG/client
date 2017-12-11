@@ -1,12 +1,11 @@
 package com.jukusoft.mmo.utils;
 
-import com.jukusoft.mmo.downloader.DummyDownloadListener;
+import com.jukusoft.mmo.downloader.DummyDownloadListenerTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -152,7 +151,7 @@ public class DownloaderUtilsTest {
             Files.createFile(file.toPath());
         }
 
-        DownloaderUtils.download("http://my-domain.de", file.getAbsolutePath(), new DummyDownloadListener(), false);
+        DownloaderUtils.download("http://my-domain.de", file.getAbsolutePath(), new DummyDownloadListenerTest(), false);
     }
 
     @Test
