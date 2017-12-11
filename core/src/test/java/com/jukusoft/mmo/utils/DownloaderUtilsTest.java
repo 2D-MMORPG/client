@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
 
 import static org.junit.Assert.assertEquals;
 
@@ -80,6 +81,13 @@ public class DownloaderUtilsTest {
 
     @Test
     public void testDownloadFileToCache () throws IOException {
+        DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
+    }
+
+    @Test
+    public void testDownloadFileToCacheWithoutExistentFile () throws IOException {
+        Files.deleteIfExists(new File(DownloaderUtils.generateFilePath("http://mmo.jukusoft.com/api/junit-test-image-32.png")).toPath());
+
         DownloaderUtils.downloadFileToCache("http://mmo.jukusoft.com/api/junit-test-image-32.png", true);
     }
 
