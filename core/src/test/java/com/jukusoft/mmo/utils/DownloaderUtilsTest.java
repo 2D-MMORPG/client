@@ -164,6 +164,19 @@ public class DownloaderUtilsTest {
     }
 
     @Test
+    public void testDownload2 () throws IOException {
+        CacheUtils.createCacheDirIfAbsent("my-cache-dir");
+
+        File file = new File(CacheUtils.getCacheDir("my-cache-dir") + "downloaded-file2.txt");
+
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+
+        DownloaderUtils.download("http://mmo.jukusoft.com/api/junit-test-image-32.png", file.getAbsolutePath(), new DummyDownloadListener(), false);
+    }
+
+    @Test
     public void testDownloadOverride () throws IOException {
         CacheUtils.createCacheDirIfAbsent("my-cache-dir");
 
