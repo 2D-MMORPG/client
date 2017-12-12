@@ -227,9 +227,6 @@ public class HashUtils {
         file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
         baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
 
-        System.out.println("dir: " + file.getAbsolutePath());
-        System.out.println("base dir: " + baseDir.getAbsolutePath());
-
         if (file == null) {
             throw new NullPointerException("dir / file cannot be null.");
         }
@@ -269,9 +266,7 @@ public class HashUtils {
                     String fileHash = HashUtils.computeMD5FileHash(c);
 
                     //compute relative file path
-                    String relPath = FileUtils.getRelativeFile(c, baseDir).getPath().replace("\\", "/");//file.toPath().relativize(baseDir.toPath()).toFile().getPath();
-                    //String relPath = baseDir.toURI().relativize(c.toURI()).getPath();
-                    //String relPath = c.getCanonicalPath().replace(baseDirPath, "").replace("\\", "/");
+                    String relPath = FileUtils.getRelativeFile(c, baseDir).getPath().replace("\\", "/");
 
                     //put file hash to map
                     hashMap.put(relPath, fileHash);
@@ -285,8 +280,6 @@ public class HashUtils {
 
             //compute relative file path
             String relPath = FileUtils.getRelativeFile(file, baseDir).getPath().replace("\\", "/");
-            //String relPath = file.toPath().relativize(baseDir.toPath()).toFile().getPath();//.toURI().relativize(file.toURI()).getPath();
-            //String relPath = file.getCanonicalPath().replace(baseDirPath, "").replace("\\", "/");
 
             System.out.println("test");
 
