@@ -5,7 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -208,6 +207,22 @@ public class FileUtilsTest {
 
         //check, if file exists
         assertEquals(false, f.exists());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testRemoveDoubleDotInNullDir () {
+        FileUtils.removeDoubleDotInDir(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testRemoveDoubleDotInEmptyDir () {
+        FileUtils.removeDoubleDotInDir("");
+    }
+
+    @Test
+    public void testRemoveDoubleDotInDir () {
+        assertEquals("C:/Users/my-user1/test/", FileUtils.removeDoubleDotInDir("C:/Users/my-users/../my-user1/test"));
+        assertEquals("test/test-dir2/", FileUtils.removeDoubleDotInDir("test/test-dir1/../test-dir2"));
     }
 
 }

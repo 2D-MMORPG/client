@@ -163,4 +163,46 @@ public class FileUtils {
         return getUserHomeDir() + "/." + appName + "/";
     }
 
+    /**
+    * removes ../ from path
+    */
+    protected static String removeDoubleDotInDir(String path) {
+        path = path.replace("\\", "/");
+
+        if (path == null) {
+            throw new NullPointerException("path cannot be null.");
+        }
+
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("path cannot be empty.");
+        }
+
+        if (path.startsWith("../")) {
+            throw new IllegalArgumentException("Cannot relativize paths starting with ../");
+        }
+
+        if (!path.contains("/")) {
+            return path;
+        }
+
+        String[] array = path.split("/");
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i].equals("..")) {
+                array[i] = null;
+                array[i-1] = null;
+            }
+        }
+
+        for (String entry : array) {
+            if (entry != null) {
+                sb.append(entry + "/");
+            }
+        }
+
+        return sb.toString();
+    }
+
 }
