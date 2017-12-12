@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jukusoft.mmo.desktop.config.WindowConfig;
 import com.jukusoft.mmo.game.Game;
+import com.jukusoft.mmo.launcher.LauncherMain;
 import com.jukusoft.mmo.utils.AppUtils;
 import com.jukusoft.mmo.utils.LogUtils;
 import com.jukusoft.mmo.utils.MapCacheUtils;
@@ -32,6 +33,15 @@ public class DesktopLauncher {
      * start method for game application
      */
     public static void main(String[] args) {
+        for (String param : args) {
+            if (param.contains("--launcher")) {
+                //start launcher
+                LauncherMain.main(args);
+
+                return;
+            }
+        }
+
         //set application name for app directory in user.home directory
         AppUtils.setAppName("2d-mmorpg");
 
