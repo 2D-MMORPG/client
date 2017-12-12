@@ -51,6 +51,19 @@ public class ServerFinderTest {
     }
 
     @Test
+    public void testGetContent1 () throws IOException {
+        ServerFinder serverFinder = new ServerFinder("../data/config/junit-server2.cfg");
+
+        String content = serverFinder.getContent(serverFinder.getServerListURL());
+
+        Logger.getAnonymousLogger().log(Level.INFO, "website content: " + content);
+
+        //check json format
+        assertEquals(true, content.startsWith("{"));
+        assertEquals(true, content.endsWith("}"));
+    }
+
+    @Test
     public void testLoad () throws IOException {
         ServerFinder serverFinder = new ServerFinder("../data/config/junit-server.cfg");
         serverFinder.load();
