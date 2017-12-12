@@ -44,4 +44,27 @@ public class Version {
         this.updateURL = json.getString("update_channel_url");
     }
 
+    public String getVersion() {
+        return version;
+    }
+
+    public String getFullVersion() {
+        return fullVersion;
+    }
+
+    public int getBuildNumber() {
+        return buildNumber;
+    }
+
+    public String getBuildDate() {
+        return buildDate;
+    }
+
+    public String getBuildTime() {
+        return buildTime;
+    }
+
+    public String getUpdateURL() {
+        return updateURL;
+    }
 }

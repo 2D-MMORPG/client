@@ -3,6 +3,8 @@ package com.jukusoft.mmo.updater;
 import io.vertx.core.json.JsonObject;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class VersionTest {
 
     @Test
@@ -32,6 +34,21 @@ public class VersionTest {
 
         //load data model from json object
         version.load(json);
+
+        assertEquals("1.0.0-alpha", version.version);
+        assertEquals("1.0.0 Pre-Alpha", version.fullVersion);
+        assertEquals(1, version.buildNumber);
+        assertEquals("12.12.2017", version.buildDate);
+        assertEquals("11.28", version.buildTime);
+        assertEquals("http://example.tld", version.updateURL);
+
+        //test public getter methods
+        assertEquals("1.0.0-alpha", version.getVersion());
+        assertEquals("1.0.0 Pre-Alpha", version.getFullVersion());
+        assertEquals(1, version.getBuildNumber());
+        assertEquals("12.12.2017", version.getBuildDate());
+        assertEquals("11.28", version.getBuildTime());
+        assertEquals("http://example.tld", version.getUpdateURL());
     }
 
     @Test (expected = IllegalArgumentException.class)
