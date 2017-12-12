@@ -224,9 +224,6 @@ public class HashUtils {
     }*/
 
     public static Map<String,String> listFileHashesOfDirectory (File file, File baseDir) throws Exception {
-        file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
-        baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
-
         if (file == null) {
             throw new NullPointerException("dir / file cannot be null.");
         }
@@ -242,6 +239,9 @@ public class HashUtils {
         if (!baseDir.exists()) {
             throw new IllegalArgumentException("base dir doesnt exists: " + file.getAbsolutePath());
         }
+
+        file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
+        baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
 
         String baseDirPath = baseDir.getCanonicalPath();
 
