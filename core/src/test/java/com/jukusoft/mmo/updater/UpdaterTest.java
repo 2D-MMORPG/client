@@ -65,9 +65,13 @@ public class UpdaterTest {
     }
 
     @Test
-    public void testInvalideFileHashes () throws IOException {
+    public void testInvalideFileHashes () throws Exception {
         Updater updater = new Updater();
         updater.updaterDir = "../junit-tests/updater/";
+
+        //create files.json file
+        updater.prepareFileHashes("../junit-tests/");
+
         updater.invalideFileHashes();
 
         //invalidate again
