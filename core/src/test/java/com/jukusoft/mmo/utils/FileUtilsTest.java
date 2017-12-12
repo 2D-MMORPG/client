@@ -239,6 +239,8 @@ public class FileUtilsTest {
     public void testGetRelativeFile () throws IOException {
         assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d/"), new File("/a/b/")).getPath().replace("\\", "/"));
         assertEquals("../c/d", FileUtils.getRelativeFile(new File("/a/b/../c/d/"), new File("/a/b/")).getPath().replace("\\", "/"));
+
+        assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d/"), new File("/a/../a/b")).getPath().replace("\\", "/"));
     }
 
 }
