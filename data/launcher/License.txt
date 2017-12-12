@@ -1,0 +1,2 @@
+wallpaper.jpg, wallpaper2.png:
+CC0 license, https://www.pexels.com/photo/astronomy-blue-bright-clouds-340901/
