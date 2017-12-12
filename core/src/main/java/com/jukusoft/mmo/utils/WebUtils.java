@@ -27,9 +27,12 @@ public class WebUtils {
     */
     public static String readContentFromWebsite (String websiteURL) throws IOException {
         URL url = new URL(websiteURL);
-        URLConnection con = url.openConnection();
-        InputStream in = con.getInputStream();
-        String encoding = con.getContentEncoding();  // ** WRONG: should use "con.getContentType()" instead but it returns something like "text/html; charset=UTF-8" so this value must be parsed to extract the actual encoding
+        URLConnection conn = url.openConnection();
+        conn.setRequestProperty("User-Agent",
+                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+
+        InputStream in = conn.getInputStream();
+        String encoding = conn.getContentEncoding();  // ** WRONG: should use "con.getContentType()" instead but it returns something like "text/html; charset=UTF-8" so this value must be parsed to extract the actual encoding
         encoding = encoding == null ? "UTF-8" : encoding;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
