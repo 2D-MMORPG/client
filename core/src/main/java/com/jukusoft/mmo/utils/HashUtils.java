@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -164,6 +166,10 @@ public class HashUtils {
             throw new NullPointerException("file cannot be null.");
         }
 
+        if (file.isDirectory()) {
+            throw new IllegalArgumentException("cannot compute file hash of an directory: " + file.getAbsolutePath());
+        }
+
         //read content of file
         String content = FileUtils.readFile(file.getAbsolutePath(), StandardCharsets.UTF_8);
 
@@ -216,5 +222,47 @@ public class HashUtils {
             }
         }
     }*/
+
+    public static Map<String,String> listFileHashesOfDirectory (File file) throws Exception {
+        if (file == null) {
+            throw new NullPointerException("dir / file cannot be null.");
+        }
+
+        if (!file.exists()) {
+            throw new IllegalArgumentException("directory / file doesnt exists: " + file.getAbsolutePath());
+        }
+
+        //map with all file hashes (file path - file checksum)
+        Map<String,String> hashMap = new HashMap<>();
+
+        if (file.isDirectory()) {
+            for (File c : file.listFiles()) {
+                if (c.isDirectory()) {
+                    Map<String,String> hashes = listFileHashesOfDirectory(c);
+
+                    //add all generated hashes to map
+                    hashMap.putAll(hashes);
+                } else if (c.isFile()) {
+                    //it is an file
+
+                    //generate file hash
+                    String fileHash = HashUtils.computeMD5FileHash(c);
+
+                    //put file hash to map
+                    hashMap.put(c.getCanonicalPath(), fileHash);
+                } else {
+                    Logger.getAnonymousLogger().log(Level.WARNING, "Unknown file type.");
+                }
+            }
+        } else if (file.isFile()) {
+            //generate file hash
+            String fileHash = HashUtils.computeMD5FileHash(file);
+
+            //put file hash to map
+            hashMap.put(file.getCanonicalPath(), fileHash);
+        }
+
+        return hashMap;
+    }
 
 }

@@ -3,6 +3,8 @@ package com.jukusoft.mmo.utils;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,10 +53,37 @@ public class HashUtilsTest {
         HashUtils.computeMD5FileHash(null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testComputeNullFileHashOfDirectory () throws Exception {
+        HashUtils.computeMD5FileHash(new File("../junit-tests"));
+    }
+
+    @Test (expected = IOException.class)
+    public void testComputeNullFileHashOfNotExistentDirectory () throws Exception {
+        HashUtils.computeMD5FileHash(new File("../junit-tests2"));
+    }
+
     @Test
     public void testComputeMD5FileHash () throws Exception {
         //old value: cf4e96739d454bc2b9e4f2a6ffecb13d
         assertEquals("ca09c4fbc809b36b6075da4a129dec20", HashUtils.computeMD5FileHash(new File("../test-file.txt")));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testListFileHashesOfNullDirectory () throws Exception {
+        HashUtils.listFileHashesOfDirectory(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testListFileHashesOfNotExistentDirectory () throws Exception {
+        HashUtils.listFileHashesOfDirectory(new File("not-existent-directory"));
+    }
+
+    @Test
+    public void testListFileHashesOfDirectory () throws Exception {
+        Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes").getAbsolutePath()));
+
+        assertEquals(8, hashes.size());
     }
 
 }

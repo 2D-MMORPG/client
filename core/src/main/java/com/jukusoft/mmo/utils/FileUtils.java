@@ -55,7 +55,7 @@ public class FileUtils {
         }
 
         // read bytes from file
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        byte[] encoded = Files.readAllBytes(Paths.get(path.replace("/./", "/").replace("\\.\\", "\\")));
 
         // convert bytes to string with specific encoding and return string
         return new String(encoded, encoding);
