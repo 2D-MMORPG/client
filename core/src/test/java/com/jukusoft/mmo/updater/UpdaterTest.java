@@ -65,6 +65,12 @@ public class UpdaterTest {
     }
 
     @Test
+    public void testLoad1 () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../updater", "../");
+    }
+
+    @Test
     public void testInvalideFileHashes () throws Exception {
         Updater updater = new Updater();
         updater.updaterDir = "../junit-tests/updater/";
