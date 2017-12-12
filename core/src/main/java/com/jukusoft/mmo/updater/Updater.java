@@ -142,7 +142,9 @@ public class Updater {
     }
 
     protected void invalideFileHashes () throws IOException {
-        Files.delete(new File(this.updaterDir + "files.json").toPath());
+        if (new File(this.updaterDir + "files.json").exists()) {
+            Files.delete(new File(this.updaterDir + "files.json").toPath());
+        }
     }
 
 }
