@@ -149,4 +149,7 @@ public class Updater {
         }
     }
 
+    public Version getCurrentVersion() {
+        return this.currentVersion;
+    }
 }

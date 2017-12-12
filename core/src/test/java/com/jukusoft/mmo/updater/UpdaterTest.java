@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class UpdaterTest {
 
     @BeforeClass
@@ -82,6 +85,15 @@ public class UpdaterTest {
 
         //invalidate again
         updater.invalideFileHashes();
+    }
+
+    @Test
+    public void testGetCurrentVersion () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        assertNotNull(updater.getCurrentVersion());
+        assertEquals("0.0.1-dev-preview", updater.getCurrentVersion().getVersion());
     }
 
 }
