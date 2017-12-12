@@ -252,7 +252,9 @@ public class FileUtils {
             result.append(targetComponents[index] + File.separator);
         }
 
-        if (!target.getPath().endsWith("/") && !target.getPath().endsWith("\\")) {
+        String targetPath = target.getPath().replace("\\", "/");
+
+        if (!targetPath.endsWith("/")) {
             // remove final path separator
             result.delete(result.length() - File.separator.length(), result.length());
         }
