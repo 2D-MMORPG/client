@@ -44,6 +44,15 @@
 			</excludes>
 		</fileSet>
 
+		<!-- updater directory -->
+		<fileSet>
+			<directory>../updater</directory>
+			<outputDirectory>updater</outputDirectory>
+			<excludes>
+				<exclude>*.cfg</exclude>
+			</excludes>
+		</fileSet>
+
 		<!-- startup directory -->
 		<fileSet>
 			<directory>../startup</directory>
