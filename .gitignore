@@ -18,6 +18,8 @@
 !*junit-server2.cfg
 !data/config
 !*data/config
+!data/config*
+!*data/config*
 
 !assembly.xml
 !*assembly.xml
