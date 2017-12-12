@@ -258,6 +258,9 @@ public class FileUtilsTest {
         assertEquals("../c/d", FileUtils.getRelativeFile(new File("/a/b/../c/d/"), new File("/a/b/")).getPath().replace("\\", "/"));
 
         assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d/"), new File("/a/../a/b")).getPath().replace("\\", "/"));
+        assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d"), new File("/a/../a/b")).getPath().replace("\\", "/"));
+
+        assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d"), new File("/a/../a/b")).getPath().replace("\\", "/"));
     }
 
 }
