@@ -1,0 +1,12 @@
+.transparent-bg {
+    -fx-background-color: transparent;
+}
+
+.pane2 {
+    -fx-background-image: url("launcher_bg.png");
+        -fx-background-repeat: stretch;   
+        -fx-background-size: 800 400;
+        -fx-background-position: center center;
+        /*-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);*/
+}
+

@@ -97,6 +97,10 @@ public abstract class FXMLWindow implements Window {
         this(title, width, height, fxmlPath, null);
     }
 
+    public void setTransparent () {
+        scene.setFill(null);
+    }
+
     @Override
     public Stage getStage () {
         return this.stage;

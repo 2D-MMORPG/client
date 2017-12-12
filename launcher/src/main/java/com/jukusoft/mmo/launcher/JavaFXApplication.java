@@ -39,6 +39,9 @@ public class JavaFXApplication extends Application {
         //undecorated style
         //primaryStage.initStyle(StageStyle.UNDECORATED);
 
+        //transparent window
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("close application now.");
 
@@ -58,10 +61,14 @@ public class JavaFXApplication extends Application {
         //create & show new launcher window
         this.launcherWindow = new LauncherWindow(primaryStage, title, width, height);
         this.launcherWindow.setFullscreen(fullscreen);
+
+        //http://www.adam-bien.com/roller/abien/entry/completely_transparent_windows_stage_in
+        this.launcherWindow.setTransparent();
+
         this.launcherWindow.setVisible(true);
 
         //get pane
-        this.launcherWindow.getRootPane().setStyle("-fx-background-image: url('file:" + bgImage + "')");
+        //this.launcherWindow.getRootPane().setStyle("-fx-background-image: url('file:" + bgImage + "')");
     }
 
     /**
