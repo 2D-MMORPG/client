@@ -41,7 +41,7 @@ public class Updater {
      * @throws IOException if I/O error occurs
     */
     public void load (String updaterDir, String baseDir) throws Exception {
-        if (updaterDir.endsWith("/")) {
+        if (!updaterDir.endsWith("/")) {
             updaterDir = updaterDir + "/";
         }
 
