@@ -38,10 +38,14 @@ public class Updater {
      * @throws IOException if I/O error occurs
     */
     public void load (String updaterDir) throws IOException {
+        if (updaterDir.endsWith("/")) {
+            updaterDir = updaterDir + "/";
+        }
+
         this.updaterDir = updaterDir;
 
         //load own version and get update url
-        this.loadOwnVersion();
+        this.loadOwnVersion(updaterDir);
 
         //load update channels from server
         this.loadUpdateChannelsFromServer();
@@ -52,9 +56,9 @@ public class Updater {
      *
      * @throws IOException if file couldnt be loaded
     */
-    protected void loadOwnVersion () throws IOException {
+    protected void loadOwnVersion (String updaterDir) throws IOException {
         //read file content
-        String content = FileUtils.readFile("./updater/version.json", StandardCharsets.UTF_8);
+        String content = FileUtils.readFile(updaterDir + "version.json", StandardCharsets.UTF_8);
 
         //create json object from json string
         JsonObject json = new JsonObject(content);
@@ -68,7 +72,7 @@ public class Updater {
     }
 
     protected void prepareFileHashes () throws Exception {
-        File f = new File("./updater/files.json");
+        File f = new File(this.updaterDir + "files.json");
 
         if (!f.exists()) {
             //generate file hashes
