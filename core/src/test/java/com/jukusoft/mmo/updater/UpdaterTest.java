@@ -17,7 +17,17 @@ public class UpdaterTest {
 
     @AfterClass
     public static void afterClass () throws IOException {
-        Files.delete(new File("files.json").toPath());
+        if (new File("files.json").exists()) {
+            Files.delete(new File("files.json").toPath());
+        }
+
+        if (new File("../updater/files.json").exists()) {
+            Files.delete(new File("../updater/files.json").toPath());
+        }
+
+        if (new File("../junit-tests/files.json").exists()) {
+            Files.delete(new File("../junit-tests/files.json").toPath());
+        }
     }
 
     @Test
@@ -34,6 +44,7 @@ public class UpdaterTest {
     @Test
     public void testPrepareFileHashesNotExistentDir () throws Exception {
         Updater updater = new Updater();
+        updater.updaterDir = "../junit-tests/";
         updater.prepareFileHashes("../junit-tests/updater/");
     }
 
