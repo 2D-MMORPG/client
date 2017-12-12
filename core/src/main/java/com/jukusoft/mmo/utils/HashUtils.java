@@ -240,6 +240,12 @@ public class HashUtils {
             throw new IllegalArgumentException("base dir doesnt exists: " + file.getAbsolutePath());
         }
 
+        String baseDirPath = baseDir.getAbsolutePath();
+
+        if (baseDirPath.endsWith(".")) {
+            baseDirPath = baseDirPath.substring(0, baseDirPath.length() - 1);
+        }
+
         //map with all file hashes (file path - file checksum)
         Map<String,String> hashMap = new HashMap<>();
 
@@ -256,8 +262,11 @@ public class HashUtils {
                     //generate file hash
                     String fileHash = HashUtils.computeMD5FileHash(c);
 
+                    //compute relative file path
+                    String relPath = c.getAbsolutePath().replace(baseDirPath, "");
+
                     //put file hash to map
-                    hashMap.put(c.getAbsolutePath().replace("/./", "/").replace("\\.\\", "\\").replace(baseDir.getAbsolutePath().replace("/./", "/").replace("\\.\\", "\\"), ""), fileHash);
+                    hashMap.put(relPath, fileHash);
                 } else {
                     Logger.getAnonymousLogger().log(Level.WARNING, "Unknown file type.");
                 }
@@ -266,8 +275,10 @@ public class HashUtils {
             //generate file hash
             String fileHash = HashUtils.computeMD5FileHash(file);
 
+            String relPath = file.getAbsolutePath().replace(baseDirPath, "");
+
             //put file hash to map
-            hashMap.put(file.getCanonicalPath(), fileHash);
+            hashMap.put(relPath, fileHash);
         }
 
         return hashMap;
