@@ -64,4 +64,14 @@ public class UpdaterTest {
         updater.load("../updater/", "../");
     }
 
+    @Test
+    public void testInvalideFileHashes () throws IOException {
+        Updater updater = new Updater();
+        updater.updaterDir = "../junit-tests/updater/";
+        updater.invalideFileHashes();
+
+        //invalidate again
+        updater.invalideFileHashes();
+    }
+
 }
