@@ -26,6 +26,8 @@ public class Updater {
     //list with all update channels
     protected List<Channel> channelList = new ArrayList<>();
 
+    protected static final String FILES_JSON_FILE = "files.json";
+
     /**
     * default constructor
     */
@@ -76,7 +78,7 @@ public class Updater {
     }
 
     protected void prepareFileHashes (String baseDir) throws Exception {
-        File f = new File(this.updaterDir + "files.json");
+        File f = new File(this.updaterDir + FILES_JSON_FILE);
 
         if (!f.exists()) {
             //generate file hashes
@@ -142,8 +144,8 @@ public class Updater {
     }
 
     protected void invalideFileHashes () throws IOException {
-        if (new File(this.updaterDir + "files.json").exists()) {
-            Files.delete(new File(this.updaterDir + "files.json").toPath());
+        if (new File(this.updaterDir + FILES_JSON_FILE).exists()) {
+            Files.delete(new File(this.updaterDir + FILES_JSON_FILE).toPath());
         }
     }
 
