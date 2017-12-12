@@ -80,6 +80,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- launcher -->
+        <dependency>
+            <groupId>com.jukusoft.mmo</groupId>
+            <artifactId>launcher</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- libGDX LWJGL Backend -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>

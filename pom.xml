@@ -13,8 +13,9 @@
         <module>core</module>
         <module>engine</module>
         <module>game</module>
+        <module>launcher</module>
         <module>desktop</module>
-    </modules>
+	</modules>
 
     <properties>
         <!-- Java version -->

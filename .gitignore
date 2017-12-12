@@ -20,6 +20,8 @@
 !*data/config
 !data/config*
 !*data/config*
+!launcher.cfg
+!*launcher.cfg
 
 !assembly.xml
 !*assembly.xml
