@@ -53,8 +53,7 @@ public class Updater {
         //load update channels from server
         this.loadUpdateChannelsFromServer();
 
-        //prepare file hashes, if neccessary
-        this.prepareFileHashes(baseDir);
+        //prepare file hashes, if neccessary this.prepareFileHashes(baseDir);
     }
 
     /**
@@ -77,7 +76,7 @@ public class Updater {
         this.updateChannelsURL = this.currentVersion.getUpdateURL();
     }
 
-    protected void prepareFileHashes (String baseDir) throws Exception {
+    public void prepareFileHashes (String baseDir) throws Exception {
         File f = new File(this.updaterDir + FILES_JSON_FILE);
 
         if (!f.exists()) {
@@ -152,4 +151,16 @@ public class Updater {
     public Version getCurrentVersion() {
         return this.currentVersion;
     }
+
+    public List<Channel> listChannels () {
+        return this.channelList;
+    }
+
+    /**
+    * start update
+    */
+    public void startUpdate (Channel channel, UpdateListener listener) {
+        //
+    }
+
 }

@@ -96,4 +96,13 @@ public class UpdaterTest {
         assertEquals("0.0.1-dev-preview", updater.getCurrentVersion().getVersion());
     }
 
+    @Test
+    public void testListChannels () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        assertNotNull(updater.listChannels());
+        assertEquals(true, updater.listChannels().size() > 0);
+    }
+
 }

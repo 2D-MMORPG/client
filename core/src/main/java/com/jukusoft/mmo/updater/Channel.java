@@ -1,6 +1,9 @@
 package com.jukusoft.mmo.updater;
 
+import com.jukusoft.mmo.utils.WebUtils;
 import io.vertx.core.json.JsonObject;
+
+import java.io.IOException;
 
 /**
 * Data model for update channel
@@ -19,6 +22,9 @@ public class Channel {
 
     //url to file hashes
     protected String updateURL = "";
+
+    //newest build number
+    protected int newestBuildNumber = -1;
 
     /**
     * default constructor
@@ -41,6 +47,7 @@ public class Channel {
         this.activated = json.getBoolean("activated");
         this.publicChannel = json.getBoolean("public");
         this.updateURL = json.getString("update_url");
+        this.newestBuildNumber = json.getInteger("newest_build");
     }
 
     public String getName() {
@@ -62,4 +69,9 @@ public class Channel {
     public String getUpdateURL() {
         return updateURL;
     }
+
+    public int getNewestBuildNumber () throws IOException {
+        return this.newestBuildNumber;
+    }
+
 }

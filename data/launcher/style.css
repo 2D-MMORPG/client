@@ -3,10 +3,38 @@
 }
 
 .pane2 {
-    -fx-background-image: url("launcher_bg.png");
+    -fx-background-image: url("launcher_bg3.png");
         -fx-background-repeat: stretch;   
         -fx-background-size: 800 400;
         -fx-background-position: center center;
-        /*-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);*/
+        -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
 }
 
+.red-bg {
+    -fx-background-color: #FF0000;
+    -fx-effect: dropshadow(three-pass-box, white, 20, 0.5, 0, 0); 
+}
+
+.button-shadow {
+    -fx-background-color: #03204c;
+    -fx-effect: dropshadow(three-pass-box, cyan, 20, 0.5, 0, 0);
+    -fx-color: #0e8bab;
+}
+
+.button-shadow:hover {
+    -fx-background-color: #03204c;
+    -fx-effect: dropshadow(three-pass-box, yellow, 20, 0.5, 0, 0);
+    -fx-color: yellow;
+    -fx-text-fill: yellow;
+}
+
+.combobox-shadow {
+    -fx-background-color: #03204c;
+    -fx-effect: dropshadow(three-pass-box, cyan, 20, 0.5, 0, 0);
+    -fx-color: #0e8bab;
+}
+
+.combobox-shadow:hover {
+    -fx-background-color: #03204c;
+    -fx-effect: dropshadow(three-pass-box, yellow, 20, 0.5, 0, 0);
+}

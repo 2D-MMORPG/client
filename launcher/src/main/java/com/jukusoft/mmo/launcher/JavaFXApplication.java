@@ -40,7 +40,7 @@ public class JavaFXApplication extends Application {
         //primaryStage.initStyle(StageStyle.UNDECORATED);
 
         //transparent window
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("close application now.");
@@ -56,14 +56,14 @@ public class JavaFXApplication extends Application {
         int width = Integer.parseInt(defaultCfg.get("width"));
         int height = Integer.parseInt(defaultCfg.get("height"));
         boolean fullscreen = Boolean.parseBoolean(defaultCfg.getOrDefault("fullscreen", "false"));
-        String bgImage = defaultCfg.get("background_image");
 
         //create & show new launcher window
         this.launcherWindow = new LauncherWindow(primaryStage, title, width, height);
         this.launcherWindow.setFullscreen(fullscreen);
+        this.launcherWindow.getStage().setResizable(false);
 
         //http://www.adam-bien.com/roller/abien/entry/completely_transparent_windows_stage_in
-        this.launcherWindow.setTransparent();
+        //this.launcherWindow.setTransparent();
 
         this.launcherWindow.setVisible(true);
 
