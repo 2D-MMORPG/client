@@ -14,6 +14,8 @@
 !*window2.cfg
 !server.cfg
 !*server.cfg
+!junit-server2.cfg
+!*junit-server2.cfg
 
 !assembly.xml
 !*assembly.xml
@@ -168,3 +170,11 @@ release.properties
 # opengl
 *.cglsl
 /gradle.properties
+core/src/main/resources/
+data/config/junit-server2.cfg
+data/i18n/
+desktop/src/main/resources/
+engine/src/
+game/src/main/resources/
+game/src/test/
+src/
