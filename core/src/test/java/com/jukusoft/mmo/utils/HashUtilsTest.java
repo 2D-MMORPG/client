@@ -112,6 +112,28 @@ public class HashUtilsTest {
     }
 
     @Test
+    public void testListFileHashesOfDirectory1 () throws Exception {
+        Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes/dir1/file3.txt").getAbsolutePath()), new File("."));
+
+        assertEquals(1, hashes.size());
+
+        //print hashes
+        for (Map.Entry<String,String> entry : hashes.entrySet()) {
+            System.out.println("[file=" + entry.getKey() + "] hash: " + entry.getValue());
+
+            assertEquals(false, entry.getKey().startsWith(".\\"));
+            assertEquals(false, entry.getKey().startsWith("./"));
+
+            //check, that its not an directory
+            assertEquals(false, entry.getKey().endsWith("/"));
+
+            //check relative paths
+            assertEquals(false, entry.getKey().contains(":"));
+            assertEquals(false, entry.getKey().startsWith("/"));
+        }
+    }
+
+    @Test
     public void testListFileHashesOfDirectoryWithUpperBaseDir () throws Exception {
         Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes").getAbsolutePath()), new File("../"));
 

@@ -266,7 +266,7 @@ public class HashUtils {
                     hashMap.put(relPath, fileHash);
                 }
             }
-        } else if (file.isFile()) {
+        } else {
             //generate file hash
             String fileHash = HashUtils.computeMD5FileHash(file);
 
