@@ -9,6 +9,7 @@ import io.vertx.core.json.JsonObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class Updater {
      *
      * @throws IOException if I/O error occurs
     */
-    public void load (String updaterDir) throws IOException {
+    public void load (String updaterDir, String baseDir) throws Exception {
         if (updaterDir.endsWith("/")) {
             updaterDir = updaterDir + "/";
         }
@@ -49,6 +50,9 @@ public class Updater {
 
         //load update channels from server
         this.loadUpdateChannelsFromServer();
+
+        //prepare file hashes, if neccessary
+        this.prepareFileHashes(baseDir);
     }
 
     /**
@@ -71,12 +75,12 @@ public class Updater {
         this.updateChannelsURL = this.currentVersion.getUpdateURL();
     }
 
-    protected void prepareFileHashes () throws Exception {
+    protected void prepareFileHashes (String baseDir) throws Exception {
         File f = new File(this.updaterDir + "files.json");
 
         if (!f.exists()) {
             //generate file hashes
-            generateFileHashes(f, new File("."));
+            generateFileHashes(f, new File(baseDir));
         }
     }
 
@@ -135,6 +139,10 @@ public class Updater {
             //add channel to list
             this.channelList.add(channel);
         }
+    }
+
+    protected void invalideFileHashes () throws IOException {
+        Files.delete(new File(this.updaterDir + "files.json").toPath());
     }
 
 }

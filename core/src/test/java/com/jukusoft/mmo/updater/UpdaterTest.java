@@ -18,9 +18,9 @@ public class UpdaterTest {
     }
 
     @Test
-    public void testLoad () throws IOException {
+    public void testLoad () throws Exception {
         Updater updater = new Updater();
-        updater.load("../updater/");
+        updater.load("../updater/", "../");
     }
 
 }
