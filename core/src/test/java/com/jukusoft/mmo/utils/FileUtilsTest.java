@@ -229,10 +229,17 @@ public class FileUtilsTest {
         FileUtils.removeDoubleDotInDir("");
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testRemoveDoubleDotInInvalideDir () {
+        FileUtils.removeDoubleDotInDir("../");
+    }
+
     @Test
     public void testRemoveDoubleDotInDir () {
         assertEquals("C:/Users/my-user1/test/", FileUtils.removeDoubleDotInDir("C:/Users/my-users/../my-user1/test"));
         assertEquals("test/test-dir2/", FileUtils.removeDoubleDotInDir("test/test-dir1/../test-dir2"));
+
+        assertEquals("test", FileUtils.removeDoubleDotInDir("test"));
     }
 
     @Test (expected = NullPointerException.class)
