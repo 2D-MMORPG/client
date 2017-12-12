@@ -3,7 +3,7 @@ package com.jukusoft.mmo.updater;
 import io.vertx.core.json.JsonObject;
 
 /**
-* data model to get current version
+* data model for updater/version.json file
 */
 public class Version {
 
