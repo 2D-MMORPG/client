@@ -190,6 +190,16 @@ public class FileUtilsTest {
         assertEquals("line2", lines.get(1));
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testRecursiveDeleteNullDirectory () throws IOException {
+        FileUtils.recursiveDeleteDirectory(null);
+    }
+
+    @Test
+    public void testRecursiveDeleteNotExistentDirectory () throws IOException {
+        FileUtils.recursiveDeleteDirectory(new File("not-existent-directory"));
+    }
+
     @Test
     public void testRecursiveDeleteDirectory () throws IOException {
         AppUtils.setAppName("junit-test");

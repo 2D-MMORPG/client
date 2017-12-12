@@ -168,8 +168,6 @@ public class FileUtils {
     * removes ../ from path
     */
     protected static String removeDoubleDotInDir(String path) {
-        path = path.replace("\\", "/");
-
         if (path == null) {
             throw new NullPointerException(PATH_CANNOT_NULL);
         }
@@ -181,6 +179,8 @@ public class FileUtils {
         if (path.startsWith("../")) {
             throw new IllegalArgumentException("Cannot relativize paths starting with ../");
         }
+
+        path = path.replace("\\", "/");
 
         if (!path.contains("/")) {
             return path;
