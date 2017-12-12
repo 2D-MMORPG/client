@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Utils for file operations
@@ -203,6 +204,60 @@ public class FileUtils {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Returns the path of one File relative to another.
+     *
+     * @param target the target directory
+     * @param base the base directory
+     *
+     * @link https://stackoverflow.com/questions/204784/how-to-construct-a-relative-path-in-java-from-two-absolute-paths-or-urls
+     *
+     * @throws IOException if an error occurs while resolving the files' canonical names
+     *
+     * @return target's path relative to the base directory
+     */
+    public static File getRelativeFile(File target, File base) throws IOException {
+        if (target == null) {
+            throw new NullPointerException("target file cannot be null.");
+        }
+
+        if (base == null) {
+            throw new NullPointerException("base file cannot be null.");
+        }
+
+        String[] baseComponents = base.getCanonicalPath().split(Pattern.quote(File.separator));
+        String[] targetComponents = target.getCanonicalPath().split(Pattern.quote(File.separator));
+
+        // skip common components
+        int index = 0;
+
+        for (; index < targetComponents.length && index < baseComponents.length; ++index) {
+            if (!targetComponents[index].equals(baseComponents[index])) {
+                break;
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        if (index != baseComponents.length) {
+            // backtrack to base directory
+            for (int i = index; i < baseComponents.length; ++i) {
+                result.append(".." + File.separator);
+            }
+        }
+
+        for (; index < targetComponents.length; ++index) {
+            result.append(targetComponents[index] + File.separator);
+        }
+
+        if (!target.getPath().endsWith("/") && !target.getPath().endsWith("\\")) {
+            // remove final path separator
+            result.delete(result.length() - File.separator.length(), result.length());
+        }
+
+        return new File(result.toString() + File.separator);
     }
 
 }

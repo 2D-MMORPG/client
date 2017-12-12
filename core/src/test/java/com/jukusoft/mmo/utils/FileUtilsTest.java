@@ -225,4 +225,20 @@ public class FileUtilsTest {
         assertEquals("test/test-dir2/", FileUtils.removeDoubleDotInDir("test/test-dir1/../test-dir2"));
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testGetRelativeFileNullPath () throws IOException {
+        FileUtils.getRelativeFile(null, new File("."));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testGetRelativeFileNullPath1 () throws IOException {
+        FileUtils.getRelativeFile(new File("."), null);
+    }
+
+    @Test
+    public void testGetRelativeFile () throws IOException {
+        assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d/"), new File("/a/b/")).getPath().replace("\\", "/"));
+        assertEquals("../c/d", FileUtils.getRelativeFile(new File("/a/b/../c/d/"), new File("/a/b/")).getPath().replace("\\", "/"));
+    }
+
 }
