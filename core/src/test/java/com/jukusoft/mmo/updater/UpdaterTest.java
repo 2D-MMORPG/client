@@ -54,8 +54,8 @@ public class UpdaterTest {
     @Test
     public void testPrepareFileHashesNotExistentDir () throws Exception {
         Updater updater = new Updater();
-        updater.updaterDir = "../junit-tests/";
-        updater.prepareFileHashes("../junit-tests/updater/");
+        updater.updaterDir = "../junit-tests/updater/";
+        updater.prepareFileHashes("../junit-tests/");
     }
 
     @Test
