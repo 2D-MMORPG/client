@@ -192,8 +192,22 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void testRecursiveDeleteDirectory () {
-        //TODO: add code here
+    public void testRecursiveDeleteDirectory () throws IOException {
+        AppUtils.setAppName("junit-test");
+
+        //create cache directory
+        CacheUtils.createCacheDirIfAbsent();
+        CacheUtils.createCacheDirIfAbsent("my-cache2");
+
+        //write temporary file
+        FileUtils.writeFile(CacheUtils.getCacheDir("my-cache2") + "my-test-file.txt", "test2\nline2", StandardCharsets.UTF_8);
+
+        File f = new File(CacheUtils.getCachePath());
+
+        FileUtils.recursiveDeleteDirectory(f);
+
+        //check, if file exists
+        assertEquals(false, f.exists());
     }
 
 }

@@ -126,7 +126,16 @@ public class FileUtils {
     }
 
     public static void recursiveDeleteDirectory (File f) throws IOException {
-        Logger.getAnonymousLogger().log(Level.INFO, "delete directory: " + f.getAbsolutePath());
+        if (f == null) {
+            throw new NullPointerException("file cannot be null.");
+        }
+
+        if (!f.exists()) {
+            //we dont have to delete anything
+            Logger.getAnonymousLogger().log(Level.INFO, "Dont need to delete directory, because it doesnt exists: " + f.getAbsolutePath());
+
+            return;
+        }
 
         //check, if it is an directory
         if (f.isDirectory()) {
@@ -134,6 +143,8 @@ public class FileUtils {
                 recursiveDeleteDirectory(c);
             }
         }
+
+        Logger.getAnonymousLogger().log(Level.INFO, "delete directory / file: " + f.getAbsolutePath());
 
         //delete directory / file
         Files.delete(f.toPath());
