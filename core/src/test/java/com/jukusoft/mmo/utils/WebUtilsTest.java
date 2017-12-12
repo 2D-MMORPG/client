@@ -2,6 +2,8 @@ package com.jukusoft.mmo.utils;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 public class WebUtilsTest {
@@ -11,8 +13,8 @@ public class WebUtilsTest {
         new WebUtils();
     }
 
-    //@Test
-    public void testReadContentFromWebsite () {
+    @Test
+    public void testReadContentFromWebsite () throws IOException {
         assertEquals("my-test-content", WebUtils.readContentFromWebsite("http://mmo.jukusoft.com/api/junit-test-file.txt"));
     }
 

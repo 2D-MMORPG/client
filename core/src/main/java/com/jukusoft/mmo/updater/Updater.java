@@ -113,7 +113,7 @@ public class Updater {
         FileUtils.writeFile(saveFile.getAbsolutePath(), json.encode(), StandardCharsets.UTF_8);
     }
 
-    protected void loadUpdateChannelsFromServer () {
+    protected void loadUpdateChannelsFromServer () throws IOException {
         //read update channels file from server
         String content = WebUtils.readContentFromWebsite(updateChannelsURL);
 
