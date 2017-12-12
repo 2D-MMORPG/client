@@ -171,11 +171,11 @@ public class FileUtils {
         path = path.replace("\\", "/");
 
         if (path == null) {
-            throw new NullPointerException("path cannot be null.");
+            throw new NullPointerException(PATH_CANNOT_NULL);
         }
 
         if (path.isEmpty()) {
-            throw new IllegalArgumentException("path cannot be empty.");
+            throw new IllegalArgumentException(PATH_CANNOT_EMPTY);
         }
 
         if (path.startsWith("../")) {
