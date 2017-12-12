@@ -243,12 +243,6 @@ public class HashUtils {
         file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
         baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
 
-        String baseDirPath = baseDir.getCanonicalPath();
-
-        if (baseDirPath.endsWith(".")) {
-            baseDirPath = baseDirPath.substring(0, baseDirPath.length() - 1);
-        }
-
         //map with all file hashes (file path - file checksum)
         Map<String,String> hashMap = new HashMap<>();
 
@@ -259,7 +253,7 @@ public class HashUtils {
 
                     //add all generated hashes to map
                     hashMap.putAll(hashes);
-                } else if (c.isFile()) {
+                } else {
                     //it is an file
 
                     //generate file hash
@@ -270,8 +264,6 @@ public class HashUtils {
 
                     //put file hash to map
                     hashMap.put(relPath, fileHash);
-                } else {
-                    Logger.getAnonymousLogger().log(Level.WARNING, "Unknown file type.");
                 }
             }
         } else if (file.isFile()) {
@@ -280,8 +272,6 @@ public class HashUtils {
 
             //compute relative file path
             String relPath = FileUtils.getRelativeFile(file, baseDir).getPath().replace("\\", "/");
-
-            System.out.println("test");
 
             //put file hash to map
             hashMap.put(relPath, fileHash);
