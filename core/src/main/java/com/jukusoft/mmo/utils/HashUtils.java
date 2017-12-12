@@ -223,7 +223,7 @@ public class HashUtils {
         }
     }*/
 
-    public static Map<String,String> listFileHashesOfDirectory (File file) throws Exception {
+    public static Map<String,String> listFileHashesOfDirectory (File file, File baseDir) throws Exception {
         if (file == null) {
             throw new NullPointerException("dir / file cannot be null.");
         }
@@ -232,13 +232,21 @@ public class HashUtils {
             throw new IllegalArgumentException("directory / file doesnt exists: " + file.getAbsolutePath());
         }
 
+        if (baseDir == null) {
+            throw new NullPointerException("base dir cannot be null.");
+        }
+
+        if (!baseDir.exists()) {
+            throw new IllegalArgumentException("base dir doesnt exists: " + file.getAbsolutePath());
+        }
+
         //map with all file hashes (file path - file checksum)
         Map<String,String> hashMap = new HashMap<>();
 
         if (file.isDirectory()) {
             for (File c : file.listFiles()) {
                 if (c.isDirectory()) {
-                    Map<String,String> hashes = listFileHashesOfDirectory(c);
+                    Map<String,String> hashes = listFileHashesOfDirectory(c, baseDir);
 
                     //add all generated hashes to map
                     hashMap.putAll(hashes);
@@ -249,7 +257,7 @@ public class HashUtils {
                     String fileHash = HashUtils.computeMD5FileHash(c);
 
                     //put file hash to map
-                    hashMap.put(c.getCanonicalPath(), fileHash);
+                    hashMap.put(c.getAbsolutePath().replace("/./", "/").replace("\\.\\", "\\").replace(baseDir.getAbsolutePath().replace("/./", "/").replace("\\.\\", "\\"), ""), fileHash);
                 } else {
                     Logger.getAnonymousLogger().log(Level.WARNING, "Unknown file type.");
                 }

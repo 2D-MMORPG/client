@@ -71,19 +71,40 @@ public class HashUtilsTest {
 
     @Test (expected = NullPointerException.class)
     public void testListFileHashesOfNullDirectory () throws Exception {
-        HashUtils.listFileHashesOfDirectory(null);
+        HashUtils.listFileHashesOfDirectory(null, new File("."));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testListFileHashesOfNullDirectory1 () throws Exception {
+        HashUtils.listFileHashesOfDirectory(new File("."), null);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testListFileHashesOfNotExistentDirectory () throws Exception {
-        HashUtils.listFileHashesOfDirectory(new File("not-existent-directory"));
+        HashUtils.listFileHashesOfDirectory(new File("not-existent-directory"), new File("."));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testListFileHashesOfNotExistentDirectory1 () throws Exception {
+        HashUtils.listFileHashesOfDirectory(new File("."), new File("not-existent-directory"));
     }
 
     @Test
     public void testListFileHashesOfDirectory () throws Exception {
-        Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes").getAbsolutePath()));
+        Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes").getAbsolutePath()), new File("."));
 
         assertEquals(8, hashes.size());
+
+        //print hashes
+        for (Map.Entry<String,String> entry : hashes.entrySet()) {
+            System.out.println("[file=" + entry.getKey() + "] hash: " + entry.getValue());
+
+            assertEquals(false, entry.getKey().startsWith(".\\"));
+            assertEquals(false, entry.getKey().startsWith("./"));
+
+            //check, that its not an directory
+            assertEquals(false, entry.getKey().endsWith("/"));
+        }
     }
 
 }
