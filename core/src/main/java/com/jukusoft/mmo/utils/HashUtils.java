@@ -263,7 +263,7 @@ public class HashUtils {
                     String fileHash = HashUtils.computeMD5FileHash(c);
 
                     //compute relative file path
-                    String relPath = c.getAbsolutePath().replace(baseDirPath, "");
+                    String relPath = c.getAbsolutePath().replace(baseDirPath, "").replace("\\", "/");
 
                     //put file hash to map
                     hashMap.put(relPath, fileHash);
@@ -275,7 +275,8 @@ public class HashUtils {
             //generate file hash
             String fileHash = HashUtils.computeMD5FileHash(file);
 
-            String relPath = file.getAbsolutePath().replace(baseDirPath, "");
+            //compute relative file path
+            String relPath = file.getAbsolutePath().replace(baseDirPath, "").replace("\\", "/");
 
             //put file hash to map
             hashMap.put(relPath, fileHash);
