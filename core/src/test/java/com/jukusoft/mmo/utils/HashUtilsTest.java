@@ -104,6 +104,10 @@ public class HashUtilsTest {
 
             //check, that its not an directory
             assertEquals(false, entry.getKey().endsWith("/"));
+
+            //check relative paths
+            assertEquals(false, entry.getKey().contains(":"));
+            assertEquals(false, entry.getKey().startsWith("/"));
         }
     }
 
@@ -122,6 +126,10 @@ public class HashUtilsTest {
 
             //check, that its not an directory
             assertEquals(false, entry.getKey().endsWith("/"));
+
+            //check relative paths
+            assertEquals(false, entry.getKey().contains(":"));
+            assertEquals(false, entry.getKey().startsWith("/"));
         }
     }
 

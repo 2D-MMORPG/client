@@ -224,6 +224,12 @@ public class HashUtils {
     }*/
 
     public static Map<String,String> listFileHashesOfDirectory (File file, File baseDir) throws Exception {
+        file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
+        baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
+
+        System.out.println("dir: " + file.getAbsolutePath());
+        System.out.println("base dir: " + baseDir.getAbsolutePath());
+
         if (file == null) {
             throw new NullPointerException("dir / file cannot be null.");
         }
@@ -240,7 +246,7 @@ public class HashUtils {
             throw new IllegalArgumentException("base dir doesnt exists: " + file.getAbsolutePath());
         }
 
-        String baseDirPath = baseDir.getAbsolutePath();
+        String baseDirPath = baseDir.getCanonicalPath();
 
         if (baseDirPath.endsWith(".")) {
             baseDirPath = baseDirPath.substring(0, baseDirPath.length() - 1);
@@ -263,7 +269,9 @@ public class HashUtils {
                     String fileHash = HashUtils.computeMD5FileHash(c);
 
                     //compute relative file path
-                    String relPath = c.getAbsolutePath().replace(baseDirPath, "").replace("\\", "/");
+                    String relPath = FileUtils.getRelativeFile(c, baseDir).getPath().replace("\\", "/");//file.toPath().relativize(baseDir.toPath()).toFile().getPath();
+                    //String relPath = baseDir.toURI().relativize(c.toURI()).getPath();
+                    //String relPath = c.getCanonicalPath().replace(baseDirPath, "").replace("\\", "/");
 
                     //put file hash to map
                     hashMap.put(relPath, fileHash);
@@ -276,7 +284,11 @@ public class HashUtils {
             String fileHash = HashUtils.computeMD5FileHash(file);
 
             //compute relative file path
-            String relPath = file.getAbsolutePath().replace(baseDirPath, "").replace("\\", "/");
+            String relPath = FileUtils.getRelativeFile(file, baseDir).getPath().replace("\\", "/");
+            //String relPath = file.toPath().relativize(baseDir.toPath()).toFile().getPath();//.toURI().relativize(file.toURI()).getPath();
+            //String relPath = file.getCanonicalPath().replace(baseDirPath, "").replace("\\", "/");
+
+            System.out.println("test");
 
             //put file hash to map
             hashMap.put(relPath, fileHash);
