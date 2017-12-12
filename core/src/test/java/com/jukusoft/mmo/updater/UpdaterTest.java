@@ -11,8 +11,18 @@ import java.nio.file.Files;
 public class UpdaterTest {
 
     @BeforeClass
-    public static void beforeClass () {
-        //
+    public static void beforeClass () throws IOException {
+        if (new File("files.json").exists()) {
+            Files.delete(new File("files.json").toPath());
+        }
+
+        if (new File("../updater/files.json").exists()) {
+            Files.delete(new File("../updater/files.json").toPath());
+        }
+
+        if (new File("../junit-tests/files.json").exists()) {
+            Files.delete(new File("../junit-tests/files.json").toPath());
+        }
     }
 
     @AfterClass
