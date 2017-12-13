@@ -37,6 +37,7 @@ public class LogUtilsTest {
         }
 
         LogUtils.createLogDirIfAbsent(LogUtils.getLogPath());
+        LogUtils.createLogDirIfAbsent(LogUtils.getLogPath());
 
         //check, if directory exists
         assertEquals(true, new File(LogUtils.getLogPath("junit-test")).exists());
