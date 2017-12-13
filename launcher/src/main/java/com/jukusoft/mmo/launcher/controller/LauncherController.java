@@ -123,25 +123,29 @@ public class LauncherController implements FXMLController, Initializable {
 
                     //execute code in new thread
                     new Thread(() -> {
-                        this.updater.startUpdate(channel, new UpdateListener() {
-                            @Override
-                            public void onProgress(boolean finished, float progress) {
+                        try {
+                            this.updater.startUpdate(channel, new UpdateListener() {
+                                @Override
+                                public void onProgress(boolean finished, float progress) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onError(String errorMessage) {
-                                Platform.runLater(() -> {
-                                    progressLabel.setText("Error: " + errorMessage);
-                                    startButton.setDisable(false);
-                                });
-                            }
+                                @Override
+                                public void onError(String errorMessage) {
+                                    Platform.runLater(() -> {
+                                        progressLabel.setText("Error: " + errorMessage);
+                                        startButton.setDisable(false);
+                                    });
+                                }
 
-                            @Override
-                            public void onFinish(String newVersion) {
+                                @Override
+                                public void onFinish(String newVersion) {
 
-                            }
-                        });
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }).start();
                 });
             } else {

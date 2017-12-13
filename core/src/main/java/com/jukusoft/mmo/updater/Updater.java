@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Updater {
 
@@ -89,6 +91,8 @@ public class Updater {
     }
 
     protected void generateFileHashes (File saveFile, File dir) throws Exception {
+        Logger.getAnonymousLogger().log(Level.INFO, "index directory (with file hashing): " + dir.getAbsolutePath() + " and save to '" + saveFile.getAbsolutePath() + "'.");
+
         //generate file hashes of current directory
         Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(dir, new File("."));
 
@@ -118,7 +122,7 @@ public class Updater {
         json.put("files", array);
 
         //save json object
-        FileUtils.writeFile(saveFile.getAbsolutePath(), json.encode(), StandardCharsets.UTF_8);
+        FileUtils.writeFile(saveFile.getAbsolutePath(), json.encode().replace("},", "}," + System.lineSeparator()), StandardCharsets.UTF_8);
     }
 
     protected void loadUpdateChannelsFromServer () throws IOException {
@@ -162,7 +166,7 @@ public class Updater {
     /**
     * start update
     */
-    public void startUpdate (Channel channel, UpdateListener listener) {
+    public void startUpdate (Channel channel, UpdateListener listener) throws IOException {
         if (channel == null) {
             throw new NullPointerException("channel cannot be null.");
         }
@@ -170,6 +174,11 @@ public class Updater {
         if (listener == null) {
             throw new NullPointerException("listener cannot be null.");
         }
+
+        //get file list
+        String content = WebUtils.readContentFromWebsite(channel.getUpdateURL());
+        JsonObject json = new JsonObject(content);
+        JsonArray fileArray = json.getJsonArray("files");
     }
 
 }
