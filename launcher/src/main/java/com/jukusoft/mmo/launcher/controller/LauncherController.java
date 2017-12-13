@@ -126,8 +126,11 @@ public class LauncherController implements FXMLController, Initializable {
                         try {
                             this.updater.startUpdate(channel, new UpdateListener() {
                                 @Override
-                                public void onProgress(boolean finished, float progress) {
-
+                                public void onProgress(boolean finished, float progress, String message) {
+                                    Platform.runLater(() -> {
+                                        progressBar.setProgress(progress);
+                                        progressLabel.setText(message);
+                                    });
                                 }
 
                                 @Override
@@ -140,7 +143,18 @@ public class LauncherController implements FXMLController, Initializable {
 
                                 @Override
                                 public void onFinish(String newVersion) {
+                                    Platform.runLater(() -> {
+                                        progressLabel.setText("Update successful! Version: " + newVersion);
+                                        versionLabel.setText("Installed Version: " + newVersion);
 
+                                        //show start game button
+                                        startButton.setText("START GAME");
+                                        startButton.setDisable(false);
+                                        startButton.setOnAction(event1 -> {
+                                            //start game
+                                            startGame();
+                                        });
+                                    });
                                 }
                             });
                         } catch (IOException e) {
@@ -155,40 +169,8 @@ public class LauncherController implements FXMLController, Initializable {
                 this.startButton.setText("START GAME");
                 this.startButton.setDisable(false);
                 this.startButton.setOnAction((event) -> {
-                    try {
-                        //start process
-                        switch (PlatformUtils.getType()) {
-                            case WINDOWS:
-                                Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", "start.bat"});
-
-                                //quit launcher
-                                System.exit(0);
-
-                                break;
-                            case LINUX:
-                                String[] cmd = {"sh", "start.sh"};
-                                Runtime.getRuntime().exec(cmd);
-
-                                //quit launcher
-                                System.exit(0);
-
-                                break;
-                            case MAC_OS:
-                                Runtime.getRuntime().exec("start.cmd");
-
-                                //quit launcher
-                                System.exit(0);
-
-                                break;
-                            default:
-                                Logger.getAnonymousLogger().log(Level.SEVERE, "Unknown operating system.");
-                                progressLabel.setText("Error: Unknown operating system.");
-
-                                break;
-                        }
-                    } catch (IOException e) {
-                        Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
-                    }
+                    //start game
+                    this.startGame();
                 });
             }
         } catch (Exception e) {
@@ -207,6 +189,43 @@ public class LauncherController implements FXMLController, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    protected void startGame () {
+        try {
+            //start process
+            switch (PlatformUtils.getType()) {
+                case WINDOWS:
+                    Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", "start.bat"});
+
+                    //quit launcher
+                    System.exit(0);
+
+                    break;
+                case LINUX:
+                    String[] cmd = {"sh", "start.sh"};
+                    Runtime.getRuntime().exec(cmd);
+
+                    //quit launcher
+                    System.exit(0);
+
+                    break;
+                case MAC_OS:
+                    Runtime.getRuntime().exec("start.cmd");
+
+                    //quit launcher
+                    System.exit(0);
+
+                    break;
+                default:
+                    Logger.getAnonymousLogger().log(Level.SEVERE, "Unknown operating system.");
+                    progressLabel.setText("Error: Unknown operating system.");
+
+                    break;
+            }
+        } catch (IOException e) {
+            Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
+        }
     }
 
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -122,7 +123,9 @@ public class Updater {
         json.put("files", array);
 
         //save json object
-        FileUtils.writeFile(saveFile.getAbsolutePath(), json.encode().replace("},", "}," + System.lineSeparator()), StandardCharsets.UTF_8);
+        FileUtils.writeFile(saveFile.getAbsolutePath(), json.encodePrettily(), StandardCharsets.UTF_8);
+
+        Logger.getAnonymousLogger().log(Level.INFO, "indexing directory was successfully.");
     }
 
     protected void loadUpdateChannelsFromServer () throws IOException {
@@ -175,10 +178,97 @@ public class Updater {
             throw new NullPointerException("listener cannot be null.");
         }
 
-        //get file list
+        //check, if current version is equals to new version
+        if (channel.getNewestBuildNumber() == this.currentVersion.getBuildNumber()) {
+            //we dont need to update anything
+
+            listener.onFinish(this.currentVersion.getFullVersion());
+            return;
+        }
+
+        if (channel.getNewestBuildNumber() < this.currentVersion.getBuildNumber()) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Downgrade version from " + this.currentVersion.getBuildNumber() + " (\" + this.currentVersion.getFullVersion() + \") to build" + channel.getNewestBuildNumber());
+        }
+
+        listener.onProgress(false, 0.01f, "Find changes...");
+
+        //get changed files
+        List<String> changedFiles = this.getChangedFiles(channel);
+
+        listener.onProgress(false, 0.05f, "download files...");
+
+        //TODO: download files
+
+        listener.onProgress(true, 1f, "Client was updated successfully.");
+        listener.onFinish(channel.getNewestFullVersion());
+
+        //TODO: write newest version
+    }
+
+    /**
+    * get a list with all files, which was added or changed in new version
+     *
+     * @param channel update channel
+     *
+     * @return list with all files, which was changed in new version
+    */
+    public List<String> getChangedFiles (Channel channel) throws IOException {
+        //get file list of new update
         String content = WebUtils.readContentFromWebsite(channel.getUpdateURL());
         JsonObject json = new JsonObject(content);
         JsonArray fileArray = json.getJsonArray("files");
+
+        //get file list of current version
+        String content1 = FileUtils.readFile(updaterDir + "version.json", StandardCharsets.UTF_8);
+        JsonObject json1 = new JsonObject(content1);
+        JsonArray localFilesArray = json.getJsonArray("files");
+
+        //convert json array to map with files & checksum
+        Map<String,String> localFiles = this.convertJsonArrayToMap(localFilesArray);
+
+        //create new list with files to download
+        List<String> downloadFileList = new ArrayList<>();
+
+        //compare files
+        for (int i = 0; i < fileArray.size(); i++) {
+            JsonObject fileJson = fileArray.getJsonObject(i);
+
+            String file = fileJson.getString("file");
+            String checksum = fileJson.getString("checksum");
+
+            if (!localFiles.containsKey(file)) {
+                //file not found --> download file
+                downloadFileList.add(file);
+
+                continue;
+            }
+
+            String fileChecksum = localFiles.get(file);
+
+            if (!checksum.equals(fileChecksum)) {
+                //file was changed
+                downloadFileList.add(file);
+            }
+        }
+
+        return downloadFileList;
+    }
+
+    protected Map<String,String> convertJsonArrayToMap (JsonArray array) {
+        //create new map
+        Map<String,String> map = new HashMap<>();
+
+        for (int i = 0; i < array.size(); i++) {
+            //get json object
+            JsonObject json = array.getJsonObject(i);
+
+            String file = json.getString("file");
+            String checksum = json.getString("checksum");
+
+            map.put(file, checksum);
+        }
+
+        return map;
     }
 
 }

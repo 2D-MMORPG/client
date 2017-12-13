@@ -31,6 +31,8 @@ public class ChannelTest {
         json.put("public", true);
         json.put("update_url", "http://example.tld");
         json.put("newest_build", 1);
+        json.put("newest_version", "1.0.0-alpha");
+        json.put("newest_full_version", "1.0.0 Pre-Alpha");
 
         //load channel from json object
         channel.load(json);
@@ -42,6 +44,8 @@ public class ChannelTest {
         assertEquals(true, channel.publicChannel);
         assertEquals("http://example.tld", channel.updateURL);
         assertEquals(1, channel.newestBuildNumber);
+        assertEquals("1.0.0-alpha", channel.newestVersion);
+        assertEquals("1.0.0 Pre-Alpha", channel.newestFullVersion);
 
         //test getter methods
         assertEquals("test-name", channel.getName());
@@ -50,6 +54,8 @@ public class ChannelTest {
         assertEquals(true, channel.isPublic());
         assertEquals("http://example.tld", channel.getUpdateURL());
         assertEquals(1, channel.getNewestBuildNumber());
+        assertEquals("1.0.0-alpha", channel.getNewestVersion());
+        assertEquals("1.0.0 Pre-Alpha", channel.getNewestFullVersion());
     }
 
 }

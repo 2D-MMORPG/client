@@ -23,6 +23,10 @@ public class Channel {
     //newest build number
     protected int newestBuildNumber = -1;
 
+    //newest version
+    protected String newestVersion = "";
+    protected String newestFullVersion = "";
+
     /**
     * default constructor
     */
@@ -45,6 +49,8 @@ public class Channel {
         this.publicChannel = json.getBoolean("public");
         this.updateURL = json.getString("update_url");
         this.newestBuildNumber = json.getInteger("newest_build");
+        this.newestVersion = json.getString("newest_version");
+        this.newestFullVersion = json.getString("newest_full_version");
     }
 
     public String getName() {
@@ -71,4 +77,11 @@ public class Channel {
         return this.newestBuildNumber;
     }
 
+    public String getNewestVersion() {
+        return newestVersion;
+    }
+
+    public String getNewestFullVersion() {
+        return newestFullVersion;
+    }
 }

@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -126,10 +128,17 @@ public class UpdaterTest {
         Updater updater = new Updater();
         updater.load("../junit-tests/updater", "../");
 
-        updater.startUpdate(updater.listChannels().get(0), new UpdateListener() {
-            @Override
-            public void onProgress(boolean finished, float progress) {
+        //create new channel
+        Channel channel = new Channel();
+        channel.name = "test-channel";
+        channel.title = "Test Channel";
+        channel.newestBuildNumber = 1;
+        channel.updateURL = "http://mmo.jukusoft.com/update/junit-test/files.json";
 
+        updater.startUpdate(channel, new UpdateListener() {
+            @Override
+            public void onProgress(boolean finished, float progress, String message) {
+                Logger.getAnonymousLogger().log(Level.INFO, "progress: " + progress + ", message: " + message);
             }
 
             @Override
