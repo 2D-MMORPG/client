@@ -158,7 +158,7 @@ public class LauncherController implements FXMLController, Initializable {
                         //start process
                         switch (PlatformUtils.getType()) {
                             case WINDOWS:
-                                Runtime.getRuntime().exec("cmd.exe /c start.bat");
+                                Runtime.getRuntime().exec(new String[] {"cmd.exe", "/C", "start.bat"});
 
                                 //quit launcher
                                 System.exit(0);
