@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.launcher.window;
 
 import com.jukusoft.mmo.launcher.controller.LauncherController;
-import com.jukusoft.mmo.launcher.javafx.FXMLController;
 import com.jukusoft.mmo.launcher.javafx.FXMLWindow;
 import javafx.stage.Stage;
 

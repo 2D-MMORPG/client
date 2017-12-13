@@ -22,6 +22,7 @@ public class Updater {
     protected Version currentVersion = null;
 
     protected String updaterDir = "";
+    protected String baseDir = "";
 
     //list with all update channels
     protected List<Channel> channelList = new ArrayList<>();
@@ -40,10 +41,12 @@ public class Updater {
      *
      * @throws IOException if I/O error occurs
     */
-    public void load (String updaterDir, String baseDir) throws Exception {
+    public void load (String updaterDir, String baseDir) throws IOException {
         if (!updaterDir.endsWith("/")) {
             updaterDir = updaterDir + "/";
         }
+
+        this.baseDir = baseDir;
 
         this.updaterDir = updaterDir;
 

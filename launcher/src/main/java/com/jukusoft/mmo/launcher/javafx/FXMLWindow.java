@@ -56,7 +56,7 @@ public abstract class FXMLWindow implements Window {
                 loader.setController(controller);
             }
 
-            rootPane = loader.load();//FXMLLoader.load(new File(fxmlPath).toURI().toURL());
+            rootPane = loader.load();
         } catch (IOException e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "IOException: ", e);
             System.exit(1);
@@ -78,9 +78,6 @@ public abstract class FXMLWindow implements Window {
             //run controller logic in new thread
             new Thread(controller::run).start();
         }
-
-        //show window
-        //stage.show();
 
         //set on close request
         this.stage.setOnCloseRequest(event -> {

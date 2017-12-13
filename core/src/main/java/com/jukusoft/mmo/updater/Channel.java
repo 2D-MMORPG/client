@@ -1,9 +1,6 @@
 package com.jukusoft.mmo.updater;
 
-import com.jukusoft.mmo.utils.WebUtils;
 import io.vertx.core.json.JsonObject;
-
-import java.io.IOException;
 
 /**
 * Data model for update channel
