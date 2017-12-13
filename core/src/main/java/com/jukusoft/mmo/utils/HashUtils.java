@@ -240,6 +240,11 @@ public class HashUtils {
             throw new IllegalArgumentException("base dir doesnt exists: " + file.getAbsolutePath());
         }
 
+        if (file.getAbsolutePath().contains(".git")) {
+            //dont calculate file hashes of git directory
+            return new HashMap<>();
+        }
+
         file = new File(FileUtils.removeDoubleDotInDir(file.getCanonicalPath()));
         baseDir = new File(FileUtils.removeDoubleDotInDir(baseDir.getCanonicalPath()));
 

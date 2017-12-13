@@ -134,6 +134,13 @@ public class HashUtilsTest {
     }
 
     @Test
+    public void testListFileHashesOfDirectory2 () throws Exception {
+        Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../.git/").getAbsolutePath()), new File("."));
+
+        assertEquals(0, hashes.size());
+    }
+
+    @Test
     public void testListFileHashesOfDirectoryWithUpperBaseDir () throws Exception {
         Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(new File(new File("../junit-tests/file-hashes").getAbsolutePath()), new File("../"));
 
