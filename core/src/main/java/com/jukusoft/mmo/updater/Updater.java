@@ -163,7 +163,13 @@ public class Updater {
     * start update
     */
     public void startUpdate (Channel channel, UpdateListener listener) {
-        //
+        if (channel == null) {
+            throw new NullPointerException("channel cannot be null.");
+        }
+
+        if (listener == null) {
+            throw new NullPointerException("listener cannot be null.");
+        }
     }
 
 }

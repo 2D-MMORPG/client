@@ -105,4 +105,43 @@ public class UpdaterTest {
         assertEquals(true, updater.listChannels().size() > 0);
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testStartUpdateNull () throws IOException {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        updater.startUpdate(null, null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testStartUpdateNull1 () throws IOException {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        updater.startUpdate(updater.listChannels().get(0), null);
+    }
+
+    @Test
+    public void testStartUpdate () throws IOException {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        updater.startUpdate(updater.listChannels().get(0), new UpdateListener() {
+            @Override
+            public void onProgress(boolean finished, float progress) {
+                
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+
+            @Override
+            public void onFinish(String newVersion) {
+
+            }
+        });
+    }
+
 }
