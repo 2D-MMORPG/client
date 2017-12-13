@@ -125,7 +125,7 @@ public class Updater {
         }
 
         //put array to json object
-        json.put("files", array);
+        json.put(FILES_STR, array);
 
         //save json object
         FileUtils.writeFile(saveFile.getAbsolutePath(), json.encodePrettily(), StandardCharsets.UTF_8);
