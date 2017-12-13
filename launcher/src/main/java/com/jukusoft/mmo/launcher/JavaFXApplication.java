@@ -3,7 +3,6 @@ package com.jukusoft.mmo.launcher;
 import com.jukusoft.mmo.launcher.window.LauncherWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -39,7 +38,7 @@ public class JavaFXApplication extends Application {
         this.primaryStage = primaryStage;
 
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println("close application now.");
+            Logger.getAnonymousLogger().log(Level.INFO, "close application now.");
 
             System.exit(0);
         });
