@@ -104,6 +104,7 @@ public class LauncherController implements FXMLController, Initializable {
         //check, if channel is activated
         if (!channel.isActivated()) {
             progressLabel.setText("Sorry, this update channel isn't active yet!");
+            this.progressBar.setVisible(false);
             this.startButton.setDisable(true);
             return;
         }
@@ -116,6 +117,9 @@ public class LauncherController implements FXMLController, Initializable {
 
             if (newestBuildNumber > this.updater.getCurrentVersion().getBuildNumber()) {
                 //an new version is available
+                this.progressBar.setVisible(true);
+                this.progressBar.setProgress(0f);
+
                 this.startButton.setText("UPDATE");
                 this.startButton.setDisable(false);
                 this.startButton.setOnAction((event) -> {
@@ -128,6 +132,7 @@ public class LauncherController implements FXMLController, Initializable {
                                 @Override
                                 public void onProgress(boolean finished, float progress, String message) {
                                     Platform.runLater(() -> {
+                                        progressBar.setVisible(true);
                                         progressBar.setProgress(progress);
                                         progressLabel.setText(message);
                                     });
@@ -158,7 +163,7 @@ public class LauncherController implements FXMLController, Initializable {
                                 }
                             });
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
                         }
                     }).start();
                 });
@@ -166,9 +171,12 @@ public class LauncherController implements FXMLController, Initializable {
                 //client is up to date
                 this.progressLabel.setText("Client is up to date. :)");
 
+                //hide progress bar
+                this.progressBar.setVisible(false);
+
                 this.startButton.setText("START GAME");
                 this.startButton.setDisable(false);
-                this.startButton.setOnAction((event) -> {
+                this.startButton.setOnAction(event -> {
                     //start game
                     this.startGame();
                 });

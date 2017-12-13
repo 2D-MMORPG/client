@@ -19,6 +19,11 @@ import java.util.logging.Logger;
 
 public class Updater {
 
+    //some string constants
+    protected static final String FILE_STR = "file";
+    protected static final String FILES_STR = "files";
+    protected static final String CHECKSUM_STR = "checksum";
+
     protected String updateChannelsURL = "";
 
     //current version
@@ -112,8 +117,8 @@ public class Updater {
             JsonObject json1 = new JsonObject();
 
             //put data
-            json1.put("file", relFilePath);
-            json1.put("checksum", fileChecksum);
+            json1.put(FILE_STR, relFilePath);
+            json1.put(CHECKSUM_STR, fileChecksum);
 
             //add object to array
             array.add(json1);
@@ -216,12 +221,12 @@ public class Updater {
         //get file list of new update
         String content = WebUtils.readContentFromWebsite(channel.getUpdateURL());
         JsonObject json = new JsonObject(content);
-        JsonArray fileArray = json.getJsonArray("files");
+        JsonArray fileArray = json.getJsonArray(FILES_STR);
 
         //get file list of current version
         String content1 = FileUtils.readFile(updaterDir + "version.json", StandardCharsets.UTF_8);
         JsonObject json1 = new JsonObject(content1);
-        JsonArray localFilesArray = json.getJsonArray("files");
+        JsonArray localFilesArray = json1.getJsonArray(FILES_STR);
 
         //convert json array to map with files & checksum
         Map<String,String> localFiles = this.convertJsonArrayToMap(localFilesArray);
@@ -233,8 +238,8 @@ public class Updater {
         for (int i = 0; i < fileArray.size(); i++) {
             JsonObject fileJson = fileArray.getJsonObject(i);
 
-            String file = fileJson.getString("file");
-            String checksum = fileJson.getString("checksum");
+            String file = fileJson.getString(FILE_STR);
+            String checksum = fileJson.getString(CHECKSUM_STR);
 
             if (!localFiles.containsKey(file)) {
                 //file not found --> download file
@@ -262,8 +267,8 @@ public class Updater {
             //get json object
             JsonObject json = array.getJsonObject(i);
 
-            String file = json.getString("file");
-            String checksum = json.getString("checksum");
+            String file = json.getString(FILE_STR);
+            String checksum = json.getString(CHECKSUM_STR);
 
             map.put(file, checksum);
         }
