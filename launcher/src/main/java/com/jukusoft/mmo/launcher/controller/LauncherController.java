@@ -8,7 +8,6 @@ import com.jukusoft.mmo.utils.PlatformUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -26,6 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LauncherController implements FXMLController, Initializable {
+
+    protected static final String EXCEPTION_MESSAGE = "Exception was thrown: ";
 
     @FXML
     protected Button startButton;
@@ -74,10 +75,6 @@ public class LauncherController implements FXMLController, Initializable {
                     //select first option
                     this.channelComboBox.getSelectionModel().select(0);
 
-                    /*this.channelComboBox.setOnAction((event) -> {
-                        checkForUpdates();
-                    });*/
-
                     this.channelComboBox.valueProperty().addListener(new ChangeListener<String>() {
                         @Override public void changed(ObservableValue ov, String t, String t1) {
                             checkForUpdates();
@@ -89,7 +86,7 @@ public class LauncherController implements FXMLController, Initializable {
                     checkForUpdates();
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
                 System.exit(1);
             }
         }).start();
@@ -186,14 +183,14 @@ public class LauncherController implements FXMLController, Initializable {
                                 break;
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
                     }
                 });
             }
         } catch (Exception e) {
             progressLabel.setText("server error occurred!");
 
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.SEVERE, EXCEPTION_MESSAGE, e);
             return;
         }
     }

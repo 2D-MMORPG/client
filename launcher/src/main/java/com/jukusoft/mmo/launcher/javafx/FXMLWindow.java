@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Justin on 30.05.2017.
@@ -56,7 +58,7 @@ public abstract class FXMLWindow implements Window {
 
             rootPane = loader.load();//FXMLLoader.load(new File(fxmlPath).toURI().toURL());
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.SEVERE, "IOException: ", e);
             System.exit(1);
         }
 

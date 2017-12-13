@@ -9,6 +9,8 @@ import org.ini4j.Profile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Justin on 29.08.2017.
@@ -36,12 +38,6 @@ public class JavaFXApplication extends Application {
         //save primary stage
         this.primaryStage = primaryStage;
 
-        //undecorated style
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
-
-        //transparent window
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
-
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("close application now.");
 
@@ -62,13 +58,7 @@ public class JavaFXApplication extends Application {
         this.launcherWindow.setFullscreen(fullscreen);
         this.launcherWindow.getStage().setResizable(false);
 
-        //http://www.adam-bien.com/roller/abien/entry/completely_transparent_windows_stage_in
-        //this.launcherWindow.setTransparent();
-
         this.launcherWindow.setVisible(true);
-
-        //get pane
-        //this.launcherWindow.getRootPane().setStyle("-fx-background-image: url('file:" + bgImage + "')");
     }
 
     /**
@@ -79,7 +69,7 @@ public class JavaFXApplication extends Application {
             this.ini = new Ini(new File("./data/config/launcher.cfg"));
             this.defaultCfg = this.ini.get("Launcher");
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown: ", e);
             System.exit(1);
         }
     }
