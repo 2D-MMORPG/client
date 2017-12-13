@@ -165,7 +165,8 @@ public class LauncherController implements FXMLController, Initializable {
 
                                 break;
                             case LINUX:
-                                Runtime.getRuntime().exec("start.sh");
+                                String[] cmd = {"sh", "start.sh"};
+                                Runtime.getRuntime().exec(cmd);
 
                                 //quit launcher
                                 System.exit(0);
@@ -189,7 +190,7 @@ public class LauncherController implements FXMLController, Initializable {
                     }
                 });
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             progressLabel.setText("server error occurred!");
 
             e.printStackTrace();

@@ -30,6 +30,7 @@ public class ChannelTest {
         json.put("activated", true);
         json.put("public", true);
         json.put("update_url", "http://example.tld");
+        json.put("newest_build", 1);
 
         //load channel from json object
         channel.load(json);
@@ -40,6 +41,7 @@ public class ChannelTest {
         assertEquals(true, channel.activated);
         assertEquals(true, channel.publicChannel);
         assertEquals("http://example.tld", channel.updateURL);
+        assertEquals(1, channel.newestBuildNumber);
 
         //test getter methods
         assertEquals("test-name", channel.getName());
@@ -47,6 +49,7 @@ public class ChannelTest {
         assertEquals(true, channel.isActivated());
         assertEquals(true, channel.isPublic());
         assertEquals("http://example.tld", channel.getUpdateURL());
+        assertEquals(1, channel.getNewestBuildNumber());
     }
 
 }

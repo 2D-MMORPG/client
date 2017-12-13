@@ -70,7 +70,7 @@ public class Channel {
         return updateURL;
     }
 
-    public int getNewestBuildNumber () throws IOException {
+    public int getNewestBuildNumber () {
         return this.newestBuildNumber;
     }
 
