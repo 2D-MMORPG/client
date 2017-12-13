@@ -145,7 +145,7 @@ public class Updater {
         }
     }
 
-    protected void invalideFileHashes () throws IOException {
+    public void invalideFileHashes () throws IOException {
         if (new File(this.updaterDir + FILES_JSON_FILE).exists()) {
             Files.delete(new File(this.updaterDir + FILES_JSON_FILE).toPath());
         }

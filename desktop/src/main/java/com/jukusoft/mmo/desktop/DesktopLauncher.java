@@ -5,11 +5,13 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.jukusoft.mmo.desktop.config.WindowConfig;
 import com.jukusoft.mmo.game.Game;
 import com.jukusoft.mmo.launcher.LauncherMain;
+import com.jukusoft.mmo.updater.Updater;
 import com.jukusoft.mmo.utils.AppUtils;
 import com.jukusoft.mmo.utils.LogUtils;
 import com.jukusoft.mmo.utils.MapCacheUtils;
 import com.jukusoft.mmo.utils.ReportUtils;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +39,20 @@ public class DesktopLauncher {
             if (param.contains("--launcher")) {
                 //start launcher
                 LauncherMain.main(args);
+
+                return;
+            } else if (param.contains("--checksum")) {
+                //generate file checksum
+                Updater updater = new Updater();
+                try {
+                    updater.load("./updater/", ".");
+                    updater.invalideFileHashes();
+                    updater.prepareFileHashes(".");
+                } catch (IOException e) {
+                    Logger.getAnonymousLogger().log(Level.SEVERE, "IOException: ", e);
+                } catch (Exception e) {
+                    Logger.getAnonymousLogger().log(Level.SEVERE, "Exception: ", e);
+                }
 
                 return;
             }

@@ -129,7 +129,7 @@ public class UpdaterTest {
         updater.startUpdate(updater.listChannels().get(0), new UpdateListener() {
             @Override
             public void onProgress(boolean finished, float progress) {
-                
+
             }
 
             @Override
