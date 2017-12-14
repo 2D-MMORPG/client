@@ -73,6 +73,9 @@ public class UpdaterTest {
         Updater updater = new Updater();
         updater.updaterDir = "../junit-tests/updater/";
         updater.prepareFileHashes("../junit-tests/");
+
+        //prepare again
+        updater.prepareFileHashes("../junit-tests/");
     }
 
     @Test
