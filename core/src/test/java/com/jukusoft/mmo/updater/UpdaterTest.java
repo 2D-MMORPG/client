@@ -322,4 +322,20 @@ public class UpdaterTest {
         assertEquals(true, new File("../junit-tests/updater/").exists());
     }
 
+    @Test
+    public void testCreateBackupDirectoryIfAbsent () throws IOException {
+        Updater updater = new Updater();
+        updater.deleteBackupFiles("../junit-tests/updater/backup/");
+
+        assertEquals(false, new File("../junit-tests/updater/backup/").exists());
+        assertEquals(true, new File("../junit-tests/updater/").exists());
+
+        updater.createBackupDirectoryIfAbsent("../junit-tests/updater/backup/");
+        assertEquals(true, new File("../junit-tests/updater/backup/").exists());
+
+        //create directory again
+        updater.createBackupDirectoryIfAbsent("../junit-tests/updater/backup/");
+        assertEquals(true, new File("../junit-tests/updater/backup/").exists());
+    }
+
 }

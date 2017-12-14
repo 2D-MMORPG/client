@@ -291,8 +291,25 @@ public class Updater {
         //TODO: copy files to backup directory
     }
 
+    /**
+    * delete all backup files including backup directory
+     *
+     * @param backupDir path to backup directory
+    */
     protected void deleteBackupFiles (String backupDir) throws IOException {
         FileUtils.recursiveDeleteDirectory(new File(backupDir));
+    }
+
+    /**
+    * create backup directory, if not exists
+     *
+     * @param backupDir path to backup directory
+    */
+    protected void createBackupDirectoryIfAbsent (String backupDir) {
+        //create directory, if not exists
+        if (!new File(backupDir).exists()) {
+            new File(backupDir).mkdirs();
+        }
     }
 
     protected Map<String,String> convertJsonArrayToMap (JsonArray array) {
