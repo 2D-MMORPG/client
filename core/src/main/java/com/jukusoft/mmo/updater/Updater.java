@@ -261,6 +261,10 @@ public class Updater {
             if (!checksum.equals(fileChecksum)) {
                 //file was changed
                 downloadFileList.add(file);
+
+                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found changed file: " + file);
+            } else {
+                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found up to date file: " + file);
             }
         }
 
