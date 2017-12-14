@@ -197,7 +197,7 @@ public class UpdaterTest {
         updater.load("../junit-tests/updater", "../");
         List<String> list = updater.getChangedFiles(channel);
 
-        assertEquals(1, list.size());
+        assertEquals(3, list.size());
     }
 
 }
