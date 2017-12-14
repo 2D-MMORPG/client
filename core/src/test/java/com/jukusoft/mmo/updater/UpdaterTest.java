@@ -1,5 +1,7 @@
 package com.jukusoft.mmo.updater;
 
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -7,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -151,6 +154,21 @@ public class UpdaterTest {
 
             }
         });
+    }
+
+    @Test
+    public void testConvertJsonArrayToMap () {
+        JsonArray array = new JsonArray();
+
+        JsonObject json = new JsonObject();
+        json.put("file", "test-file.txt");
+        json.put("checksum", "test");
+        array.add(json);
+
+        Updater updater = new Updater();
+        Map<String,String> map = updater.convertJsonArrayToMap(array);
+
+        assertEquals(1, map.size());
     }
 
 }
