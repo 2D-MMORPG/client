@@ -288,6 +288,9 @@ public class Updater {
         //clear old backup files
         this.deleteBackupFiles(backupDir);
 
+        //create backup directory
+        this.createBackupDirectoryIfAbsent(backupDir);
+
         //TODO: copy files to backup directory
     }
 
