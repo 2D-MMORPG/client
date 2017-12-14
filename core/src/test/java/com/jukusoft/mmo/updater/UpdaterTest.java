@@ -311,15 +311,15 @@ public class UpdaterTest {
     @Test
     public void testDeleteBackupFiles () throws IOException {
         //create directory, if not exists
-        if (!new File("../junit-tests/updater/backup").exists()) {
-            new File("../junit-tests/updater/backup").mkdirs();
+        if (!new File("../junit-tests/updater/backup/").exists()) {
+            new File("../junit-tests/updater/backup/").mkdirs();
         }
 
         Updater updater = new Updater();
-        updater.deleteBackupFiles("../junit-tests/updater/backup");
+        updater.deleteBackupFiles("../junit-tests/updater/backup/");
 
-        assertEquals(false, new File("../junit-tests/updater/backup").exists());
-        assertEquals(true, new File("../junit-tests/updater"));
+        assertEquals(false, new File("../junit-tests/updater/backup/").exists());
+        assertEquals(true, new File("../junit-tests/updater/").exists());
     }
 
 }
