@@ -202,7 +202,8 @@ public class Updater {
 
         listener.onProgress(false, 0.05f, "download files...");
 
-        //TODO: backup old files (which will be replaced)
+        //backup old files (which will be replaced)
+        this.backupOldFiles(changedFiles, this.updaterDir + "backup");
 
         //TODO: download files
 
@@ -269,6 +270,22 @@ public class Updater {
         }
 
         return downloadFileList;
+    }
+
+    /**
+    * copy files to updater/backup directory
+    */
+    protected void backupOldFiles (List<String> changedFiles, String backupDir) {
+        Logger.getAnonymousLogger().log(Level.INFO, "check backup directory: {0}", backupDir);
+
+        //create updater directory, if not exists
+        if (!new File(backupDir).exists()) {
+            Logger.getAnonymousLogger().log(Level.INFO, "Create backup directory: {0}", new File(backupDir).getAbsolutePath());
+
+            new File(backupDir).mkdirs();
+        }
+
+        //TODO: add code here
     }
 
     protected Map<String,String> convertJsonArrayToMap (JsonArray array) {

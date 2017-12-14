@@ -158,12 +158,104 @@ public class UpdaterTest {
 
             @Override
             public void onError(String errorMessage) {
-
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Error: {0}", errorMessage);
             }
 
             @Override
             public void onFinish(String newVersion) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Finished! New version: {0}", newVersion);
+            }
+        });
+    }
 
+    @Test
+    public void testStartUpdate1 () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+        updater.prepareFileHashes("../");
+
+        //create new channel
+        Channel channel = new Channel();
+        channel.name = "test-channel";
+        channel.title = "Test Channel";
+        channel.newestBuildNumber = 0;
+        channel.updateURL = "http://mmo.jukusoft.com/update/junit-test/files.json";
+
+        updater.startUpdate(channel, new UpdateListener() {
+            @Override
+            public void onProgress(boolean finished, float progress, String message) {
+                Logger.getAnonymousLogger().log(Level.INFO, "progress: " + progress + ", message: " + message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Error: {0}", errorMessage);
+            }
+
+            @Override
+            public void onFinish(String newVersion) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Finished! New version: {0}", newVersion);
+            }
+        });
+    }
+
+    @Test
+    public void testStartUpdate2 () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+        updater.prepareFileHashes("../");
+
+        //create new channel
+        Channel channel = new Channel();
+        channel.name = "test-channel";
+        channel.title = "Test Channel";
+        channel.newestBuildNumber = 2;
+        channel.updateURL = "http://mmo.jukusoft.com/update/junit-test/files.json";
+
+        updater.startUpdate(channel, new UpdateListener() {
+            @Override
+            public void onProgress(boolean finished, float progress, String message) {
+                Logger.getAnonymousLogger().log(Level.INFO, "progress: " + progress + ", message: " + message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Error: {0}", errorMessage);
+            }
+
+            @Override
+            public void onFinish(String newVersion) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Finished! New version: {0}", newVersion);
+            }
+        });
+    }
+
+    @Test
+    public void testStartUpdate3 () throws IOException {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+
+        //create new channel
+        Channel channel = new Channel();
+        channel.name = "test-channel";
+        channel.title = "Test Channel";
+        channel.newestBuildNumber = 1;
+        channel.updateURL = "http://mmo.jukusoft.com/update/junit-test/files.json";
+
+        updater.startUpdate(channel, new UpdateListener() {
+            @Override
+            public void onProgress(boolean finished, float progress, String message) {
+                Logger.getAnonymousLogger().log(Level.INFO, "progress: " + progress + ", message: " + message);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Error: {0}", errorMessage);
+            }
+
+            @Override
+            public void onFinish(String newVersion) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Finished! New version: {0}", newVersion);
             }
         });
     }
