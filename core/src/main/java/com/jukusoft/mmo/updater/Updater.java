@@ -202,6 +202,8 @@ public class Updater {
 
         listener.onProgress(false, 0.05f, "download files...");
 
+        //TODO: backup old files (which will be replaced)
+
         //TODO: download files
 
         listener.onProgress(true, 1f, "Client was updated successfully.");
@@ -228,7 +230,7 @@ public class Updater {
         JsonArray fileArray = json.getJsonArray(FILES_STR);
 
         //get file list of current version
-        String content1 = FileUtils.readFile(updaterDir + "files.json", StandardCharsets.UTF_8);
+        String content1 = FileUtils.readFile(updaterDir + FILES_JSON_FILE, StandardCharsets.UTF_8);
         JsonObject json1 = new JsonObject(content1);
         JsonArray localFilesArray = json1.getJsonArray(FILES_STR);
 
