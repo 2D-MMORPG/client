@@ -315,8 +315,8 @@ public class Updater {
 
             File dir = new File(FileUtils.getDirectoryOfFilePath(backupDir + path));
 
-            //create directory of file, if neccessary
-            if (dir.isDirectory() && !dir.exists()) {
+            //create parent directory of file, if neccessary
+            if (!dir.exists()) {
                 LOGGER.log(Level.INFO, "create backup directory: {0}", dir.getAbsolutePath());
                 dir.mkdirs();
             } else {
