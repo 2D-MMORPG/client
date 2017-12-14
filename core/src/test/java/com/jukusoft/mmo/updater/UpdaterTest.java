@@ -32,6 +32,10 @@ public class UpdaterTest {
         if (new File("../junit-tests/files.json").exists()) {
             Files.delete(new File("../junit-tests/files.json").toPath());
         }
+
+        if (new File("../junit-tests/updater/files.json").exists()) {
+            Files.delete(new File("../junit-tests/updater/files.json").toPath());
+        }
     }
 
     @AfterClass
@@ -46,6 +50,10 @@ public class UpdaterTest {
 
         if (new File("../junit-tests/files.json").exists()) {
             Files.delete(new File("../junit-tests/files.json").toPath());
+        }
+
+        if (new File("../junit-tests/updater/files.json").exists()) {
+            Files.delete(new File("../junit-tests/updater/files.json").toPath());
         }
     }
 
@@ -185,7 +193,7 @@ public class UpdaterTest {
     }
 
     @Test
-    public void testGetChangedFiles () throws IOException {
+    public void testGetChangedFiles () throws Exception {
         //create new channel
         Channel channel = new Channel();
         channel.name = "test-channel";
@@ -195,9 +203,14 @@ public class UpdaterTest {
 
         Updater updater = new Updater();
         updater.load("../junit-tests/updater", "../");
+        updater.invalideFileHashes();
+        updater.prepareFileHashes("../");
         List<String> list = updater.getChangedFiles(channel);
 
-        assertEquals(3, list.size());
+        assertEquals(2, list.size());
+        assertEquals(true, list.contains("../my-test-file"));
+        assertEquals(false, list.contains("../junit-tests/my-file1.txt"));
+        assertEquals(true, list.contains("../junit-tests/my-file2.txt"));
     }
 
 }

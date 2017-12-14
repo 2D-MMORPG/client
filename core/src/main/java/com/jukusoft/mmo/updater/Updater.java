@@ -251,6 +251,8 @@ public class Updater {
                 //file not found --> download file
                 downloadFileList.add(file);
 
+                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found new required file: " + file);
+
                 continue;
             }
 
