@@ -275,7 +275,7 @@ public class Updater {
     /**
     * copy files to updater/backup directory
     */
-    protected void backupOldFiles (List<String> changedFiles, String backupDir) {
+    protected void backupOldFiles (List<String> changedFiles, String backupDir) throws IOException {
         Logger.getAnonymousLogger().log(Level.INFO, "check backup directory: {0}", backupDir);
 
         //create updater directory, if not exists
@@ -285,7 +285,14 @@ public class Updater {
             new File(backupDir).mkdirs();
         }
 
-        //TODO: add code here
+        //clear old backup files
+        this.deleteBackupFiles(backupDir);
+
+        //TODO: copy files to backup directory
+    }
+
+    protected void deleteBackupFiles (String backupDir) throws IOException {
+        FileUtils.recursiveDeleteDirectory(new File(backupDir));
     }
 
     protected Map<String,String> convertJsonArrayToMap (JsonArray array) {
