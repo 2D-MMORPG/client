@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -336,6 +337,23 @@ public class UpdaterTest {
         //create directory again
         updater.createBackupDirectoryIfAbsent("../junit-tests/updater/backup/");
         assertEquals(true, new File("../junit-tests/updater/backup/").exists());
+    }
+
+    @Test
+    public void testBackupOldFiles () throws IOException {
+        Updater updater = new Updater();
+
+        List<String> changedList = new ArrayList<>();
+        changedList.add("../junit-tests/my-backup-file.txt");
+        changedList.add("../junit-tests/dir1/my-backup-file2.txt");
+
+        updater.backupOldFiles(changedList, "../junit-tests/updater/backup/");
+
+        //backup again (test override and path without slash)
+        updater.backupOldFiles(changedList, "../junit-tests/updater/backup");
+
+        assertEquals(true, new File("../junit-tests/updater/backup/junit-tests/my-backup-file.txt").exists());
+        assertEquals(true, new File("../junit-tests/updater/backup/junit-tests/dir1/my-backup-file2.txt").exists());
     }
 
 }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,9 @@ public class Updater {
     protected List<Channel> channelList = new ArrayList<>();
 
     protected static final String FILES_JSON_FILE = "files.json";
+
+    //logger instance
+    protected static final Logger LOGGER = Logger.getLogger("Updater");
 
     /**
     * default constructor
@@ -97,7 +101,7 @@ public class Updater {
     }
 
     protected void generateFileHashes (File saveFile, File dir) throws Exception {
-        Logger.getAnonymousLogger().log(Level.INFO, "index directory (with file hashing): " + dir.getAbsolutePath() + " and save to '" + saveFile.getAbsolutePath() + "'.");
+        LOGGER.log(Level.INFO, "index directory (with file hashing): " + dir.getAbsolutePath() + " and save to '" + saveFile.getAbsolutePath() + "'.");
 
         //generate file hashes of current directory
         Map<String,String> hashes = HashUtils.listFileHashesOfDirectory(dir, new File("."));
@@ -130,7 +134,7 @@ public class Updater {
         //save json object
         FileUtils.writeFile(saveFile.getAbsolutePath(), json.encodePrettily(), StandardCharsets.UTF_8);
 
-        Logger.getAnonymousLogger().log(Level.INFO, "indexing directory was successfully.");
+        LOGGER.log(Level.INFO, "indexing directory was successfully.");
     }
 
     protected void loadUpdateChannelsFromServer () throws IOException {
@@ -192,7 +196,7 @@ public class Updater {
         }
 
         if (channel.getNewestBuildNumber() < this.currentVersion.getBuildNumber()) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Downgrade version from " + this.currentVersion.getBuildNumber() + " (\" + this.currentVersion.getFullVersion() + \") to build" + channel.getNewestBuildNumber());
+            LOGGER.log(Level.WARNING, "Downgrade version from " + this.currentVersion.getBuildNumber() + " (\" + this.currentVersion.getFullVersion() + \") to build" + channel.getNewestBuildNumber());
         }
 
         listener.onProgress(false, 0.01f, "Find changes...");
@@ -252,7 +256,7 @@ public class Updater {
                 //file not found --> download file
                 downloadFileList.add(file);
 
-                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found new required file: {0}", file);
+                LOGGER.log(Level.INFO, "Updater has found new required file: {0}", file);
 
                 continue;
             }
@@ -263,9 +267,9 @@ public class Updater {
                 //file was changed
                 downloadFileList.add(file);
 
-                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found changed file: {0}", file);
+                LOGGER.log(Level.INFO, "Updater has found changed file: {0}", file);
             } else {
-                Logger.getAnonymousLogger().log(Level.INFO, "Updater has found up to date file: {0}", file);
+                LOGGER.log(Level.INFO, "Updater has found up to date file: {0}", file);
             }
         }
 
@@ -276,11 +280,16 @@ public class Updater {
     * copy files to updater/backup directory
     */
     protected void backupOldFiles (List<String> changedFiles, String backupDir) throws IOException {
-        Logger.getAnonymousLogger().log(Level.INFO, "check backup directory: {0}", backupDir);
+        //check, that backup directory path ends with /
+        if (!backupDir.endsWith(File.separator)) {
+            backupDir += File.separator;
+        }
+
+        LOGGER.log(Level.INFO, "check backup directory: {0}", backupDir);
 
         //create updater directory, if not exists
         if (!new File(backupDir).exists()) {
-            Logger.getAnonymousLogger().log(Level.INFO, "Create backup directory: {0}", new File(backupDir).getAbsolutePath());
+            LOGGER.log(Level.INFO, "Create backup directory: {0}", new File(backupDir).getAbsolutePath());
 
             new File(backupDir).mkdirs();
         }
@@ -291,7 +300,34 @@ public class Updater {
         //create backup directory
         this.createBackupDirectoryIfAbsent(backupDir);
 
-        //TODO: copy files to backup directory
+        //copy files to backup directory
+        for (String filePath : changedFiles) {
+            //check, if file exists
+            if (!new File(filePath).exists()) {
+                //this file will be created, but doesnt exists yet
+                continue;
+            }
+
+            String path = filePath.replace("\\", "/").replace("../", "/");
+
+            Path sourcePath = new File(filePath).toPath();
+            Path targetPath = new File(backupDir + path).toPath();
+
+            File dir = new File(FileUtils.getDirectoryOfFilePath(backupDir + path));
+
+            //create directory of file, if neccessary
+            if (dir.isDirectory() && !dir.exists()) {
+                LOGGER.log(Level.INFO, "create backup directory: {0}", dir.getAbsolutePath());
+                dir.mkdirs();
+            } else {
+                LOGGER.log(Level.INFO, "backup directory already exists: {0}", dir.getAbsolutePath());
+            }
+
+            LOGGER.log(Level.INFO, "Copy file {0} to backup directory: {1}", new String[]{sourcePath.toString(), targetPath.toString()});
+
+            //copy file
+            Files.copy(sourcePath, targetPath);
+        }
     }
 
     /**

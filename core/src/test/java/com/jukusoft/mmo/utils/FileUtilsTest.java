@@ -266,4 +266,18 @@ public class FileUtilsTest {
         assertEquals("c/d", FileUtils.getRelativeFile(new File("/a/b/c/d/"), new File("/a/../a/b/")).getPath().replace("\\", "/"));
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetDirectoryOfFilePathDirectory () {
+        FileUtils.getDirectoryOfFilePath("/test/my/dir/");
+    }
+
+    @Test
+    public void testGetDirectoryOfFilePath () {
+        assertEquals("/test/my/dir/", FileUtils.getDirectoryOfFilePath("/test/my/dir/my-file.txt"));
+        assertEquals("C:/test/my/dir/", FileUtils.getDirectoryOfFilePath("C:/test/my/dir/my-file.txt"));
+        assertEquals("/dir1/", FileUtils.getDirectoryOfFilePath("/dir1/test.txt"));
+        assertEquals("/", FileUtils.getDirectoryOfFilePath("/test.txt"));
+        assertEquals("C:/", FileUtils.getDirectoryOfFilePath("C:/test.txt"));
+    }
+
 }

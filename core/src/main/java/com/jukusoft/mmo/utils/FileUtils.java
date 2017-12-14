@@ -262,4 +262,24 @@ public class FileUtils {
         return new File(result.toString() + File.separator);
     }
 
+    public static String getDirectoryOfFilePath (String filePath) {
+        filePath = filePath.replace("\\", "/");
+
+        if (filePath.endsWith("/")) {
+            //file path is an directory
+            throw new IllegalArgumentException("file path cannot be an directory path.");
+        }
+
+        String[] array = filePath.split("/");
+
+        //directory path
+        String dirPath = "";
+
+        for (int i = 0; i < array.length - 1; i++) {
+            dirPath += array[i] + "/";
+        }
+
+        return dirPath;
+    }
+
 }
