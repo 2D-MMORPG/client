@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -156,6 +157,12 @@ public class UpdaterTest {
         });
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testConvertJsonArrayToMapNull () {
+        Updater updater = new Updater();
+        Map<String,String> map = updater.convertJsonArrayToMap(null);
+    }
+
     @Test
     public void testConvertJsonArrayToMap () {
         JsonArray array = new JsonArray();
@@ -169,6 +176,28 @@ public class UpdaterTest {
         Map<String,String> map = updater.convertJsonArrayToMap(array);
 
         assertEquals(1, map.size());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testGetChangedFilesNull () throws IOException {
+        Updater updater = new Updater();
+        updater.getChangedFiles(null);
+    }
+
+    @Test
+    public void testGetChangedFiles () throws IOException {
+        //create new channel
+        Channel channel = new Channel();
+        channel.name = "test-channel";
+        channel.title = "Test Channel";
+        channel.newestBuildNumber = 1;
+        channel.updateURL = "http://mmo.jukusoft.com/update/junit-test/files.json";
+
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
+        List<String> list = updater.getChangedFiles(channel);
+
+        assertEquals(1, list.size());
     }
 
 }

@@ -218,13 +218,17 @@ public class Updater {
      * @return list with all files, which was changed in new version
     */
     public List<String> getChangedFiles (Channel channel) throws IOException {
+        if (channel == null) {
+            throw new NullPointerException("channel cannot be null.");
+        }
+
         //get file list of new update
         String content = WebUtils.readContentFromWebsite(channel.getUpdateURL());
         JsonObject json = new JsonObject(content);
         JsonArray fileArray = json.getJsonArray(FILES_STR);
 
         //get file list of current version
-        String content1 = FileUtils.readFile(updaterDir + "version.json", StandardCharsets.UTF_8);
+        String content1 = FileUtils.readFile(updaterDir + "files.json", StandardCharsets.UTF_8);
         JsonObject json1 = new JsonObject(content1);
         JsonArray localFilesArray = json1.getJsonArray(FILES_STR);
 
@@ -260,6 +264,10 @@ public class Updater {
     }
 
     protected Map<String,String> convertJsonArrayToMap (JsonArray array) {
+        if (array == null) {
+            throw new NullPointerException("array cannot be null.");
+        }
+
         //create new map
         Map<String,String> map = new HashMap<>();
 
