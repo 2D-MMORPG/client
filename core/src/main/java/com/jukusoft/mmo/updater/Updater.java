@@ -216,7 +216,15 @@ public class Updater {
         listener.onProgress(true, 1f, "Client was updated successfully");
         listener.onFinish(channel.getNewestFullVersion());
 
-        //TODO: write newest version
+        //update version
+        this.currentVersion.setBuildNumber(channel.getNewestBuildNumber());
+        this.currentVersion.setBuildDate(channel.getBuildDate());
+        this.currentVersion.setBuildTime(channel.getBuildTime());
+        this.currentVersion.setVersion(channel.getNewestVersion());
+        this.currentVersion.setFullVersion(channel.getNewestFullVersion());
+
+        //write newest version
+        this.currentVersion.save(new File(this.updaterDir + "version.json"));
     }
 
     /**

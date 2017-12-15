@@ -1,6 +1,12 @@
 package com.jukusoft.mmo.updater;
 
+import com.jukusoft.mmo.utils.FileUtils;
 import io.vertx.core.json.JsonObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 /**
 * data model for updater/version.json file
@@ -44,27 +50,76 @@ public class Version {
         this.updateURL = json.getString("update_channel_url");
     }
 
+    public void save (File file) throws IOException {
+        //delete file, if exiss
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+
+        //create new file
+        file.createNewFile();
+
+        //create json object
+        JsonObject json = new JsonObject();
+        json.put("version", this.version);
+        json.put("full_version", this.fullVersion);
+        json.put("build_number", this.buildNumber);
+        json.put("build_date", this.buildDate);
+        json.put("build_time", this.buildTime);
+        json.put("update_channel_url", this.updateURL);
+
+        //convert json object to string
+        String jsonStr = json.encodePrettily();
+
+        FileUtils.writeFile(file.getAbsolutePath(), jsonStr, StandardCharsets.UTF_8);
+    }
+
     public String getVersion() {
         return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getFullVersion() {
         return fullVersion;
     }
 
+    public void setFullVersion(String fullVersion) {
+        this.fullVersion = fullVersion;
+    }
+
     public int getBuildNumber() {
         return buildNumber;
+    }
+
+    public void setBuildNumber(int buildNumber) {
+        this.buildNumber = buildNumber;
     }
 
     public String getBuildDate() {
         return buildDate;
     }
 
+    public void setBuildDate(String buildDate) {
+        this.buildDate = buildDate;
+    }
+
     public String getBuildTime() {
         return buildTime;
+    }
+
+    public void setBuildTime(String buildTime) {
+        this.buildTime = buildTime;
     }
 
     public String getUpdateURL() {
         return updateURL;
     }
+
+    public void setUpdateURL(String updateURL) {
+        this.updateURL = updateURL;
+    }
+
 }
