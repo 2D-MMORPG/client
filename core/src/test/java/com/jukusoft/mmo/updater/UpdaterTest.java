@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.updater;
 
+import com.jukusoft.mmo.utils.FileUtils;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.junit.AfterClass;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,14 @@ public class UpdaterTest {
         if (new File("../junit-tests/updater/files.json").exists()) {
             Files.delete(new File("../junit-tests/updater/files.json").toPath());
         }
+
+        if (new File("../my-test-file").exists()) {
+            new File("../my-test-file").delete();
+        }
+
+        //override files
+        FileUtils.writeFile("../junit-tests/my-file1.txt", "file1", StandardCharsets.UTF_8);
+        FileUtils.writeFile("../junit-tests/my-file2.txt", "file2", StandardCharsets.UTF_8);
     }
 
     @AfterClass
