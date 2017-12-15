@@ -374,13 +374,13 @@ public class Updater {
         return map;
     }
 
-    protected void downloadFile (Channel channel, String file, String baseURL) throws IOException {
+    protected void downloadFile (String file, String baseURL) throws IOException {
         //remove ../ in file path
         String fileURL = file.replace("\\", "/").replace("../", "");
 
         String downloadURL = baseURL + fileURL;
 
-        LOGGER.log(Level.INFO, "Download file " + downloadURL + " --> " + file);
+        LOGGER.log(Level.INFO, "Download file {0} --> {1}", new String[]{downloadURL, file});
 
         File targetFile = new File(file);
 
@@ -416,7 +416,7 @@ public class Updater {
             listener.onProgress(false, percentage, "Download: " + file);
 
             //download and replace file
-            this.downloadFile(channel, file, baseURL);
+            this.downloadFile(file, baseURL);
 
             percentage += percentagePerFile;
         }
