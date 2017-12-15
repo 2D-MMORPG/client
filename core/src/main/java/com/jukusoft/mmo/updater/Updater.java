@@ -386,7 +386,7 @@ public class Updater {
 
         //delete file, if exists
         if (targetFile.exists()) {
-            targetFile.delete();
+            Files.delete(targetFile.toPath());
         }
 
         Downloader downloader = new Downloader();
