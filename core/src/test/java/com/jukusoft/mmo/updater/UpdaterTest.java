@@ -66,6 +66,18 @@ public class UpdaterTest {
         if (new File("../junit-tests/updater/files.json").exists()) {
             Files.delete(new File("../junit-tests/updater/files.json").toPath());
         }
+
+        if (new File("../my-test-file").exists()) {
+            new File("../my-test-file").delete();
+        }
+
+        if (new File("my-test-file").exists()) {
+            new File("my-test-file").delete();
+        }
+
+        //override files
+        FileUtils.writeFile("../junit-tests/my-file1.txt", "file1", StandardCharsets.UTF_8);
+        FileUtils.writeFile("../junit-tests/my-file2.txt", "file2", StandardCharsets.UTF_8);
     }
 
     @Test

@@ -382,8 +382,20 @@ public class Updater {
 
         LOGGER.log(Level.INFO, "Download file " + downloadURL + " --> " + file);
 
+        File targetFile = new File(fileURL);
+
+        //delete file, if exists
+        if (targetFile.exists()) {
+            targetFile.delete();
+        }
+
         Downloader downloader = new Downloader();
-        downloader.startDownload(downloadURL, new File(fileURL));
+        downloader.startDownload(downloadURL, targetFile);
+
+        //wait while other thread is downloading
+        while (downloader.isDownloading()) {
+            Thread.yield();
+        }
     }
 
     protected void downloadFiles (Channel channel, List<String> changedFiles, UpdateListener listener) throws IOException {
