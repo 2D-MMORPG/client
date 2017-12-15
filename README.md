@@ -38,3 +38,9 @@ Replace "<SONAR_TOKEN>" with sonarcloud token.
 
 You can find sonarqube badges here:\
 https://github.com/QualInsight/qualinsight-plugins-sonarqube-badges/wiki/Measure-badges
+
+## Engine Architecture
+
+The game engine is based on [libGDX](https://libgdx.badlogicgames.com/).\
+\
+**TODO**: add engine architecture.
