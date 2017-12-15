@@ -382,7 +382,7 @@ public class Updater {
 
         LOGGER.log(Level.INFO, "Download file " + downloadURL + " --> " + file);
 
-        File targetFile = new File(fileURL);
+        File targetFile = new File(file);
 
         //delete file, if exists
         if (targetFile.exists()) {
