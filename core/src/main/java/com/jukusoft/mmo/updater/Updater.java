@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.updater;
 
+import com.jukusoft.mmo.downloader.Downloader;
 import com.jukusoft.mmo.utils.FileUtils;
 import com.jukusoft.mmo.utils.HashUtils;
 import com.jukusoft.mmo.utils.WebUtils;
@@ -209,9 +210,10 @@ public class Updater {
         //backup old files (which will be replaced)
         this.backupOldFiles(changedFiles, this.updaterDir + "backup");
 
-        //TODO: download files
+        //download files
+        this.downloadFiles(channel, changedFiles, listener);
 
-        listener.onProgress(true, 1f, "Client was updated successfully.");
+        listener.onProgress(true, 1f, "Client was updated successfully");
         listener.onFinish(channel.getNewestFullVersion());
 
         //TODO: write newest version
@@ -370,6 +372,44 @@ public class Updater {
         }
 
         return map;
+    }
+
+    protected void downloadFile (Channel channel, String file, String baseURL) throws IOException {
+        //remove ../ in file path
+        String fileURL = file.replace("\\", "/").replace("../", "");
+
+        String downloadURL = baseURL + fileURL;
+
+        LOGGER.log(Level.INFO, "Download file " + downloadURL + " --> " + file);
+
+        Downloader downloader = new Downloader();
+        downloader.startDownload(downloadURL, new File(fileURL));
+    }
+
+    protected void downloadFiles (Channel channel, List<String> changedFiles, UpdateListener listener) throws IOException {
+        //get file list of new update
+        String content = WebUtils.readContentFromWebsite(channel.getUpdateURL());
+        JsonObject json = new JsonObject(content);
+
+        //get downlaod base url
+        String baseURL = json.getString("base_download_url");
+
+        //0.05 is already used by changed files detection, see startUpdate()
+        float percentagePerFile = 0.95f / changedFiles.size();
+        float percentage = 0.05f;
+
+        //download all files
+        for (String file : changedFiles) {
+            //call listener
+            listener.onProgress(false, percentage, "Download: " + file);
+
+            //download and replace file
+            this.downloadFile(channel, file, baseURL);
+
+            percentage += percentagePerFile;
+        }
+
+        //all files are downloaded
     }
 
 }
