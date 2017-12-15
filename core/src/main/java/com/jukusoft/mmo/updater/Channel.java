@@ -22,6 +22,8 @@ public class Channel {
 
     //newest build number
     protected int newestBuildNumber = -1;
+    protected String buildDate = "";
+    protected String buildTime = "";
 
     //newest version
     protected String newestVersion = "";
@@ -51,6 +53,8 @@ public class Channel {
         this.newestBuildNumber = json.getInteger("newest_build");
         this.newestVersion = json.getString("newest_version");
         this.newestFullVersion = json.getString("newest_full_version");
+        this.buildDate = json.getString("newest_build_date");
+        this.buildTime = json.getString("newest_build_time");
     }
 
     public String getName() {
@@ -83,5 +87,13 @@ public class Channel {
 
     public String getNewestFullVersion() {
         return newestFullVersion;
+    }
+
+    public String getBuildDate() {
+        return buildDate;
+    }
+
+    public String getBuildTime() {
+        return buildTime;
     }
 }
