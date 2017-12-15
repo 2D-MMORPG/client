@@ -78,6 +78,17 @@ public class UpdaterTest {
         //override files
         FileUtils.writeFile("../junit-tests/my-file1.txt", "file1", StandardCharsets.UTF_8);
         FileUtils.writeFile("../junit-tests/my-file2.txt", "file2", StandardCharsets.UTF_8);
+
+        //reset version
+        Version version = new Version();
+        String content = FileUtils.readFile("../junit-tests/updater/version.json", StandardCharsets.UTF_8);
+        version.load(new JsonObject(content));
+        version.setBuildNumber(1);
+        version.setBuildDate("12.12.2017");
+        version.setBuildTime("09:38");
+        version.setVersion("0.0.1-dev-preview");
+        version.setFullVersion("0.0.1 Developer Preview Build 1");
+        version.save(new File("../junit-tests/updater/version.json"));
     }
 
     @Test
