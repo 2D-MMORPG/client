@@ -385,6 +385,9 @@ public class UpdaterTest {
         //backup again (test override and path without slash)
         updater.backupOldFiles(changedList, "../junit-tests/updater/backup");
 
+        //backup again (test override and path without slash)
+        updater.backupOldFiles(changedList, "../junit-tests/updater/backup" + File.separator);
+
         assertEquals(true, new File("../junit-tests/updater/backup/junit-tests/my-backup-file.txt").exists());
         assertEquals(true, new File("../junit-tests/updater/backup/junit-tests/dir1/my-backup-file2.txt").exists());
     }
