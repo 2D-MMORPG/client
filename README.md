@@ -43,4 +43,6 @@ https://github.com/QualInsight/qualinsight-plugins-sonarqube-badges/wiki/Measure
 
 The game engine is based on [libGDX](https://libgdx.badlogicgames.com/).\
 \
-**TODO**: add engine architecture.
+**TODO**: add engine architecture.\
+\
+![Game Engine Architecture](https://raw.githubusercontent.com/2D-MMORPG/planning/master/client/engine_architecture.png)
