@@ -1,8 +1,8 @@
 {
-    "version": "0.0.1-dev-preview",
-    "full_version": "0.0.1 Developer Preview Build 1",
-    "build_number": 1,
-    "build_date": "12.12.2017",
-    "build_time": "09:38",
-    "update_channel_url": "http://mmo.jukusoft.com/update/update_channels.json"
+  "version" : "0.0.1-dev-preview",
+  "full_version" : "0.0.1 Developer Preview Build 1",
+  "build_number" : 1,
+  "build_date" : "12.12.2017",
+  "build_time" : "09:38",
+  "update_channel_url" : "http://mmo.jukusoft.com/update/update_channels.json"
 }

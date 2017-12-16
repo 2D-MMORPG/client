@@ -13,6 +13,13 @@ import java.nio.file.Files;
 */
 public class Version {
 
+    protected static final String VERSION_STR = "version";
+    protected static final String FULL_VERSION_STR = "full_version";
+    protected static final String BUILD_NUMBER_STR = "build_number";
+    protected static final String BUILD_DATE_STR = "build_date";
+    protected static final String BUILD_TIME_STR = "build_time";
+    protected static final String UPDATE_URL_STR = "update_channel_url";
+
     protected String version = "";
     protected String fullVersion = "";
     protected int buildNumber = -1;
@@ -37,17 +44,17 @@ public class Version {
      * @param json json object
     */
     public void load (JsonObject json) {
-        if (!json.containsKey("version") || !json.containsKey("full_version") || !json.containsKey("build_number") || !json.containsKey("build_date") || !json.containsKey("build_time") || !json.containsKey("update_channel_url")) {
+        if (!json.containsKey(VERSION_STR) || !json.containsKey(FULL_VERSION_STR) || !json.containsKey(BUILD_NUMBER_STR) || !json.containsKey(BUILD_DATE_STR) || !json.containsKey(BUILD_TIME_STR) || !json.containsKey(UPDATE_URL_STR)) {
             throw new IllegalArgumentException("json object doesnt contains all required keys.");
         }
 
         //get values
-        this.version = json.getString("version");
-        this.fullVersion = json.getString("full_version");
-        this.buildNumber = json.getInteger("build_number");
-        this.buildDate = json.getString("build_date");
-        this.buildTime = json.getString("build_time");
-        this.updateURL = json.getString("update_channel_url");
+        this.version = json.getString(VERSION_STR);
+        this.fullVersion = json.getString(FULL_VERSION_STR);
+        this.buildNumber = json.getInteger(BUILD_NUMBER_STR);
+        this.buildDate = json.getString(BUILD_DATE_STR);
+        this.buildTime = json.getString(BUILD_TIME_STR);
+        this.updateURL = json.getString(UPDATE_URL_STR);
     }
 
     public void save (File file) throws IOException {
@@ -61,12 +68,12 @@ public class Version {
 
         //create json object
         JsonObject json = new JsonObject();
-        json.put("version", this.version);
-        json.put("full_version", this.fullVersion);
-        json.put("build_number", this.buildNumber);
-        json.put("build_date", this.buildDate);
-        json.put("build_time", this.buildTime);
-        json.put("update_channel_url", this.updateURL);
+        json.put(VERSION_STR, this.version);
+        json.put(FULL_VERSION_STR, this.fullVersion);
+        json.put(BUILD_NUMBER_STR, this.buildNumber);
+        json.put(BUILD_DATE_STR, this.buildDate);
+        json.put(BUILD_TIME_STR, this.buildTime);
+        json.put(UPDATE_URL_STR, this.updateURL);
 
         //convert json object to string
         String jsonStr = json.encodePrettily();
