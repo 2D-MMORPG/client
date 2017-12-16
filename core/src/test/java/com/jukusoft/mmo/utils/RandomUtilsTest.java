@@ -31,6 +31,10 @@ public class RandomUtilsTest {
     @Test
     public void testRollTheDice2 () {
         assertEquals(true, RandomUtils.rollTheDice(1));
+
+        for (int i = 1; i <= 6; i++) {
+            RandomUtils.rollTheDice(i);
+        }
     }
 
     @Test
