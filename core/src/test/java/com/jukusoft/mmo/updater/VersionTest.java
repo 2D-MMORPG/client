@@ -49,6 +49,9 @@ public class VersionTest {
         assertEquals("12.12.2017", version.getBuildDate());
         assertEquals("11.28", version.getBuildTime());
         assertEquals("http://example.tld", version.getUpdateURL());
+
+        version.setUpdateURL("http://example.tld2");
+        assertEquals("http://example.tld2", version.getUpdateURL());
     }
 
     @Test (expected = IllegalArgumentException.class)
