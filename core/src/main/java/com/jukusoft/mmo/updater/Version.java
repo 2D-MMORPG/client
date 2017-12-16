@@ -57,7 +57,7 @@ public class Version {
         }
 
         //create new file
-        file.createNewFile();
+        Files.createFile(file.toPath());
 
         //create json object
         JsonObject json = new JsonObject();
