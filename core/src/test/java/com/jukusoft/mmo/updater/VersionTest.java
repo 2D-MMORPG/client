@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import static org.junit.Assert.assertEquals;
 
@@ -164,7 +165,17 @@ public class VersionTest {
         //create new data model
         Version version = new Version();
 
+        if (new File("../junit-tests/version-test.json").exists()) {
+            Files.delete(new File("../junit-tests/version-test.json").toPath());
+        }
+
         version.save(new File("../junit-tests/version-test.json"));
+
+        //save again
+        version.save(new File("../junit-tests/version-test.json"));
+
+        //delete file
+        Files.delete(new File("../junit-tests/version-test.json").toPath());
     }
 
 }
