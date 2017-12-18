@@ -3,6 +3,9 @@ package com.jukusoft.mmo.updater;
 import io.vertx.core.json.JsonObject;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 public class VersionTest {
@@ -157,8 +160,11 @@ public class VersionTest {
     }
 
     @Test
-    public void testSave () {
-        //TODO: add code here
+    public void testSave () throws IOException {
+        //create new data model
+        Version version = new Version();
+
+        version.save(new File("../junit-tests/version-test.json"));
     }
 
 }
