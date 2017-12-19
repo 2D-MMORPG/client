@@ -10,7 +10,6 @@ import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
 
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,7 +67,7 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
         //create new network client
         this.netClient = this.vertx.createNetClient(this.netClientOptions);
 
-        LOGGER.log(Level.INFO, "try to connect to server: " + server + ":" + port);
+        LOGGER.log(Level.INFO, "try to connect to server: {0}: {1}", new String[]{server, "" + port});
 
         //connect to server
         this.netClient.connect(port, server, res -> {
@@ -132,7 +131,7 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
     public void send(Buffer msg) {
         if (!msg.toString().contains("password")) {
             //log
-            LOGGER.log(Level.INFO, "WRITE: " + msg);
+            LOGGER.log(Level.INFO, "WRITE: {0}", msg);
         } else {
             LOGGER.log(Level.INFO, "WRITE: ******** (contains password)");
         }
