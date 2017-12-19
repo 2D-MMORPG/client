@@ -12,6 +12,8 @@ import io.vertx.core.net.NetSocket;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VertxTCPConnection implements TCPConnection<Buffer> {
 
@@ -41,6 +43,8 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
     protected AtomicBoolean connected = new AtomicBoolean(false);
 
+    protected static final Logger LOGGER = Logger.getLogger("VertxTCPConnection");
+
     public VertxTCPConnection(Vertx vertx) {
         this.vertx = vertx;
     }
@@ -64,12 +68,12 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
         //create new network client
         this.netClient = this.vertx.createNetClient(this.netClientOptions);
 
-        System.out.println("try to connect to server: " + server + ":" + port);
+        LOGGER.log(Level.INFO, "try to connect to server: " + server + ":" + port);
 
         //connect to server
         this.netClient.connect(port, server, res -> {
             if (res.succeeded()) {
-                System.out.println("Connected!");
+                LOGGER.log(Level.INFO, "Connected!");
                 this.socket = res.result();
 
                 //initialize socket
@@ -80,7 +84,7 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
                 callback.handle(NetworkResult.complete(true));
             } else {
-                System.out.println("Failed to connect: " + res.cause().getMessage());
+                LOGGER.log(Level.INFO, "Failed to connect: " + res.cause().getMessage());
 
                 //set flag
                 connected.set(false);
@@ -108,7 +112,7 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
     protected void initSocket (NetSocket socket) {
         //set connection close handler
         socket.closeHandler(res -> {
-            System.err.println("Server connection was closed by server.");
+            LOGGER.log(Level.INFO, "Server connection was closed by server.");
 
             //reset flag
             this.connected.set(false);
@@ -118,12 +122,7 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
         //add message handler
         socket.handler(buffer -> {
-            //convert to string and json object
-            //String str = buffer.toString(StandardCharsets.UTF_8);
-
-            //System.out.println("message received: " + str);
-
-            System.out.println("RECEIVE: " + buffer.toString("UTF-8"));
+            LOGGER.log(Level.INFO, "RECEIVE: " + buffer.toString("UTF-8"));
 
             this.messageReceiver.onReceive(buffer);
         });
@@ -133,9 +132,9 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
     public void send(Buffer msg) {
         if (!msg.toString().contains("password")) {
             //log
-            System.out.println("WRITE: " + msg);
+            LOGGER.log(Level.INFO, "WRITE: " + msg);
         } else {
-            System.out.println("WRITE: ******** (contains password)");
+            LOGGER.log(Level.INFO, "WRITE: ******** (contains password)");
         }
 
         //write message to stream
