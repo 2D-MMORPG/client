@@ -38,6 +38,9 @@ public class VertxUDPConnection implements UDPConnection<Buffer> {
     protected String ip = "";
     protected int port = 0;
 
+    //Maximum Transmission Unit
+    protected final int MTU = 1200;
+
     public VertxUDPConnection(Vertx vertx) {
         this.vertx = vertx;
 
@@ -130,6 +133,10 @@ public class VertxUDPConnection implements UDPConnection<Buffer> {
             LOGGER.log(Level.INFO, "WRITE: {0}", msg);
         } else {
             LOGGER.log(Level.INFO, "WRITE: ******** (contains password)");
+        }
+
+        if (msg.length() > MTU) {
+            LOGGER.log(Level.WARNING, "message length is greater than MTU (" + MTU + "): {0} bytes", msg.length());
         }
 
         // Send a Buffer
