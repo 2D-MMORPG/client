@@ -1,7 +1,8 @@
-package com.jukusoft.mmo.network.backend;
+package com.jukusoft.mmo.network.backend.impl;
 
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkResult;
+import com.jukusoft.mmo.network.backend.TCPConnection;
 import com.jukusoft.mmo.network.message.MessageReceiver;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -101,6 +102,9 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
         //close socket
         this.socket.close();
+
+        //reset flag
+        this.connected.set(false);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.jukusoft.mmo.network.backend;
 
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkResult;
+import com.jukusoft.mmo.network.backend.impl.VertxTCPConnection;
 import com.jukusoft.mmo.network.message.MessageReceiver;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
