@@ -39,7 +39,7 @@ public class VertxUDPConnection implements UDPConnection<Buffer> {
     protected int port = 0;
 
     //Maximum Transmission Unit
-    protected final int MTU = 1200;
+    protected static final int MTU = 1200;
 
     public VertxUDPConnection(Vertx vertx) {
         this.vertx = vertx;
