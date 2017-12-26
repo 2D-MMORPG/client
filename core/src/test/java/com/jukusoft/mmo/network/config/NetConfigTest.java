@@ -27,6 +27,8 @@ public class NetConfigTest {
     public void testConstructor () throws IOException {
         NetConfig config = new NetConfig("../data/config/junit-network.cfg");
 
+        assertEquals(50, config.getInt("sendDelay"));
+
         assertEquals(50, config.getReceiveDelay());
         assertEquals(50, config.getSendDelay());
     }
