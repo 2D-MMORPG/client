@@ -5,8 +5,8 @@
 !.gitignore
 !.travis.yml
 
-.cfg
-*.cfg
+sonarqube.cfg
+*sonarqube.cfg
 
 !window.cfg
 !*window.cfg
