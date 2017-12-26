@@ -9,4 +9,13 @@ public class DefaultNetworkManagerTest {
         new DefaultNetworkManager();
     }
 
+    @Test
+    public void testGetInstance () {
+        //create new manager instance
+        DefaultNetworkManager.getManagerInstance();
+
+        //get instance again
+        DefaultNetworkManager.getManagerInstance();
+    }
+
 }
