@@ -144,7 +144,7 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
 
             //load configuration
             try {
-                if (!new File("./data/config/network.cfg").exists()) {
+                if (isJUnitTest()) {
                     //its an junit test
                     instance.load("../data/config/junit-network.cfg");
                 } else {
@@ -158,6 +158,10 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         }
 
         return instance;
+    }
+
+    protected static boolean isJUnitTest () {
+        return !new File("./data/config/network.cfg").exists();
     }
 
 }
