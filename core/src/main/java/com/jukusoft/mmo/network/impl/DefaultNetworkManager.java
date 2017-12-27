@@ -57,7 +57,7 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         this.tcpConnection = new VertxTCPConnection(this.vertx);
         this.tcpConnection.setMessageReceiver((Buffer msg) -> {
             //call message listener
-            this.messageReceiver.onReceive(msg);
+            this.receive(msg);
 
             //count traffic
             this.counter.addReceiveBytes(msg.length(), PROTOCOL.TCP);
@@ -66,7 +66,7 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         this.udpConnection = new VertxUDPConnection(this.vertx);
         this.udpConnection.setMessageReceiver((Buffer msg) -> {
             //call message listener
-            this.messageReceiver.onReceive(msg);
+            this.receive(msg);
 
             //count traffic
             this.counter.addReceiveBytes(msg.length(), PROTOCOL.UDP);
@@ -75,12 +75,39 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         //set message listener
     }
 
+    protected void receive (Buffer msg) {
+        if (this.config.getReceiveDelay() > 0) {
+            this.executeDelayed(this.config.getReceiveDelay(), () -> {
+                //call message listener
+                this.messageReceiver.onReceive(msg);
+            });
+        } else {
+            //dont use delay
+
+            //call message listener
+            this.messageReceiver.onReceive(msg);
+        }
+    }
+
     public void load (String configFile) throws IOException {
         this.config = new NetConfig(configFile);
     }
 
     @Override
     public void send(Buffer msg, PROTOCOL protocol) {
+        //check for delay
+        if (this.config.getSendDelay() > 0) {
+            //send message with delay
+            this.executeDelayed(this.config.getSendDelay(), () -> {
+                this.executeSending(msg, protocol);
+            });
+        } else {
+            //dont use delay
+            this.executeSending(msg, protocol);
+        }
+    }
+
+    protected void executeSending (Buffer msg, PROTOCOL protocol) {
         //send message to specific network backend
         if (protocol == PROTOCOL.TCP) {
             this.tcpConnection.send(msg);
