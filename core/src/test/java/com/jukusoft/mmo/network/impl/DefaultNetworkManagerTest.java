@@ -59,4 +59,11 @@ public class DefaultNetworkManagerTest {
         networkManager.stopPeriodicTimer(id);
     }
 
+    @Test
+    public void testExecuteDelayed () {
+        DefaultNetworkManager networkManager = new DefaultNetworkManager();
+
+        networkManager.executeDelayed(50, () -> {});
+    }
+
 }
