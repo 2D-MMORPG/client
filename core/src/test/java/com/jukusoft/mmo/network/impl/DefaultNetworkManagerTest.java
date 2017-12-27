@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.nio.Buffer;
 
+import static org.junit.Assert.assertEquals;
+
 public class DefaultNetworkManagerTest {
 
     @Test
@@ -34,6 +36,11 @@ public class DefaultNetworkManagerTest {
         DefaultNetworkManager.getManagerInstance().setMessageReceiver(msg -> {
             //
         });
+    }
+
+    @Test
+    public void testIsJUnitTest () {
+        assertEquals(true, DefaultNetworkManager.isJUnitTest());
     }
 
     @Test
