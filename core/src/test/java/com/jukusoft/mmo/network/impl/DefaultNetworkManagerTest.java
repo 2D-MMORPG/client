@@ -16,6 +16,9 @@ public class DefaultNetworkManagerTest {
 
         //get instance again
         DefaultNetworkManager.getManagerInstance();
+
+        //shutdown network manager
+        DefaultNetworkManager.getManagerInstance().shutdown();
     }
 
 }
