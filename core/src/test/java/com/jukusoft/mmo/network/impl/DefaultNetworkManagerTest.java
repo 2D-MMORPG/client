@@ -51,10 +51,12 @@ public class DefaultNetworkManagerTest {
     }
 
     @Test
-    public void testTimer () {
+    public void testTimer () throws InterruptedException {
         DefaultNetworkManager networkManager = new DefaultNetworkManager();
 
         long id = networkManager.startPeriodicTimer(50l, () -> {});
+
+        Thread.sleep(100l);
 
         networkManager.stopPeriodicTimer(id);
     }
