@@ -50,4 +50,13 @@ public class DefaultNetworkManagerTest {
         });
     }
 
+    @Test
+    public void testTimer () {
+        DefaultNetworkManager networkManager = new DefaultNetworkManager();
+
+        long id = networkManager.startPeriodicTimer(50l, () -> {});
+
+        networkManager.stopPeriodicTimer(id);
+    }
+
 }
