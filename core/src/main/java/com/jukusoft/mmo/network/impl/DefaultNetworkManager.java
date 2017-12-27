@@ -94,6 +94,10 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
 
     @Override
     public void setMessageReceiver(MessageReceiver<Buffer> receiver) {
+        if (receiver == null) {
+            throw new NullPointerException("message receiver cannot be null.");
+        }
+
         this.messageReceiver = receiver;
     }
 

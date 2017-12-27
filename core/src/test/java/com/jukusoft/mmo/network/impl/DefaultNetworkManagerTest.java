@@ -1,6 +1,9 @@
 package com.jukusoft.mmo.network.impl;
 
+import com.jukusoft.mmo.network.message.MessageReceiver;
 import org.junit.Test;
+
+import java.nio.Buffer;
 
 public class DefaultNetworkManagerTest {
 
@@ -19,6 +22,25 @@ public class DefaultNetworkManagerTest {
 
         //shutdown network manager
         DefaultNetworkManager.getManagerInstance().shutdown();
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testSetNullMessageReceiver () {
+        DefaultNetworkManager.getManagerInstance().setMessageReceiver(null);
+    }
+
+    @Test
+    public void testSetMessageReceiver () {
+        DefaultNetworkManager.getManagerInstance().setMessageReceiver(msg -> {
+            //
+        });
+    }
+
+    @Test
+    public void testExecuteBlocking () {
+        new DefaultNetworkManager().executeBlocking(() -> {
+            //
+        });
     }
 
 }
