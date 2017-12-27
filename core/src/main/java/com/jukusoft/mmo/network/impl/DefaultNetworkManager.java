@@ -1,6 +1,10 @@
 package com.jukusoft.mmo.network.impl;
 
 import com.jukusoft.mmo.network.NetworkManager;
+import com.jukusoft.mmo.network.backend.TCPConnection;
+import com.jukusoft.mmo.network.backend.UDPConnection;
+import com.jukusoft.mmo.network.backend.impl.VertxTCPConnection;
+import com.jukusoft.mmo.network.backend.impl.VertxUDPConnection;
 import com.jukusoft.mmo.network.config.NetConfig;
 import com.jukusoft.mmo.network.message.MessageReceiver;
 import com.jukusoft.mmo.network.traffic.TrafficCounter;
@@ -31,6 +35,15 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
     //singleton instance
     protected static DefaultNetworkManager instance = null;
 
+    //tcp connection
+    protected TCPConnection<Buffer> tcpConnection = null;
+
+    //udp connection
+    protected UDPConnection<Buffer> udpConnection = null;
+
+    //message receiver
+    protected MessageReceiver<Buffer> messageReceiver = null;
+
     public DefaultNetworkManager () {
         this.options = new VertxOptions();
 
@@ -38,6 +51,28 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         this.vertx = Vertx.vertx(this.options);
 
         //create new traffic counter
+        this.counter = new TrafficCounter();
+
+        //create connections and set message listeners
+        this.tcpConnection = new VertxTCPConnection(this.vertx);
+        this.tcpConnection.setMessageReceiver((Buffer msg) -> {
+            //call message listener
+            this.messageReceiver.onReceive(msg);
+
+            //count traffic
+            this.counter.addReceiveBytes(msg.length(), PROTOCOL.TCP);
+        });
+
+        this.udpConnection = new VertxUDPConnection(this.vertx);
+        this.udpConnection.setMessageReceiver((Buffer msg) -> {
+            //call message listener
+            this.messageReceiver.onReceive(msg);
+
+            //count traffic
+            this.counter.addReceiveBytes(msg.length(), PROTOCOL.UDP);
+        });
+
+        //set message listener
     }
 
     public void load (String configFile) throws IOException {
@@ -46,7 +81,12 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
 
     @Override
     public void send(Buffer msg, PROTOCOL protocol) {
-        //TODO: send message to specific network backend
+        //send message to specific network backend
+        if (protocol == PROTOCOL.TCP) {
+            this.tcpConnection.send(msg);
+        } else {
+            this.udpConnection.send(msg);
+        }
 
         //count traffic
         this.counter.addSendBytes(msg.length(), protocol);
@@ -54,27 +94,44 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
 
     @Override
     public void setMessageReceiver(MessageReceiver<Buffer> receiver) {
+        this.messageReceiver = receiver;
+    }
 
+    @Override
+    public void shutdown() {
+        this.vertx.close();
     }
 
     @Override
     public void executeBlocking(Runnable runnable) {
+        this.vertx.executeBlocking(future -> {
+            //execute blocking code
+            runnable.run();
 
+            //task was executed
+            future.complete();
+        }, res -> {
+            //
+        });
     }
 
     @Override
-    public long startPeriodicTimer(long time, Runnable runnable) {
-        return 0;
+    public long startPeriodicTimer(long delay, Runnable runnable) {
+        return this.vertx.setPeriodic(delay, event -> {
+            runnable.run();
+        });
     }
 
     @Override
     public void stopPeriodicTimer(long timerID) {
-
+        this.vertx.cancelTimer(timerID);
     }
 
     @Override
-    public long executeDelayed(long time, Runnable runnable) {
-        return 0;
+    public long executeDelayed(long delay, Runnable runnable) {
+        return this.vertx.setTimer(delay, id -> {
+            runnable.run();
+        });
     }
 
     public static DefaultNetworkManager getManagerInstance () {

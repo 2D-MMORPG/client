@@ -13,6 +13,8 @@ public interface NetworkManager<T> extends IThreadPool {
 
     public void setMessageReceiver (MessageReceiver<T> receiver);
 
+    public void shutdown ();
+
     public static NetworkManager getInstance () {
         return DefaultNetworkManager.getManagerInstance();
     }
