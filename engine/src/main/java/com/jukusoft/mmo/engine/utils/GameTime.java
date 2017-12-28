@@ -28,10 +28,8 @@ public class GameTime {
 
         this.time = System.currentTimeMillis();
 
-        if (updateDelta) {
-            if (Gdx.graphics != null) {
-                this.delta = Gdx.graphics.getDeltaTime();
-            }
+        if (updateDelta && Gdx.graphics != null) {
+            this.delta = Gdx.graphics.getDeltaTime();
         }
     }
 
