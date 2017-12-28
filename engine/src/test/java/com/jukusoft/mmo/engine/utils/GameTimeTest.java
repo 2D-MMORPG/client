@@ -28,8 +28,16 @@ public class GameTimeTest {
         gameTime.update(true);
     }
 
-    @Test
+    @Test (expected = NullPointerException.class)
     public void testUpdate1 () {
+        GameTime gameTime = new GameTime();
+
+        //update
+        gameTime.update();
+    }
+
+    @Test
+    public void testUpdate2 () {
         GameTime gameTime = new GameTime();
 
         //check startup time
