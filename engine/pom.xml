@@ -19,6 +19,13 @@
             <version>${junit.version}</version>
         </dependency>
 
+        <!-- core -->
+		<dependency>
+			<groupId>com.jukusoft.mmo</groupId>
+			<artifactId>core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
         <!-- libGDX -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
