@@ -89,7 +89,7 @@ public class CameraHelper implements ModificationFinishedListener {
         this.camera = new OrthographicCamera(width, height);
 
         //move camera, so (0, 0) is on left bottom
-        this.camera.translate(width / 2, height / 2, 0);
+        this.camera.translate((float) width / 2, (float) height / 2, 0);
         this.camera.update();
 
         //set offset
@@ -115,20 +115,9 @@ public class CameraHelper implements ModificationFinishedListener {
     * calculate offset position, so that (0, 0) is on left bottom corner
     */
     public void calculateOffset () {
-        this.cameraOffsetX = getViewportWidth() / 2;
-        this.cameraOffsetY = getViewportHeight() / 2;
+        this.cameraOffsetX = (float) getViewportWidth() / 2;
+        this.cameraOffsetY = (float) getViewportHeight() / 2;
     }
-
-    /*public void setSize (int width, int height) {
-        this.width = width;
-        this.height = height;
-
-        //move camera, so (0, 0) is on left bottom
-        this.camera.translate(width / 2, height / 2, 0);
-        this.camera.update();
-
-        calculateOffset();
-    }*/
 
     /**
     * translate camera
@@ -412,8 +401,8 @@ public class CameraHelper implements ModificationFinishedListener {
      * @param targetY target y position in middle of viewport
     */
     public void setTargetMiddlePos (float targetX, float targetY) {
-        this.targetX = targetX - (this.getViewportWidth() / 2);
-        this.targetY = targetY - (this.getViewportHeight() / 2);
+        this.targetX = targetX - ((float) this.getViewportWidth() / 2);
+        this.targetY = targetY - ((float) this.getViewportHeight() / 2);
     }
 
     /**
