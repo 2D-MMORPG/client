@@ -92,15 +92,7 @@ public class CameraHelper implements ModificationFinishedListener {
         this.camera.translate((float) width / 2, (float) height / 2, 0);
         this.camera.update();
 
-        //set offset
-        //this.cameraOffsetX = this.camera.position.x;
-        //this.cameraOffsetY = this.camera.position.y;
-
         calculateOffset();
-
-        //create new viewport
-        //this.viewport = new FitViewport(width, height/*, this.camera*/);
-        //this.viewport.update(width, height, true);
 
         //create new temp camera params
         this.tempCameraParams = new TempCameraParams(this.x, this.y, 1);
@@ -189,9 +181,6 @@ public class CameraHelper implements ModificationFinishedListener {
         //set new width and height
         this.width = width;
         this.height = height;
-
-        //resize viewport
-        //this.viewport.update(width, height, true);
 
         //calculate offset
         this.calculateOffset();
@@ -385,8 +374,6 @@ public class CameraHelper implements ModificationFinishedListener {
         this.x = x;
         this.y = y;
 
-        //this.update(GameTime.getInstance());
-
         //sync camera helper position to libGDX camera
         this.syncPosToCamera();
 
@@ -529,10 +516,6 @@ public class CameraHelper implements ModificationFinishedListener {
     * sync camera helper position to libGDX original camera
     */
     protected void syncPosToCamera() {
-        /*this.camera.position.x = x + cameraOffsetX;
-        this.camera.position.y = y + cameraOffsetY;
-        this.camera.zoom = zoom;*/
-
         //set libGDX camera dimension
         this.camera.viewportWidth = this.width;
         this.camera.viewportHeight = this.height;
