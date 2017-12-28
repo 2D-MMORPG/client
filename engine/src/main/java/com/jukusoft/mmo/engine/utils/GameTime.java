@@ -20,10 +20,17 @@ public class GameTime {
     }
 
     public void update() {
+        this.update(true);
+    }
+
+    protected void update(boolean updateDelta) {
         //TODO: add offset, sync time with server
 
         this.time = System.currentTimeMillis();
-        this.delta = Gdx.graphics.getDeltaTime();
+
+        if (updateDelta) {
+            this.delta = Gdx.graphics.getDeltaTime();
+        }
     }
 
     public long getTime() {
