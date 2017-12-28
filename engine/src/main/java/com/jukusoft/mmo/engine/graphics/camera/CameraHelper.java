@@ -275,36 +275,45 @@ public class CameraHelper implements ModificationFinishedListener {
             float deltaY = this.y - lastY;
 
             //check, if camera can scroll on x axis and is in bounds
-            if (!this.canScrollX(deltaX)) {
-                if (this.x + deltaX < this.minX) {
-                    this.targetX = this.minX;
-                    this.x = this.minX;
-                } else if (this.x + deltaX + width > this.maxX) {
-                    if ((maxX - minX) < width) {
-                        //set min position, because bounds width is smaller than window width
-                        this.x = minX;
-                        this.targetX = minX;
-                    } else {
-                        this.targetX = this.maxX - width;
-                        this.x = this.maxX - width;
-                    }
-                }
-            }
+            this.correctXAxis(deltaX);
 
             //check, if camera can scroll on y axis and is in bounds
-            if (!this.canScrollY(deltaY)) {
-                if (this.y + deltaY < this.minY) {
-                    this.targetY = this.minY;
-                    this.y = this.minY;
-                } else if (this.y + deltaY + height > this.maxY) {
-                    if ((maxY - minY) < height) {
-                        //set min position, because bounds height is smaller than window height
-                        this.y = minY;
-                        this.targetY = minY;
-                    } else {
-                        this.targetY = this.maxY - height;
-                        this.y = this.maxY - height;
-                    }
+            this.correctYAxis(deltaY);
+        }
+    }
+
+    protected void correctXAxis (float deltaX) {
+        //check, if camera can scroll on x axis and is in bounds
+        if (!this.canScrollX(deltaX)) {
+            if (this.x + deltaX < this.minX) {
+                this.targetX = this.minX;
+                this.x = this.minX;
+            } else if (this.x + deltaX + width > this.maxX) {
+                if ((maxX - minX) < width) {
+                    //set min position, because bounds width is smaller than window width
+                    this.x = minX;
+                    this.targetX = minX;
+                } else {
+                    this.targetX = this.maxX - width;
+                    this.x = this.maxX - width;
+                }
+            }
+        }
+    }
+
+    protected void correctYAxis (float deltaY) {
+        if (!this.canScrollY(deltaY)) {
+            if (this.y + deltaY < this.minY) {
+                this.targetY = this.minY;
+                this.y = this.minY;
+            } else if (this.y + deltaY + height > this.maxY) {
+                if ((maxY - minY) < height) {
+                    //set min position, because bounds height is smaller than window height
+                    this.y = minY;
+                    this.targetY = minY;
+                } else {
+                    this.targetY = this.maxY - height;
+                    this.y = this.maxY - height;
                 }
             }
         }
