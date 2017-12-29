@@ -51,12 +51,12 @@ public class DefaultServiceManagerTest {
 
             @Override
             public void error(String tag, String message) {
-                Logger.getAnonymousLogger().log(Level.SEVERE, tag, message);
+                Logger.getAnonymousLogger().log(Level.SEVERE, tag + ": " + message);
             }
 
             @Override
             public void error(String tag, String message, Throwable exception) {
-                Logger.getAnonymousLogger().log(Level.SEVERE, tag, message);
+                Logger.getAnonymousLogger().log(Level.SEVERE, tag + ": " + message);
             }
 
             @Override
@@ -183,6 +183,13 @@ public class DefaultServiceManagerTest {
         ServiceManager serviceManager = new DefaultServiceManager();
 
         serviceManager.addService(new Other1DummyService(), Other1DummyService.class);
+    }
+
+    @Test
+    public void testServiceInjection4 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new OtherDummyService(), OtherDummyService.class);
     }
 
 }
