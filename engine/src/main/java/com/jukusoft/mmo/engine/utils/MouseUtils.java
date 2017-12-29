@@ -8,11 +8,20 @@ import com.jukusoft.mmo.engine.graphics.camera.CameraHelper;
 
 /**
  * Created by Justin on 12.02.2017.
+ *
+ * This class is not JUnit tested because a UnsatisifiedException (missing natives on JUnit test)
  */
 public class MouseUtils {
 
     protected static Vector3 tmpVector = new Vector3(0, 0, 0);
     protected static Vector2 tmpVector2 = new Vector2(0, 0);
+
+    /**
+    * private constructor
+    */
+    protected MouseUtils () {
+        //
+    }
 
     public static float getMouseX(float x, CameraHelper camera) {
         return (x + camera.getX()) * 1
@@ -34,7 +43,7 @@ public class MouseUtils {
         return camera.unproject(tmpVector);
     }
 
-    public Vector3 getMousePositionWithCamera(CameraHelper camera) {
+    public static Vector3 getMousePositionWithCamera(CameraHelper camera) {
         return camera.getMousePosition();
     }
 
