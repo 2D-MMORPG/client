@@ -20,12 +20,12 @@ public class WindowService implements IService {
 
     @Override
     public void onStart() {
-
+        //we dont need to do anything here
     }
 
     @Override
     public void onStop() {
-
+        //we dont need to cleanup memory
     }
 
     /**
@@ -54,9 +54,7 @@ public class WindowService implements IService {
     */
     public void resize (final int width, final int height) {
         //call resize listeners
-        this.resizeListeners.stream().forEach(consumer -> {
-            consumer.onResize(width, height);
-        });
+        this.resizeListeners.stream().forEach(consumer -> consumer.onResize(width, height));
     }
 
 }

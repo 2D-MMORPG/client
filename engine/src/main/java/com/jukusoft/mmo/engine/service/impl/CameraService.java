@@ -38,7 +38,7 @@ public class CameraService implements IService {
 
     @Override
     public void onStop() {
-
+        //we dont need to cleanup memory
     }
 
     /**

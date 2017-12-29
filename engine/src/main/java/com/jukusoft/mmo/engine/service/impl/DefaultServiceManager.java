@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 public class DefaultServiceManager implements ServiceManager {
 
+    protected static final String TAG_INJECT_SERVICE = "inject_service";
+
     //map with all services
     protected Map<Class<?>,IService> serviceMap = new ConcurrentHashMap<>();
 
@@ -84,7 +86,7 @@ public class DefaultServiceManager implements ServiceManager {
             InjectService annotation = field.getAnnotation(InjectService.class);
 
             if (annotation != null && IService.class.isAssignableFrom(field.getType())) {
-                Gdx.app.debug("inject_service", "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
+                Gdx.app.debug(TAG_INJECT_SERVICE, "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
                 injectServiceField(target, field, annotation.nullable());
             } else {
                 Gdx.app.error("ServiceManager", "InjectService annotation on wrong object: " + field.getName());
@@ -113,7 +115,7 @@ public class DefaultServiceManager implements ServiceManager {
 
                 if (value == null) {
                     if (nullable) {
-                        Gdx.app.debug("inject_service", "Service '" + field.getType().getSimpleName() + "' doesnt exists.");
+                        Gdx.app.debug(TAG_INJECT_SERVICE, "Service '" + field.getType().getSimpleName() + "' doesnt exists.");
                     } else {
                         throw new RequiredServiceNotFoundException("injected object cannot be null.");
                     }
@@ -121,19 +123,19 @@ public class DefaultServiceManager implements ServiceManager {
                     //set value of field
                     field.set(target, value);
 
-                    Gdx.app.debug("inject_service", "set value successfully: " + field.getType());
+                    Gdx.app.debug(TAG_INJECT_SERVICE, "set value successfully: " + field.getType());
                 }
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown in ServiceManager: ", e);
 
-                throw new RuntimeException("Couldn't inject service '" + field.getType() + "' in '"
+                throw new RequiredServiceNotFoundException("Couldn't inject service '" + field.getType() + "' in '"
                         + field.getDeclaringClass().getName() + "'. Exception: " + e.getLocalizedMessage());
             }
         } else if (!nullable) {
             throw new RequiredServiceNotFoundException("Service '" + field.getType()
                     + "' is required by class '" + field.getDeclaringClass().getName() + "' but does not exist.");
         } else {
-            Gdx.app.error("inject_service", "Service doesnt exists: " + field.getType().getSimpleName());
+            Gdx.app.error(TAG_INJECT_SERVICE, "Service doesnt exists: " + field.getType().getSimpleName());
         }
     }
 
