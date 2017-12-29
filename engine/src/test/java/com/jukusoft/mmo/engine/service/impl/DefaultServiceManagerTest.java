@@ -192,4 +192,13 @@ public class DefaultServiceManagerTest {
         serviceManager.addService(new OtherDummyService(), OtherDummyService.class);
     }
 
+    @Test (expected = RequiredServiceNotFoundException.class)
+    public void testServiceInjection5 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new DummyService(), DummyService.class);
+
+        serviceManager.addService(new FinalOtherDummyService(), FinalOtherDummyService.class);
+    }
+
 }
