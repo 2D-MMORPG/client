@@ -81,6 +81,32 @@ public class Shake1CameraModificationTest {
 
         assertEquals("camera mod is already shaking, elapsed: " + mod.elapsed + ", duration: " + mod.duration, false, mod.isShaking());
 
+        //start shaking camera
+        mod.shake(5, 100);
+
+        //update again
+        mod.onUpdate(GameTime.getInstance(), params, new ModificationFinishedListener() {
+            @Override
+            public <T extends CameraModification> void onModificationFinished(T mod, Class<T> cls) {
+
+            }
+        });
+
+        //start permanent shake
+        mod.startPermantentShake(4);
+
+        for (int i = 0; i < 100; i++) {
+            //update again
+            mod.onUpdate(GameTime.getInstance(), params, new ModificationFinishedListener() {
+                @Override
+                public <T extends CameraModification> void onModificationFinished(T mod, Class<T> cls) {
+
+                }
+            });
+        }
+
+        assertEquals(true, mod.isShaking());
+
         mod.dispose();
     }
 
