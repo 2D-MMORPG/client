@@ -86,6 +86,7 @@ public class Shake3CameraModification implements CameraModification {
 
     public void stopPermanentShake() {
         this.permanentShake = false;
+        this.elapsed = this.duration;
     }
 
 }

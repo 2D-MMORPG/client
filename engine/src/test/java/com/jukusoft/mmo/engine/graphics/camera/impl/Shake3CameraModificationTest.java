@@ -1,6 +1,5 @@
 package com.jukusoft.mmo.engine.graphics.camera.impl;
 
-import com.jukusoft.mmo.engine.graphics.camera.CameraHelper;
 import com.jukusoft.mmo.engine.graphics.camera.CameraModification;
 import com.jukusoft.mmo.engine.graphics.camera.ModificationFinishedListener;
 import com.jukusoft.mmo.engine.graphics.camera.TempCameraParams;
@@ -10,16 +9,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Shake1CameraModificationTest {
+public class Shake3CameraModificationTest {
 
     @Test
     public void testConstructor () {
-        new Shake1CameraModification();
+        new Shake3CameraModification();
     }
 
     @Test
     public void testUpdate () throws InterruptedException {
-        Shake1CameraModification mod = new Shake1CameraModification();
+        Shake3CameraModification mod = new Shake3CameraModification();
 
         assertEquals(false, mod.isShaking());
 

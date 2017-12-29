@@ -89,6 +89,7 @@ public class Shake2CameraModification implements CameraModification {
 
     public void stopPermanentShake() {
         this.permanentShake = false;
+        this.elapsed = this.duration;
     }
 
 }
