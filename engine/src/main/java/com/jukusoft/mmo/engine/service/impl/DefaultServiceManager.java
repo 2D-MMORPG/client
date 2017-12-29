@@ -29,6 +29,8 @@ public class DefaultServiceManager implements ServiceManager {
             throw new IllegalStateException("service '" + cls.getName() + "' already exists.");
         }
 
+        Gdx.app.debug("ServiceManager", "check for service injections in class: " + cls.getName());
+
         //inject services
         this.injectServices(service);
 
@@ -82,6 +84,8 @@ public class DefaultServiceManager implements ServiceManager {
             if (annotation != null && IService.class.isAssignableFrom(field.getType())) {
                 Gdx.app.debug("inject_service", "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
                 injectServiceField(target, field, annotation.nullable());
+            } else {
+                Gdx.app.error("ServiceManager", "InjectService annotation on wrong object: " + field.getName());
             }
         }
     }
@@ -109,7 +113,7 @@ public class DefaultServiceManager implements ServiceManager {
                     if (nullable) {
                         Gdx.app.debug("inject_service", "Service '" + field.getType().getSimpleName() + "' doesnt exists.");
                     } else {
-                        throw new NullPointerException("injected object cannot be null.");
+                        throw new RequiredServiceNotFoundException("injected object cannot be null.");
                     }
                 } else {
                     //set value of field
