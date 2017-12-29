@@ -5,7 +5,6 @@ import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
-import com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationException;
 
 import java.lang.reflect.Field;
 import java.util.Map;
