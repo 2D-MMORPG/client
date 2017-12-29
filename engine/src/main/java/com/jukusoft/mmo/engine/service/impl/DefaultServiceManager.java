@@ -9,6 +9,8 @@ import com.jukusoft.mmo.engine.service.ServiceManager;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DefaultServiceManager implements ServiceManager {
 
@@ -122,7 +124,7 @@ public class DefaultServiceManager implements ServiceManager {
                     Gdx.app.debug("inject_service", "set value successfully: " + field.getType());
                 }
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
+                Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown in ServiceManager: ", e);
 
                 throw new RuntimeException("Couldn't inject service '" + field.getType() + "' in '"
                         + field.getDeclaringClass().getName() + "'. Exception: " + e.getLocalizedMessage());
