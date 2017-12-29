@@ -5,10 +5,15 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.jukusoft.mmo.engine.utils.TestGameTime;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class DefaultCameraManagerTest {
 
@@ -42,7 +47,47 @@ public class DefaultCameraManagerTest {
 
     @Test
     public void testConstructor () {
-        new DefaultCameraManager(800, 600);
+        DefaultCameraManager manager = new DefaultCameraManager(800, 600);
+
+        assertNotNull(manager.getMainCamera());
+        assertNotNull(manager.getUICamera());
+    }
+
+    @Test
+    public void testGetCustomCamera () {
+        DefaultCameraManager manager = new DefaultCameraManager(800, 600);
+
+        assertEquals(0, manager.countCustomCameras());
+
+        assertNotNull(manager.getCustomCamera(0));
+
+        assertEquals(1, manager.countCustomCameras());
+
+        assertNotNull(manager.getCustomCamera(0));
+
+        assertEquals(1, manager.countCustomCameras());
+    }
+
+    @Test
+    public void testMaxCustomCameras () {
+        DefaultCameraManager manager = new DefaultCameraManager(800, 600);
+
+        assertEquals(true, manager.maxCustomCameras() > 0);
+    }
+
+    @Test
+    public void testUpdate () {
+        DefaultCameraManager manager = new DefaultCameraManager(800, 600);
+
+        //create new custom camera
+        manager.getCustomCamera(0);
+
+        TestGameTime time = new TestGameTime();
+        time.setDelta(0.2f);
+
+        for (int i = 0; i < 10; i++) {
+            manager.update(time);
+        }
     }
 
 }
