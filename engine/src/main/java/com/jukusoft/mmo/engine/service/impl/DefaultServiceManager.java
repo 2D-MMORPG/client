@@ -5,6 +5,7 @@ import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
+import com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationException;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -88,8 +89,6 @@ public class DefaultServiceManager implements ServiceManager {
             if (annotation != null && IService.class.isAssignableFrom(field.getType())) {
                 Gdx.app.debug(TAG_INJECT_SERVICE, "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
                 injectServiceField(target, field, annotation.nullable());
-            } else {
-                Gdx.app.error("ServiceManager", "InjectService annotation on wrong object: " + field.getName());
             }
         }
     }
