@@ -111,4 +111,16 @@ public class BaseAppTest {
         app.resize(800, 600);
     }
 
+    @Test
+    public void testGetFPS () {
+        BaseApp app = new BaseApp() {
+            @Override
+            protected void createServices(ServiceManager serviceManager) {
+                created = true;
+            }
+        };
+
+        assertEquals(true, app.getFPS() >= 0);
+    }
+
 }
