@@ -126,4 +126,89 @@ public class Shake1CameraModificationTest {
         mod.dispose();
     }
 
+    @Test
+    public void testUpdate1 () {
+        Shake1CameraModification mod = new Shake1CameraModification();
+
+        TestGameTime time = new TestGameTime();
+        time.setDelta(0.2f);
+
+        TempCameraParams params = new TempCameraParams(0, 0, 1);
+
+        assertEquals(false, mod.isShaking());
+
+        mod.isActive = true;
+        mod.elapsed = 0;
+        mod.duration = 100;
+
+        mod.onUpdate(time, params, createListener());
+
+        assertEquals(true, mod.isShaking());
+
+        mod.elapsed = mod.duration;
+
+        mod.onUpdate(time, params, createListener());
+
+        assertEquals(false, mod.isShaking());
+
+        mod.isActive = true;
+        mod.elapsed = 0;
+        mod.duration = 100;
+
+        mod.onUpdate(time, params, createListener());
+
+        assertEquals(true, mod.isShaking());
+
+        mod.startPermantentShake(5);
+
+        mod.onUpdate(time, params, createListener());
+
+        mod.stopPermanentShake();
+
+        mod.isActive = true;
+        mod.elapsed = 0;
+        mod.duration = 100;
+
+        mod.onUpdate(time, params, createListener());
+
+        assertEquals(true, mod.isShaking());
+
+        mod.isActive = true;
+        mod.elapsed = 0;
+        mod.duration = 100;
+        mod.permanentShake = true;
+
+        mod.onUpdate(time, params, createListener());
+
+        mod.isActive = true;
+        mod.elapsed = 0;
+        mod.duration = 100;
+        mod.permanentShake = false;
+
+        mod.onUpdate(time, params, createListener());
+
+        mod.isActive = true;
+        mod.elapsed = 100;
+        mod.duration = 100;
+        mod.permanentShake = true;
+
+        mod.onUpdate(time, params, createListener());
+
+        mod.isActive = true;
+        mod.elapsed = 100;
+        mod.duration = 100;
+        mod.permanentShake = false;
+
+        mod.onUpdate(time, params, createListener());
+    }
+
+    protected static ModificationFinishedListener createListener () {
+        return new ModificationFinishedListener() {
+            @Override
+            public <T extends CameraModification> void onModificationFinished(T mod, Class<T> cls) {
+                //
+            }
+        };
+    }
+
 }
