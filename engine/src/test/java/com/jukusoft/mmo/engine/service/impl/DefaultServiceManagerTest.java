@@ -178,4 +178,11 @@ public class DefaultServiceManagerTest {
         assertNotNull(serviceManager.getService(OtherIbjectedDummyService.class).dummyService);
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testServiceInjection3 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new Other1DummyService(), Other1DummyService.class);
+    }
+
 }

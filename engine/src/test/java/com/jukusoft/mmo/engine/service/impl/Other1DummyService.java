@@ -1,11 +1,12 @@
 package com.jukusoft.mmo.engine.service.impl;
 
 import com.jukusoft.mmo.engine.service.IService;
+import com.jukusoft.mmo.engine.service.InjectService;
 
-public class DummyService implements IService {
+public class Other1DummyService implements IService {
 
-    //string field for JUnit tests
-    protected String field1 = "";
+    @InjectService
+    protected String testString;
 
     @Override
     public void onStart() {

@@ -86,9 +86,13 @@ public class DefaultServiceManager implements ServiceManager {
             //get annotation
             InjectService annotation = field.getAnnotation(InjectService.class);
 
-            if (annotation != null && IService.class.isAssignableFrom(field.getType())) {
-                Gdx.app.debug(TAG_INJECT_SERVICE, "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
-                injectServiceField(target, field, annotation.nullable());
+            if (annotation != null) {
+                if (IService.class.isAssignableFrom(field.getType())) {
+                    Gdx.app.debug(TAG_INJECT_SERVICE, "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
+                    injectServiceField(target, field, annotation.nullable());
+                } else {
+                    throw new IllegalStateException("annotation " + annotation.getClass().getName() + " was set on wrong attribute, which doesnt extends IService: " + field.getName());
+                }
             }
         }
     }
