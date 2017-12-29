@@ -37,6 +37,13 @@ public class DefaultServiceManager implements ServiceManager {
 
     @Override
     public <T extends IService> void removeService(Class<T> cls) {
+        IService service = this.serviceMap.get(cls);
+
+        if (service != null) {
+            //stop service
+            service.onStop();
+        }
+
         this.serviceMap.remove(cls);
     }
 

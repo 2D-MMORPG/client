@@ -30,6 +30,9 @@ public class DefaultServiceManagerTest {
         serviceManager.removeService(WindowService.class);
 
         assertEquals(false, serviceManager.existsService(WindowService.class));
+
+        //remove service again
+        serviceManager.removeService(WindowService.class);
     }
 
     @Test (expected = IllegalStateException.class)
