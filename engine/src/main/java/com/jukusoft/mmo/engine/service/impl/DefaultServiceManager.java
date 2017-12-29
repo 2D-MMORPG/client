@@ -39,6 +39,9 @@ public class DefaultServiceManager implements ServiceManager {
         this.injectServices(service);
 
         this.serviceMap.put(cls, service);
+
+        //start service
+        service.onStart();
     }
 
     @Override
