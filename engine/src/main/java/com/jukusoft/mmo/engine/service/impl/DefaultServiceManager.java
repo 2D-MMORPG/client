@@ -1,8 +1,12 @@
 package com.jukusoft.mmo.engine.service.impl;
 
+import com.badlogic.gdx.Gdx;
+import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.service.IService;
+import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,6 +28,9 @@ public class DefaultServiceManager implements ServiceManager {
         if (this.serviceMap.get(cls) != null) {
             throw new IllegalStateException("service '" + cls.getName() + "' already exists.");
         }
+
+        //inject services
+        this.injectServices(service);
 
         this.serviceMap.put(cls, service);
     }
@@ -57,6 +64,64 @@ public class DefaultServiceManager implements ServiceManager {
     @Override
     public void draw() {
 
+    }
+
+    protected <T> void injectServices (T target) {
+        //iterate through all fields in class
+        for (Field field : target.getClass().getDeclaredFields()) {
+            //get annotation
+            InjectService annotation = field.getAnnotation(InjectService.class);
+
+            if (annotation != null && IService.class.isAssignableFrom(field.getType())) {
+                Gdx.app.debug("inject_service", "try to inject service '" + field.getType().getSimpleName() + "' in class: " + target.getClass().getSimpleName());
+                injectServiceField(target, field, annotation.nullable());
+            }
+        }
+    }
+
+    /**
+     * Injects value of field in given service
+     *
+     * @param target
+     *            The object whose field should be injected.
+     * @param field
+     *            The field.
+     * @param nullable
+     *            Whether the field can be null.
+     */
+    private void injectServiceField(Object target, Field field, boolean nullable) {
+        // check if component present
+        if (this.serviceMap.get(field.getType()) != null) {
+            //set field accessible, so we can change value
+            field.setAccessible(true);
+
+            try {
+                Object value = this.serviceMap.get(field.getType());
+
+                if (value == null) {
+                    if (nullable) {
+                        Gdx.app.debug("inject_service", "Service '" + field.getType().getSimpleName() + "' doesnt exists.");
+                    } else {
+                        throw new NullPointerException("injected object cannot be null.");
+                    }
+                } else {
+                    //set value of field
+                    field.set(target, value);
+
+                    Gdx.app.debug("inject_service", "set value successfully: " + field.getType());
+                }
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+
+                throw new RuntimeException("Couldn't inject service '" + field.getType() + "' in '"
+                        + field.getDeclaringClass().getName() + "'. Exception: " + e.getLocalizedMessage());
+            }
+        } else if (!nullable) {
+            throw new RequiredServiceNotFoundException("Service '" + field.getType()
+                    + "' is required by class '" + field.getDeclaringClass().getName() + "' but does not exist.");
+        } else {
+            Gdx.app.error("inject_service", "Service doesnt exists: " + field.getType().getSimpleName());
+        }
     }
 
 }

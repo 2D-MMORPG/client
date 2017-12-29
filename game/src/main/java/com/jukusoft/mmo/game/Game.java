@@ -1,6 +1,11 @@
 package com.jukusoft.mmo.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.jukusoft.mmo.engine.app.BaseApp;
 
-public class Game extends ApplicationAdapter {
+public class Game extends BaseApp {
+
+    public Game () {
+        super();
+    }
+
 }
