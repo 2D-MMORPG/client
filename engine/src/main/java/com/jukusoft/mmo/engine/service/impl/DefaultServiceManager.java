@@ -107,26 +107,18 @@ public class DefaultServiceManager implements ServiceManager {
      *            Whether the field can be null.
      */
     private void injectServiceField(Object target, Field field, boolean nullable) {
-        // check if component present
-        if (this.serviceMap.get(field.getType()) != null) {
+        Object value = this.serviceMap.get(field.getType());
+
+        // check if component is present
+        if (value != null) {
             //set field accessible, so we can change value
             field.setAccessible(true);
 
             try {
-                Object value = this.serviceMap.get(field.getType());
+                //set value of field
+                field.set(target, value);
 
-                if (value == null) {
-                    if (nullable) {
-                        Gdx.app.debug(TAG_INJECT_SERVICE, "Service '" + field.getType().getSimpleName() + "' doesnt exists.");
-                    } else {
-                        throw new RequiredServiceNotFoundException("injected object cannot be null.");
-                    }
-                } else {
-                    //set value of field
-                    field.set(target, value);
-
-                    Gdx.app.debug(TAG_INJECT_SERVICE, "set value successfully: " + field.getType());
-                }
+                Gdx.app.debug(TAG_INJECT_SERVICE, "set value successfully: " + field.getType());
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown in ServiceManager: ", e);
 
