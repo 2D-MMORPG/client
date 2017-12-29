@@ -149,7 +149,11 @@ public class BaseAppTest {
 
         app.lastFPS = 40;
 
-        Thread.sleep(200);
+        Thread.sleep(100);
+
+        app.lastFPS = 60;
+
+        Thread.sleep(100);
 
         application.exit();
     }
