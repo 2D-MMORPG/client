@@ -11,9 +11,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static org.junit.Assert.assertEquals;
+
 public class BaseAppTest {
 
     protected static Application application = null;
+
+    protected boolean created = false;
 
     @BeforeClass
     public static void beforeClass () {
@@ -52,13 +56,17 @@ public class BaseAppTest {
     }
 
     @Test
-    public void testStartUp () {
+    public void testStartUp () throws InterruptedException {
+        assertEquals(false, this.created);
+
         BaseApp app = new BaseApp() {
             @Override
             protected void createServices(ServiceManager serviceManager) {
-                //
+                created = true;
             }
         };
+
+        assertEquals(false, this.created);
 
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(app);
@@ -66,16 +74,27 @@ public class BaseAppTest {
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
+
+        //wait some ms
+        Thread.sleep(200);
+
+        assertEquals(true, this.created);
     }
 
     @Test
-    public void testResize () {
+    public void testResize () throws InterruptedException {
+        this.created = false;
+
+        assertEquals(false, this.created);
+
         BaseApp app = new BaseApp() {
             @Override
             protected void createServices(ServiceManager serviceManager) {
-                //
+                created = true;
             }
         };
+
+        assertEquals(false, this.created);
 
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(app);
@@ -83,6 +102,11 @@ public class BaseAppTest {
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
+
+        //wait some ms
+        Thread.sleep(200);
+
+        assertEquals(true, this.created);
 
         app.resize(800, 600);
     }

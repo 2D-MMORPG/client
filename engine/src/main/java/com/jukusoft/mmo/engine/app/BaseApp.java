@@ -48,6 +48,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
         //create service manager
         this.serviceManager = new DefaultServiceManager();
 
+        //add window service
+        this.serviceManager.addService(new WindowService(), WindowService.class);
+
         this.createServices(this.serviceManager);
 
         //get window service
