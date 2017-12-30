@@ -34,7 +34,7 @@ public class Shake3CameraModification implements CameraModification {
         // http://www.netprogs.com/libgdx-screen-shaking/
 
         // Only shake when required.
-        if (elapsed < duration) {
+        if (elapsed < duration || permanentShake) {
 
             // Calculate the amount of shake based on how long it has been
             // shaking already
