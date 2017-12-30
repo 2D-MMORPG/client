@@ -129,4 +129,21 @@ public class CameraServiceTest {
         service.draw();
     }
 
+    @Test
+    public void testDraw1 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new WindowService(), WindowService.class);
+
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
+
+        service.spriteBatchService = new SpriteBatchService();
+        service.spriteBatchService.onStart();
+
+        service.draw();
+
+        service.spriteBatchService.onStop();
+    }
+
 }
