@@ -12,6 +12,8 @@ import com.jukusoft.mmo.engine.utils.GameTime;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BaseApp implements ApplicationListener, IApp {
 
@@ -113,7 +115,7 @@ public abstract class BaseApp implements ApplicationListener, IApp {
             //after draw
             this.serviceManager.afterDraw();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown in gameloop: ", e);
 
             Gdx.app.error("BaseGame", "exception thrown while updating game: " + e.getLocalizedMessage(), e);
         }
