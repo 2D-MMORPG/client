@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.engine.service.impl;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jukusoft.mmo.engine.service.AfterDrawService;
 import com.jukusoft.mmo.engine.service.DrawService;
@@ -29,7 +28,8 @@ public class SpriteBatchService implements IService, DrawService, AfterDrawServi
 
     @Override
     public void onStop() {
-
+        this.batch.dispose();
+        this.batch = null;
     }
 
     @Override
