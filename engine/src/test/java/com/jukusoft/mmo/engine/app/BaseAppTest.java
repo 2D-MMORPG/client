@@ -68,6 +68,13 @@ public class BaseAppTest {
 
         assertEquals(false, this.created);
 
+        app.uiQueue.add(new Runnable() {
+            @Override
+            public void run() {
+                //
+            }
+        });
+
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(app);
 
