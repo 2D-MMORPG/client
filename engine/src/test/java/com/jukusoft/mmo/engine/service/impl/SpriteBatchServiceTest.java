@@ -1,12 +1,12 @@
 package com.jukusoft.mmo.engine.service.impl;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jukusoft.mmo.engine.GameTest;
+import com.jukusoft.mmo.engine.GameUnitTest;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class SpriteBatchServiceTest extends GameTest {
+public class SpriteBatchServiceTest extends GameUnitTest {
 
     @Test
     public void testConstructor () {

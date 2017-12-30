@@ -1,4 +1,4 @@
-package com.jukusoft.mmo.engine;
+package com.jukusoft.mmo.game;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -9,7 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
-public abstract class GameTest {
+public abstract class GameUnitTest {
 
     // This is our "test" application
     private static Application application;
