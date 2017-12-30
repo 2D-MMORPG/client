@@ -178,7 +178,39 @@ public class BaseAppTest {
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
-        
+
+        app.lastFPS = 40;
+
+        Thread.sleep(100);
+
+        app.lastFPS = 60;
+
+        Thread.sleep(100);
+
+        application.exit();
+    }
+
+    @Test
+    public void testRender2 () throws InterruptedException {
+        BaseApp app = new BaseApp() {
+            @Override
+            protected void createServices(ServiceManager serviceManager) {
+                created = true;
+            }
+
+            @Override
+            public int getFPS () {
+                return 50;
+            }
+        };
+
+        // Note that we don't need to implement any of the listener's methods
+        application = new HeadlessApplication(app);
+
+        // Use Mockito to mock the OpenGL methods since we are running headlessly
+        Gdx.gl20 = Mockito.mock(GL20.class);
+        Gdx.gl = Gdx.gl20;
+
         Thread.sleep(100);
 
         app.lastFPS = 60;
