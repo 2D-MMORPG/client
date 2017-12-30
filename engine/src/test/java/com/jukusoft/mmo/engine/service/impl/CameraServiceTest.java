@@ -117,4 +117,16 @@ public class CameraServiceTest {
         service.update();
     }
 
+    @Test
+    public void testDraw () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new WindowService(), WindowService.class);
+
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
+
+        service.draw();
+    }
+
 }
