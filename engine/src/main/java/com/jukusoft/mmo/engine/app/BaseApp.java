@@ -109,6 +109,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
             //draw game
             this.serviceManager.draw();
+
+            //after draw
+            this.serviceManager.afterDraw();
         } catch (Exception e) {
             e.printStackTrace();
 
