@@ -68,7 +68,26 @@ public class CameraServiceTest {
         CameraService service = new CameraService();
         serviceManager.addService(service, CameraService.class);
 
+        serviceManager.removeService(CameraService.class);
         serviceManager.removeService(WindowService.class);
+    }
+
+    @Test
+    public void testResize () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new WindowService(), WindowService.class);
+
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
+
+        service.updateCameraOnResize = false;
+
+        service.updateCamera(800, 600);
+
+        service.updateCameraOnResize = true;
+
+        service.updateCamera(800, 600);
     }
 
     @Test
