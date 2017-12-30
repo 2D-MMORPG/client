@@ -134,6 +134,7 @@ public class DefaultServiceManagerTest {
     public void testProcessInput () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
+        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
 
         serviceManager.processInput();
     }
@@ -142,6 +143,7 @@ public class DefaultServiceManagerTest {
     public void testUpdate () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
+        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
 
         serviceManager.update();
     }
@@ -150,6 +152,7 @@ public class DefaultServiceManagerTest {
     public void testDraw () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
+        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
 
         serviceManager.draw();
     }
@@ -158,6 +161,8 @@ public class DefaultServiceManagerTest {
     public void testAfterDraw () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
+        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
+
 
         serviceManager.afterDraw();
     }
