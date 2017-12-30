@@ -135,6 +135,7 @@ public class DefaultServiceManagerTest {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
         serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
+        serviceManager.addService(new Other3DummyService(), Other3DummyService.class);
 
         serviceManager.processInput();
     }
