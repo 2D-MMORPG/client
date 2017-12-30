@@ -46,13 +46,15 @@ public class GameTest {
     }
 
     @Test
-    public void testGameStartUp () {
+    public void testGameStartUp () throws InterruptedException {
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(new Game());
 
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
+
+        Thread.sleep(200);
     }
 
 }
