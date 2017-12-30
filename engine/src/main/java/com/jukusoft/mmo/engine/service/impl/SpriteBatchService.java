@@ -25,7 +25,7 @@ public class SpriteBatchService implements IService, DrawService, AfterDrawServi
         Gdx.app.debug("SpriteBatchService", "create sprite batch.");
 
         // create sprite batcher
-        if (!this.isJUnitTest) {
+        if (!isJUnitTest) {
             this.batch = new SpriteBatch();
         }
     }
