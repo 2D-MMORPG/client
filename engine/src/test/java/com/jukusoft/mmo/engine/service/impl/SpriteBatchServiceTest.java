@@ -14,7 +14,7 @@ public class SpriteBatchServiceTest extends GameTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testStartAndStop () {
+    public void testStart () {
         ServiceManager serviceManager = new DefaultServiceManager();
 
         SpriteBatchService service = new SpriteBatchService();
@@ -22,6 +22,14 @@ public class SpriteBatchServiceTest extends GameTest {
         serviceManager.addService(service, SpriteBatchService.class);
 
         serviceManager.removeService(SpriteBatchService.class);
+    }
+
+    @Test
+    public void testStop () {
+        SpriteBatchService service = new SpriteBatchService();
+        service.batch = Mockito.mock(SpriteBatch.class);
+
+        service.onStop();
     }
 
     @Test
