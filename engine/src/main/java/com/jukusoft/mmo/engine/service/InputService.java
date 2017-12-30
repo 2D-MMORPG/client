@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.engine.service;
 
-public interface InputService {
+public interface InputService extends IService {
 
     /**
     * process input

@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.engine.service;
 
-public interface DrawService {
+public interface DrawService extends IService {
 
     /**
     * draw service
