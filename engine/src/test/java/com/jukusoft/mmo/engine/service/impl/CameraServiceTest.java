@@ -83,11 +83,11 @@ public class CameraServiceTest {
 
         service.updateCameraOnResize = false;
 
-        service.updateCamera(800, 600);
+        service.resizeCamera(800, 600);
 
         service.updateCameraOnResize = true;
 
-        service.updateCamera(800, 600);
+        service.resizeCamera(800, 600);
     }
 
     @Test
@@ -102,6 +102,19 @@ public class CameraServiceTest {
         assertEquals(true, service.getCameraManager() != null);
         assertEquals(true, service.getMainCamera() != null);
         assertEquals(true, service.getUICamera() != null);
+    }
+
+    @Test
+    public void testUpdate () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        serviceManager.addService(new WindowService(), WindowService.class);
+
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
+
+        //update camera
+        service.update();
     }
 
 }

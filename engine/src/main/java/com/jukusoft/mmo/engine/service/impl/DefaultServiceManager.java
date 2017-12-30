@@ -2,11 +2,11 @@ package com.jukusoft.mmo.engine.service.impl;
 
 import com.badlogic.gdx.Gdx;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
-import com.jukusoft.mmo.engine.service.IService;
-import com.jukusoft.mmo.engine.service.InjectService;
-import com.jukusoft.mmo.engine.service.ServiceManager;
+import com.jukusoft.mmo.engine.service.*;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -18,6 +18,18 @@ public class DefaultServiceManager implements ServiceManager {
 
     //map with all services
     protected Map<Class<?>,IService> serviceMap = new ConcurrentHashMap<>();
+
+    //list with input processors
+    protected List<InputService> inputProcessors = new ArrayList<>();
+
+    //services which can be updated
+    protected List<UpdateService> updateServices = new ArrayList<>();
+
+    //services which can be drawn
+    protected List<DrawService> drawServices = new ArrayList<>();
+
+    //services which can be executed after draw
+    protected List<AfterDrawService> afterDrawServices = new ArrayList<>();
 
     /**
     * default service manager
@@ -40,6 +52,26 @@ public class DefaultServiceManager implements ServiceManager {
 
         this.serviceMap.put(cls, service);
 
+        //check, if service can process input
+        if (canProcessInput(service)) {
+            this.inputProcessors.add((InputService) service);
+        }
+
+        //check, if service can update
+        if (canUpdate(service)) {
+            this.updateServices.add((UpdateService) service);
+        }
+
+        //check, if service can draw
+        if (canDraw(service)) {
+            this.drawServices.add((DrawService) service);
+        }
+
+        //check, if service can after draw
+        if (canAfterDraw(service)) {
+            this.afterDrawServices.add((AfterDrawService) service);
+        }
+
         //start service
         service.onStart();
     }
@@ -51,6 +83,12 @@ public class DefaultServiceManager implements ServiceManager {
         if (service != null) {
             //stop service
             service.onStop();
+
+            //remove service from processor list
+            this.inputProcessors.remove(service);
+            this.updateServices.remove(service);
+            this.drawServices.remove(service);
+            this.afterDrawServices.remove(service);
         }
 
         this.serviceMap.remove(cls);
@@ -73,13 +111,34 @@ public class DefaultServiceManager implements ServiceManager {
      }
 
     @Override
-    public void update() {
+    public void processInput() {
+        for (InputService service : this.inputProcessors) {
+            if (service.processInput()) {
+                //if service returns true, input was already processed
+                break;
+            }
+        }
+    }
 
+    @Override
+    public void update() {
+        for (UpdateService service : this.updateServices) {
+            service.update();
+        }
     }
 
     @Override
     public void draw() {
+        for (DrawService service : this.drawServices) {
+            service.draw();
+        }
+    }
 
+    @Override
+    public void afterDraw() {
+        for (AfterDrawService service : this.afterDrawServices) {
+            service.afterDraw();
+        }
     }
 
     protected <T> void injectServices (T target) {
@@ -134,6 +193,22 @@ public class DefaultServiceManager implements ServiceManager {
         } else {
             Gdx.app.error(TAG_INJECT_SERVICE, "Service doesnt exists: " + field.getType().getSimpleName());
         }
+    }
+
+    protected <T extends IService> boolean canProcessInput (T service) {
+        return service instanceof InputService;
+    }
+
+    protected <T extends IService> boolean canUpdate (T service) {
+        return service instanceof UpdateService;
+    }
+
+    protected <T extends IService> boolean canDraw (T service) {
+        return service instanceof DrawService;
+    }
+
+    protected <T extends IService> boolean canAfterDraw (T service) {
+        return service instanceof AfterDrawService;
     }
 
 }

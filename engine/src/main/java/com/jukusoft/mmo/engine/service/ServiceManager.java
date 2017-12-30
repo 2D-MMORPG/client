@@ -37,8 +37,24 @@ public interface ServiceManager {
     */
     public <T extends IService> boolean existsService (Class<T> cls);
 
+    /**
+    * process input
+    */
+    public void processInput ();
+
+    /**
+    * update all services
+    */
     public void update ();
 
+    /**
+    * draw all services
+    */
     public void draw ();
+
+    /**
+    * execute after draw methods to push things to gpu and so on
+    */
+    public void afterDraw ();
 
 }
