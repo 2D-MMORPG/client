@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import org.junit.AfterClass;
@@ -139,11 +140,11 @@ public class CameraServiceTest {
         serviceManager.addService(service, CameraService.class);
 
         service.spriteBatchService = new SpriteBatchService();
-        service.spriteBatchService.onStart();
+
+        //use mockito to mock spritebatch
+        service.spriteBatchService.batch = Mockito.mock(SpriteBatch.class);
 
         service.draw();
-
-        service.spriteBatchService.onStop();
     }
 
 }
