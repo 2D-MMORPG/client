@@ -178,9 +178,7 @@ public class BaseAppTest {
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
-
-        app.lastFPS = 40;
-
+        
         Thread.sleep(100);
 
         app.lastFPS = 60;
