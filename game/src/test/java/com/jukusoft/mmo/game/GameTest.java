@@ -5,7 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
-import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
+import com.jukusoft.mmo.engine.service.impl.SpriteBatchServiceBefore;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class GameTest extends GameUnitTest {
 
     @Test
     public void testGameStartUp () throws InterruptedException {
-        SpriteBatchService.isJUnitTest = true;
+        SpriteBatchServiceBefore.isJUnitTest = true;
 
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(new Game());
@@ -59,7 +59,7 @@ public class GameTest extends GameUnitTest {
 
         Thread.sleep(200);
 
-        SpriteBatchService.isJUnitTest = false;
+        SpriteBatchServiceBefore.isJUnitTest = false;
     }
 
 }

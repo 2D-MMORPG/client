@@ -48,12 +48,12 @@ public interface ServiceManager {
     public void update ();
 
     /**
-    * draw all services
+    * beforeDraw all services
     */
     public void draw ();
 
     /**
-    * execute after draw methods to push things to gpu and so on
+    * execute after beforeDraw methods to push things to gpu and so on
     */
     public void afterDraw ();
 

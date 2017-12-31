@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.jukusoft.mmo.engine.graphics.camera.CameraHelper;
 import com.jukusoft.mmo.engine.graphics.camera.manager.CameraManager;
 import com.jukusoft.mmo.engine.graphics.camera.manager.DefaultCameraManager;
-import com.jukusoft.mmo.engine.service.DrawService;
+import com.jukusoft.mmo.engine.service.BeforeDrawService;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.UpdateService;
@@ -13,7 +13,7 @@ import com.jukusoft.mmo.engine.utils.GameTime;
 /**
 * this service is reponsible for holding the camera and updating them
 */
-public class CameraService implements IService, UpdateService, DrawService {
+public class CameraServiceBefore implements IService, UpdateService, BeforeDrawService {
 
     //camera manager
     protected CameraManager cameraManager = null;
@@ -24,7 +24,7 @@ public class CameraService implements IService, UpdateService, DrawService {
     protected WindowService windowService = null;
 
     @InjectService (nullable = true)
-    protected SpriteBatchService spriteBatchService = null;
+    protected SpriteBatchServiceBefore spriteBatchService = null;
 
     //game time (local only)
     protected GameTime time = null;
@@ -32,7 +32,7 @@ public class CameraService implements IService, UpdateService, DrawService {
     /**
     * default constructor
     */
-    public CameraService () {
+    public CameraServiceBefore() {
         //
     }
 
@@ -81,7 +81,7 @@ public class CameraService implements IService, UpdateService, DrawService {
     }
 
     @Override
-    public void draw() {
+    public void beforeDraw() {
         if (this.spriteBatchService != null) {
             //set camera projection matrix to sprite batch
             this.spriteBatchService.getBatch().setProjectionMatrix(this.getCameraManager().getMainCamera().getCombined());

@@ -108,10 +108,10 @@ public abstract class BaseApp implements ApplicationListener, IApp {
             Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            //draw game
+            //beforeDraw game
             this.serviceManager.draw();
 
-            //after draw
+            //after beforeDraw
             this.serviceManager.afterDraw();
         } catch (Exception e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, "Exception was thrown in gameloop: ", e);

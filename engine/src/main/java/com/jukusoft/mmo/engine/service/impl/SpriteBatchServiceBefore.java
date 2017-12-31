@@ -3,10 +3,10 @@ package com.jukusoft.mmo.engine.service.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jukusoft.mmo.engine.service.AfterDrawService;
-import com.jukusoft.mmo.engine.service.DrawService;
+import com.jukusoft.mmo.engine.service.BeforeDrawService;
 import com.jukusoft.mmo.engine.service.IService;
 
-public class SpriteBatchService implements IService, DrawService, AfterDrawService {
+public class SpriteBatchServiceBefore implements IService, BeforeDrawService, AfterDrawService {
 
     //sprite batch
     protected SpriteBatch batch = null;
@@ -16,13 +16,13 @@ public class SpriteBatchService implements IService, DrawService, AfterDrawServi
     /**
     * default constructor
     */
-    public SpriteBatchService () {
+    public SpriteBatchServiceBefore() {
         //
     }
 
     @Override
     public void onStart() {
-        Gdx.app.debug("SpriteBatchService", "create sprite batch.");
+        Gdx.app.debug("SpriteBatchServiceBefore", "create sprite batch.");
 
         // create sprite batcher
         if (!isJUnitTest) {
@@ -37,7 +37,7 @@ public class SpriteBatchService implements IService, DrawService, AfterDrawServi
     }
 
     @Override
-    public void draw() {
+    public void beforeDraw() {
         //beginn rendering process
         this.batch.begin();
     }

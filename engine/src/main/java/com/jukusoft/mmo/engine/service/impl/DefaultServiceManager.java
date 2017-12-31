@@ -26,9 +26,9 @@ public class DefaultServiceManager implements ServiceManager {
     protected List<UpdateService> updateServices = new ArrayList<>();
 
     //services which can be drawn
-    protected List<DrawService> drawServices = new ArrayList<>();
+    protected List<BeforeDrawService> beforeDrawServices = new ArrayList<>();
 
-    //services which can be executed after draw
+    //services which can be executed after beforeDraw
     protected List<AfterDrawService> afterDrawServices = new ArrayList<>();
 
     /**
@@ -62,12 +62,12 @@ public class DefaultServiceManager implements ServiceManager {
             this.updateServices.add((UpdateService) service);
         }
 
-        //check, if service can draw
+        //check, if service can beforeDraw
         if (canDraw(service)) {
-            this.drawServices.add((DrawService) service);
+            this.beforeDrawServices.add((BeforeDrawService) service);
         }
 
-        //check, if service can after draw
+        //check, if service can after beforeDraw
         if (canAfterDraw(service)) {
             this.afterDrawServices.add((AfterDrawService) service);
         }
@@ -87,7 +87,7 @@ public class DefaultServiceManager implements ServiceManager {
             //remove service from processor list
             this.inputProcessors.remove(service);
             this.updateServices.remove(service);
-            this.drawServices.remove(service);
+            this.beforeDrawServices.remove(service);
             this.afterDrawServices.remove(service);
         }
 
@@ -129,8 +129,8 @@ public class DefaultServiceManager implements ServiceManager {
 
     @Override
     public void draw() {
-        for (DrawService service : this.drawServices) {
-            service.draw();
+        for (BeforeDrawService service : this.beforeDrawServices) {
+            service.beforeDraw();
         }
     }
 
@@ -204,7 +204,7 @@ public class DefaultServiceManager implements ServiceManager {
     }
 
     protected <T extends IService> boolean canDraw (T service) {
-        return service instanceof DrawService;
+        return service instanceof BeforeDrawService;
     }
 
     protected <T extends IService> boolean canAfterDraw (T service) {

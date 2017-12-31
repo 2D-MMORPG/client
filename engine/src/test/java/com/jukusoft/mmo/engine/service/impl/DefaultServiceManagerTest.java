@@ -134,8 +134,8 @@ public class DefaultServiceManagerTest {
     public void testProcessInput () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
-        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
-        serviceManager.addService(new Other3DummyService(), Other3DummyService.class);
+        serviceManager.addService(new Other2DummyServiceBefore(), Other2DummyServiceBefore.class);
+        serviceManager.addService(new Other3DummyServiceBefore(), Other3DummyServiceBefore.class);
 
         serviceManager.processInput();
     }
@@ -144,7 +144,7 @@ public class DefaultServiceManagerTest {
     public void testUpdate () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
-        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
+        serviceManager.addService(new Other2DummyServiceBefore(), Other2DummyServiceBefore.class);
 
         serviceManager.update();
     }
@@ -153,7 +153,7 @@ public class DefaultServiceManagerTest {
     public void testDraw () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
-        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
+        serviceManager.addService(new Other2DummyServiceBefore(), Other2DummyServiceBefore.class);
 
         serviceManager.draw();
     }
@@ -162,7 +162,7 @@ public class DefaultServiceManagerTest {
     public void testAfterDraw () {
         ServiceManager serviceManager = new DefaultServiceManager();
         serviceManager.addService(new DummyService(), DummyService.class);
-        serviceManager.addService(new Other2DummyService(), Other2DummyService.class);
+        serviceManager.addService(new Other2DummyServiceBefore(), Other2DummyServiceBefore.class);
 
 
         serviceManager.afterDraw();

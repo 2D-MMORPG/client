@@ -2,7 +2,7 @@ package com.jukusoft.mmo.engine.service.impl;
 
 import com.jukusoft.mmo.engine.service.*;
 
-public class Other2DummyService implements IService, InputService, UpdateService, DrawService, AfterDrawService {
+public class Other3DummyServiceBefore implements IService, InputService, UpdateService, BeforeDrawService, AfterDrawService {
 
     @Override
     public void onStart() {
@@ -16,7 +16,7 @@ public class Other2DummyService implements IService, InputService, UpdateService
 
     @Override
     public boolean processInput() {
-        return false;
+        return true;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Other2DummyService implements IService, InputService, UpdateService
     }
 
     @Override
-    public void draw() {
+    public void beforeDraw() {
 
     }
 
