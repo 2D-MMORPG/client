@@ -52,6 +52,23 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
     @Override
     public void addScreen(String name, IScreen screen) {
+        if (name == null) {
+            throw new NullPointerException("name cannot be null.");
+        }
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name cannot be empty.");
+        }
+
+        if (screen == null) {
+            throw new NullPointerException("screen cannot be null.");
+        }
+
+        //check, if screen already exists
+        if (this.screens.get(name) != null) {
+            throw new IllegalStateException("screen '" + name + "' already exists!");
+        }
+
         //inject services first
         this.injectServices(screen);
 
@@ -145,6 +162,14 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
     @Override
     public void push(String name) {
+        if (name == null) {
+            throw new NullPointerException("name cannot be null.");
+        }
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("name cannot be empty.");
+        }
+
         IScreen screen = this.screens.get(name);
 
         if (screen == null) {

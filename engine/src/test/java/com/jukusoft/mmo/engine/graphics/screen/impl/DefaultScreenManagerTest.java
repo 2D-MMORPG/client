@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
 import com.jukusoft.mmo.engine.GameUnitTest;
+import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
 import com.jukusoft.mmo.engine.graphics.screen.DummyScreen;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
 import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
@@ -18,6 +19,25 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     public void testConstructor () {
         ServiceManager serviceManager = new DefaultServiceManager();
         new DefaultScreenManager(serviceManager);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testAddNullScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen(null, new DummyScreen());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testAddNullScreen1 () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", null);
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testAddExistentScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.addScreen("dummy_screen", new DummyScreen());
     }
 
     @Test
@@ -53,6 +73,31 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.removeScreen("dummy_screen");
 
         assertEquals(true, manager.getScreenByName("dummy_screen") == null);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testPushNullScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.push(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testPushEmptyScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.push("");
+    }
+
+    @Test (expected = ScreenNotFoundException.class)
+    public void testPushNotExistentScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.push("not-existent-screen");
+    }
+
+    @Test
+    public void testPush () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
     }
 
     protected ScreenManager<IScreen> createScreenManager () {
