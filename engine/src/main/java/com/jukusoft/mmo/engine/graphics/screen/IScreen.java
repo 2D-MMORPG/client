@@ -30,6 +30,13 @@ public interface IScreen {
     public void onResume ();
 
     /**
+    * process input
+     *
+     * @return true, if input was processed and no other screen has to process input anymore
+    */
+    public boolean processInput ();
+
+    /**
      * update game screen
      */
     public void update();
