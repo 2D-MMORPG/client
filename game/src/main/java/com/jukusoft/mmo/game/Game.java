@@ -2,8 +2,8 @@ package com.jukusoft.mmo.game;
 
 import com.jukusoft.mmo.engine.app.BaseApp;
 import com.jukusoft.mmo.engine.service.ServiceManager;
-import com.jukusoft.mmo.engine.service.impl.CameraServiceBefore;
-import com.jukusoft.mmo.engine.service.impl.SpriteBatchServiceBefore;
+import com.jukusoft.mmo.engine.service.impl.CameraService;
+import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
 
 public class Game extends BaseApp {
 
@@ -14,10 +14,10 @@ public class Game extends BaseApp {
     @Override
     protected void createServices(ServiceManager manager) {
         //add service which holds sprite batch
-        manager.addService(new SpriteBatchServiceBefore(), SpriteBatchServiceBefore.class);
+        manager.addService(new SpriteBatchService(), SpriteBatchService.class);
 
         //add service for camera
-        manager.addService(new CameraServiceBefore(), CameraServiceBefore.class);
+        manager.addService(new CameraService(), CameraService.class);
     }
 
 }

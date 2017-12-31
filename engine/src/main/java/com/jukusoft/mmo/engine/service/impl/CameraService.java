@@ -13,7 +13,7 @@ import com.jukusoft.mmo.engine.utils.GameTime;
 /**
 * this service is reponsible for holding the camera and updating them
 */
-public class CameraServiceBefore implements IService, UpdateService, BeforeDrawService {
+public class CameraService implements IService, UpdateService, BeforeDrawService {
 
     //camera manager
     protected CameraManager cameraManager = null;
@@ -24,7 +24,7 @@ public class CameraServiceBefore implements IService, UpdateService, BeforeDrawS
     protected WindowService windowService = null;
 
     @InjectService (nullable = true)
-    protected SpriteBatchServiceBefore spriteBatchService = null;
+    protected SpriteBatchService spriteBatchService = null;
 
     //game time (local only)
     protected GameTime time = null;
@@ -32,7 +32,7 @@ public class CameraServiceBefore implements IService, UpdateService, BeforeDrawS
     /**
     * default constructor
     */
-    public CameraServiceBefore() {
+    public CameraService() {
         //
     }
 

@@ -6,7 +6,7 @@ import com.jukusoft.mmo.engine.service.AfterDrawService;
 import com.jukusoft.mmo.engine.service.BeforeDrawService;
 import com.jukusoft.mmo.engine.service.IService;
 
-public class SpriteBatchServiceBefore implements IService, BeforeDrawService, AfterDrawService {
+public class SpriteBatchService implements IService, BeforeDrawService, AfterDrawService {
 
     //sprite batch
     protected SpriteBatch batch = null;
@@ -16,13 +16,13 @@ public class SpriteBatchServiceBefore implements IService, BeforeDrawService, Af
     /**
     * default constructor
     */
-    public SpriteBatchServiceBefore() {
+    public SpriteBatchService() {
         //
     }
 
     @Override
     public void onStart() {
-        Gdx.app.debug("SpriteBatchServiceBefore", "create sprite batch.");
+        Gdx.app.debug("SpriteBatchService", "create sprite batch.");
 
         // create sprite batcher
         if (!isJUnitTest) {

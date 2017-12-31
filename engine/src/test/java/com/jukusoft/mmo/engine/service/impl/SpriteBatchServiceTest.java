@@ -10,23 +10,23 @@ public class SpriteBatchServiceTest extends GameUnitTest {
 
     @Test
     public void testConstructor () {
-        new SpriteBatchServiceBefore();
+        new SpriteBatchService();
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testStart () {
         ServiceManager serviceManager = new DefaultServiceManager();
 
-        SpriteBatchServiceBefore service = new SpriteBatchServiceBefore();
+        SpriteBatchService service = new SpriteBatchService();
         service.batch = Mockito.mock(SpriteBatch.class);
-        serviceManager.addService(service, SpriteBatchServiceBefore.class);
+        serviceManager.addService(service, SpriteBatchService.class);
 
-        serviceManager.removeService(SpriteBatchServiceBefore.class);
+        serviceManager.removeService(SpriteBatchService.class);
     }
 
     @Test
     public void testStop () {
-        SpriteBatchServiceBefore service = new SpriteBatchServiceBefore();
+        SpriteBatchService service = new SpriteBatchService();
         service.batch = Mockito.mock(SpriteBatch.class);
 
         service.onStop();
@@ -34,7 +34,7 @@ public class SpriteBatchServiceTest extends GameUnitTest {
 
     @Test
     public void testDraw () {
-        SpriteBatchServiceBefore service = new SpriteBatchServiceBefore();
+        SpriteBatchService service = new SpriteBatchService();
         service.batch = Mockito.mock(SpriteBatch.class);
 
         service.beforeDraw();
@@ -42,7 +42,7 @@ public class SpriteBatchServiceTest extends GameUnitTest {
 
     @Test
     public void testAfterDraw () {
-        SpriteBatchServiceBefore service = new SpriteBatchServiceBefore();
+        SpriteBatchService service = new SpriteBatchService();
         service.batch = Mockito.mock(SpriteBatch.class);
 
         service.afterDraw();

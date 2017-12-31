@@ -47,15 +47,15 @@ public class CameraServiceTest {
 
     @Test
     public void testConstructor () {
-        new CameraServiceBefore();
+        new CameraService();
     }
 
     @Test (expected = RequiredServiceNotFoundException.class)
     public void testStartAndStop () {
         ServiceManager serviceManager = new DefaultServiceManager();
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
         serviceManager.removeService(WindowService.class);
     }
@@ -66,10 +66,10 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
-        serviceManager.removeService(CameraServiceBefore.class);
+        serviceManager.removeService(CameraService.class);
         serviceManager.removeService(WindowService.class);
     }
 
@@ -79,8 +79,8 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
         service.updateCameraOnResize = false;
 
@@ -97,8 +97,8 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
         assertEquals(true, service.getCameraManager() != null);
         assertEquals(true, service.getMainCamera() != null);
@@ -111,8 +111,8 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
         //update camera
         service.update();
@@ -124,8 +124,8 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
         service.beforeDraw();
     }
@@ -136,10 +136,10 @@ public class CameraServiceTest {
 
         serviceManager.addService(new WindowService(), WindowService.class);
 
-        CameraServiceBefore service = new CameraServiceBefore();
-        serviceManager.addService(service, CameraServiceBefore.class);
+        CameraService service = new CameraService();
+        serviceManager.addService(service, CameraService.class);
 
-        service.spriteBatchService = new SpriteBatchServiceBefore();
+        service.spriteBatchService = new SpriteBatchService();
 
         //use mockito to mock spritebatch
         service.spriteBatchService.batch = Mockito.mock(SpriteBatch.class);
