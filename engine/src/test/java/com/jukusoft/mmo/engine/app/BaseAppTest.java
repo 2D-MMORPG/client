@@ -229,6 +229,11 @@ public class BaseAppTest {
             }
 
             @Override
+            public Object getServiceObject(Class<?> type) {
+                return null;
+            }
+
+            @Override
             public <T extends IService> boolean existsService(Class<T> cls) {
                 return false;
             }

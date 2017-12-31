@@ -28,6 +28,8 @@ public interface ServiceManager {
     */
     public <T extends IService> T getService (Class<T> cls);
 
+    public Object getServiceObject (Class<?> type);
+
     /**
     * check, if service exists
      *
@@ -56,5 +58,4 @@ public interface ServiceManager {
     * execute after beforeDraw methods to push things to gpu and so on
     */
     public void afterDraw ();
-
 }

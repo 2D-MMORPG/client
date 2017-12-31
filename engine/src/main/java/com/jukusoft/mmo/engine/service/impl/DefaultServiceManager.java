@@ -106,6 +106,17 @@ public class DefaultServiceManager implements ServiceManager {
     }
 
     @Override
+    public IService getServiceObject (Class<?> type) {
+        IService service = this.serviceMap.get(type);
+
+        if (service == null) {
+            throw new IllegalStateException("service " + type.getName() + " isnt registered yet. Add with addService() first.");
+        }
+
+        return service;
+    }
+
+    @Override
     public <T extends IService> boolean existsService(Class<T> cls) {
         return this.serviceMap.get(cls) != null;
      }

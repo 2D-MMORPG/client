@@ -223,4 +223,15 @@ public class DefaultServiceManagerTest {
         serviceManager.addService(new FinalOtherDummyService(), FinalOtherDummyService.class);
     }
 
+    @Test
+    public void testGetServiceObject () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+
+        DummyService service = new DummyService();
+        serviceManager.addService(service, DummyService.class);
+
+        assertNotNull(serviceManager.getServiceObject(DummyService.class));
+        assertEquals(service, serviceManager.getServiceObject(DummyService.class));
+    }
+
 }
