@@ -18,12 +18,12 @@ public class EventBus implements IService {
 
     @Override
     public void onStart() {
-
+        //we dont need to do anything here
     }
 
     @Override
     public void onStop() {
-        //
+        //we dont need to do anything here
     }
 
     /**
