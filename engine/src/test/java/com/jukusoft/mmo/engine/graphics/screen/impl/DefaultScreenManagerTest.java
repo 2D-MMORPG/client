@@ -63,6 +63,9 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         assertEquals(0, manager.activeScreens.size());
         assertEquals(0, manager.backActiveScreens.size());
 
+        assertEquals(1, manager.listScreens().size());
+        assertEquals(0, manager.listActiveScreens().size());
+
     }
 
     @Test
@@ -123,6 +126,36 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         ScreenManager<IScreen> manager = this.createScreenManager();
         manager.addScreen("dummy_screen", new DummyScreen());
         manager.push("dummy_screen");
+    }
+
+    @Test
+    public void testLeaveAllAndEnter () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.leaveAllAndEnter("dummy_screen");
+    }
+
+    @Test
+    public void testLeaveAllAndEnter1 () {
+        IScreen screen1 = new DummyScreen();
+        IScreen screen2 = new DummyScreen();
+
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", screen1);
+        manager.addScreen("screen2", screen2);
+
+        assertEquals(false, manager.listActiveScreens().contains(screen1));
+        assertEquals(false, manager.listActiveScreens().contains(screen2));
+
+        manager.push("screen2");
+
+        assertEquals(false, manager.listActiveScreens().contains(screen1));
+        assertEquals(true, manager.listActiveScreens().contains(screen2));
+
+        manager.leaveAllAndEnter("dummy_screen");
+
+        assertEquals(true, manager.listActiveScreens().contains(screen1));
+        assertEquals(false, manager.listActiveScreens().contains(screen2));
     }
 
     protected ScreenManager<IScreen> createScreenManager () {
