@@ -6,6 +6,7 @@ import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.CameraService;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
+import com.jukusoft.mmo.game.screens.SplashScreen;
 
 public class Game extends BaseApp {
 
@@ -24,7 +25,10 @@ public class Game extends BaseApp {
 
     @Override
     protected void initScreens(ScreenManager<IScreen> manager) {
-        //
+        manager.addScreen("splash_screen", new SplashScreen());
+
+        //push screen so screen will be active
+        manager.push("splash_screen");
     }
 
 }
