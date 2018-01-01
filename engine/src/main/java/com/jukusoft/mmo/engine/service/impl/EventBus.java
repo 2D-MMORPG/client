@@ -1,12 +1,10 @@
 package com.jukusoft.mmo.engine.service.impl;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Pools;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.event.Event;
 import com.jukusoft.mmo.engine.service.event.EventHandler;
 import com.jukusoft.mmo.engine.service.event.Events;
-import com.sun.xml.internal.stream.events.DummyEvent;
 
 import java.util.ArrayList;
 import java.util.List;
