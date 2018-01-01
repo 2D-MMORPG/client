@@ -7,6 +7,7 @@ import com.jukusoft.mmo.engine.graphics.screen.*;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DummyService;
+import com.jukusoft.mmo.utils.Platform;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -174,6 +175,23 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.push("dummy_screen");
 
         assertNotNull(manager.pop());
+
+        //pop again
+        assertNull(manager.pop());
+
+        assertEquals(1, manager.listScreens().size());
+        assertEquals(0, manager.listActiveScreens().size());
+    }
+
+    @Test
+    public void testPop1 () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        assertNotNull(manager.pop());
+
+        Platform.executeQueue();
 
         //pop again
         assertNull(manager.pop());
