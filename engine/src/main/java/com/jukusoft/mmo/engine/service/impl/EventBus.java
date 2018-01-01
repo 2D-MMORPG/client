@@ -60,7 +60,7 @@ public class EventBus implements IService {
 
     protected void createListIfAbsent (Class<?> cls) {
         if (this.handlerMap.get(cls) == null) {
-            this.handlerMap.put(cls, new ArrayList<>());
+            this.handlerMap.putIfAbsent(cls, new ArrayList<>());
         }
     }
 
