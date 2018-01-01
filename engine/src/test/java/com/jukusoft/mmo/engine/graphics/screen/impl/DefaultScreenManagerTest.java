@@ -244,6 +244,7 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.draw();
     }
 
+    @Test
     public void testDispose () {
         ScreenManager<IScreen> manager = this.createScreenManager();
         manager.addScreen("dummy_screen", new DummyScreen());
