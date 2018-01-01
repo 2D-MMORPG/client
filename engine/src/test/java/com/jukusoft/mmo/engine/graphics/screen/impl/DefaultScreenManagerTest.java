@@ -129,6 +129,21 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     }
 
     @Test
+    public void testPop () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        assertNotNull(manager.pop());
+
+        //pop again
+        assertNull(manager.pop());
+
+        assertEquals(1, manager.listScreens().size());
+        assertEquals(0, manager.listActiveScreens().size());
+    }
+
+    @Test
     public void testLeaveAllAndEnter () {
         ScreenManager<IScreen> manager = this.createScreenManager();
         manager.addScreen("dummy_screen", new DummyScreen());
