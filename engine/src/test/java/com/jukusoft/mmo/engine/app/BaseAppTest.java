@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
+import com.jukusoft.mmo.utils.Platform;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -69,11 +70,8 @@ public class BaseAppTest {
 
         assertEquals(false, this.created);
 
-        app.uiQueue.add(new Runnable() {
-            @Override
-            public void run() {
-                //
-            }
+        Platform.runOnUIThread(() -> {
+            //
         });
 
         // Note that we don't need to implement any of the listener's methods
