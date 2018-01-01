@@ -139,7 +139,7 @@ public class DefaultServiceManager implements ServiceManager {
     }
 
     @Override
-    public void draw() {
+    public void beforeDraw() {
         for (BeforeDrawService service : this.beforeDrawServices) {
             service.beforeDraw();
         }

@@ -4,6 +4,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.impl.DefaultScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
 import com.jukusoft.mmo.engine.service.impl.WindowService;
@@ -35,6 +38,8 @@ public abstract class BaseApp implements ApplicationListener, IApp {
     //services
     protected WindowService windowService = null;
 
+    protected ScreenManager<IScreen> screenManager = null;
+
     /**
     * default constructor
     */
@@ -54,6 +59,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
         //get window service
         this.windowService = this.serviceManager.getService(WindowService.class);
+
+        //create screen manager
+        this.screenManager = new DefaultScreenManager(this.serviceManager);
     }
 
     protected abstract void createServices (ServiceManager serviceManager);
@@ -99,17 +107,22 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
         try {
             //process input
-            this.serviceManager.processInput();
+            if (!this.screenManager.processInput()) {
+                this.serviceManager.processInput();
+            }
 
             //update game
             this.serviceManager.update();
+
+            //update screens
+            this.screenManager.update();
 
             //clear all color buffer bits and clear screen
             Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
             //beforeDraw game
-            this.serviceManager.draw();
+            this.serviceManager.beforeDraw();
 
             //after beforeDraw
             this.serviceManager.afterDraw();

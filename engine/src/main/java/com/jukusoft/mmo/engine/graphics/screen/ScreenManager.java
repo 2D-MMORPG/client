@@ -67,6 +67,23 @@ public interface ScreenManager<T extends IScreen> {
     public Collection<T> listActiveScreens();
 
     /**
+    * process input (for example UI)
+     *
+     * @return true, if input was handled and no other screen has to handle input anymore
+    */
+    public boolean processInput ();
+
+    /**
+    * update all active screens
+    */
+    public void update ();
+
+    /**
+    * beforeDraw all active screens
+    */
+    public void draw ();
+
+    /**
     * dispose screen manager with all screens
     */
     public void dispose();

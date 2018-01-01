@@ -42,7 +42,7 @@ public interface IScreen {
     public void update();
 
     /**
-     * draw game screen
+     * beforeDraw game screen
      */
     public void draw();
 

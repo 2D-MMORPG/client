@@ -155,7 +155,7 @@ public class DefaultServiceManagerTest {
         serviceManager.addService(new DummyService(), DummyService.class);
         serviceManager.addService(new Other2DummyServiceBefore(), Other2DummyServiceBefore.class);
 
-        serviceManager.draw();
+        serviceManager.beforeDraw();
     }
 
     @Test

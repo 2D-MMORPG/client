@@ -249,7 +249,7 @@ public class BaseAppTest {
             }
 
             @Override
-            public void draw() {
+            public void beforeDraw() {
                 throw new RuntimeException("test exception");
             }
 

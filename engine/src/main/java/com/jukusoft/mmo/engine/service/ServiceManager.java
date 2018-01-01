@@ -52,7 +52,7 @@ public interface ServiceManager {
     /**
     * beforeDraw all services
     */
-    public void draw ();
+    public void beforeDraw();
 
     /**
     * execute after beforeDraw methods to push things to gpu and so on
