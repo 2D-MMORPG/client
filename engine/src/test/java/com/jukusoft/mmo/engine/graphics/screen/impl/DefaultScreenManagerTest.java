@@ -96,6 +96,23 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.addScreen("dummy_screen", new Dummy1Screen());
     }
 
+    @Test (expected = RequiredServiceNotFoundException.class)
+    public void testAddScreen5 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+        serviceManager.addService(new DummyService(), DummyService.class);
+
+        ScreenManager<IScreen> manager = new DefaultScreenManager(serviceManager);
+
+        manager.addScreen("dummy_screen", new Dummy2Screen());
+    }
+
+    @Test
+    public void testAddScreen6 () {
+        ScreenManager<IScreen> manager = createDefaultScreenManager();
+
+        manager.addScreen("dummy_screen", new DummyNullableInjectionScreen());
+    }
+
     @Test (expected = NullPointerException.class)
     public void testRemoveNullScreen () {
         ScreenManager<IScreen> manager = this.createScreenManager();
