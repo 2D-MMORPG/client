@@ -5,6 +5,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.utils.Platform;
@@ -12,6 +14,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
@@ -295,6 +299,102 @@ public class BaseAppTest {
         Gdx.gl = Gdx.gl20;
 
         Thread.sleep(100);
+
+        app.lastFPS = 60;
+
+        Thread.sleep(100);
+
+        application.exit();
+    }
+
+    @Test
+    public void testRender4 () throws InterruptedException {
+        BaseApp app = new BaseApp() {
+            @Override
+            protected void createServices(ServiceManager serviceManager) {
+                created = true;
+            }
+
+            @Override
+            public int getFPS () {
+                return 50;
+            }
+        };
+
+        // Note that we don't need to implement any of the listener's methods
+        application = new HeadlessApplication(app);
+
+        // Use Mockito to mock the OpenGL methods since we are running headlessly
+        Gdx.gl20 = Mockito.mock(GL20.class);
+        Gdx.gl = Gdx.gl20;
+
+        Thread.sleep(100);
+
+        app.screenManager = new ScreenManager<IScreen>() {
+
+            protected int i = 0;
+
+            @Override
+            public void addScreen(String name, IScreen screen) {
+
+            }
+
+            @Override
+            public void removeScreen(String name) {
+
+            }
+
+            @Override
+            public void push(String name) {
+
+            }
+
+            @Override
+            public void leaveAllAndEnter(String name) {
+
+            }
+
+            @Override
+            public IScreen pop() {
+                return null;
+            }
+
+            @Override
+            public IScreen getScreenByName(String name) {
+                return null;
+            }
+
+            @Override
+            public Collection<IScreen> listScreens() {
+                return null;
+            }
+
+            @Override
+            public Collection<IScreen> listActiveScreens() {
+                return null;
+            }
+
+            @Override
+            public boolean processInput() {
+                return (i++) % 2 == 0;
+            }
+
+            @Override
+            public void update() {
+
+            }
+
+            @Override
+            public void draw() {
+
+            }
+
+            @Override
+            public void dispose() {
+
+            }
+
+        };
 
         app.lastFPS = 60;
 

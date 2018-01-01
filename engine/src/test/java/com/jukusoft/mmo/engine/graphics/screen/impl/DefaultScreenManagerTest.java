@@ -4,6 +4,7 @@ import com.jukusoft.mmo.engine.GameUnitTest;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
 import com.jukusoft.mmo.engine.graphics.screen.DummyScreen;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.OtherDummyScreen;
 import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
@@ -33,6 +34,12 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.addScreen("dummy_screen", null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddEmptyScreen () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("", new DummyScreen());
+    }
+
     @Test (expected = IllegalStateException.class)
     public void testAddExistentScreen () {
         ScreenManager<IScreen> manager = this.createScreenManager();
@@ -44,6 +51,12 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     public void testAddScreen () {
         ScreenManager<IScreen> manager = this.createScreenManager();
         manager.addScreen("dummy_screen", new DummyScreen());
+    }
+
+    @Test
+    public void testAddScreen1 () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new OtherDummyScreen());
     }
 
     @Test (expected = NullPointerException.class)
