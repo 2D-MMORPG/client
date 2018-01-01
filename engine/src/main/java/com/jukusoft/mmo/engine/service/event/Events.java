@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.engine.service.event;
 
 import com.badlogic.gdx.utils.Pools;
-import com.sun.xml.internal.stream.events.DummyEvent;
 
 public class Events {
 
