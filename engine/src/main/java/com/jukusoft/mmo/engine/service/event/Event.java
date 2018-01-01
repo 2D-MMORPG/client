@@ -1,12 +1,12 @@
 package com.jukusoft.mmo.engine.service.event;
 
-import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Pool;
 
-public class Event implements Disposable {
+public class Event implements Pool.Poolable {
 
     @Override
-    public void dispose() {
-
+    public void reset() {
+        //
     }
 
 }
