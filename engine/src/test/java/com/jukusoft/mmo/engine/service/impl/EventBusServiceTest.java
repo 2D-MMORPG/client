@@ -16,9 +16,13 @@ import org.mockito.Mockito;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.Assert.assertEquals;
+
 public class EventBusServiceTest {
 
     protected static Application application = null;
+
+    protected boolean executed = false;
 
     @BeforeClass
     public static void beforeClass () {
@@ -164,17 +168,21 @@ public class EventBusServiceTest {
 
     @Test
     public void testDispatchEvent () {
+        this.executed = false;
+
         EventBus eventBus = new EventBus();
 
         //subscribe event
         eventBus.subscribe(DummyEvent.class, new EventHandler<DummyEvent>() {
             @Override
             public void handle(DummyEvent event) {
-                //
+                executed = true;
             }
         });
 
         eventBus.dispatch(new DummyEvent());
+
+        assertEquals(true, this.executed);
     }
 
 }
