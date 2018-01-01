@@ -8,6 +8,7 @@ import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.ServiceManager;
+import com.jukusoft.mmo.utils.Platform;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -32,6 +33,11 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
      * list with all active screens
      */
     protected Deque<IScreen> activeScreens = new ConcurrentLinkedDeque<>();
+
+    /**
+    * backward active screens list
+    */
+    protected List<IScreen> backActiveScreens = new ArrayList<>();
 
     /**
      * only for performance improvements!
@@ -181,6 +187,8 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
         this.activeScreens.push(screen);
 
+        this.backActiveScreens.add(0, screen);
+
         Gdx.app.debug("Screens", "push screen: " + name);
     }
 
@@ -203,12 +211,12 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
         IScreen screen = this.activeScreens.poll();
 
         if (screen != null) {
-            /*game.runOnUIThread(() -> {
+            Platform.runOnUIThread(() -> {
                 //pause screen
                 screen.onPause();
-            });*/
-            //pause screen
-            screen.onPause();
+            });
+
+            this.backActiveScreens.remove(screen);
         }
 
         Gdx.app.debug("Screens", "pop screen.");
@@ -229,6 +237,31 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
     @Override
     public Collection<IScreen> listActiveScreens() {
         return this.activeScreens;
+    }
+
+    @Override
+    public boolean processInput() {
+        for (IScreen screen : this.backActiveScreens) {
+            if (screen.processInput()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public void update() {
+        for (IScreen screen : this.activeScreens) {
+            screen.update();
+        }
+    }
+
+    @Override
+    public void draw() {
+        for (IScreen screen : this.activeScreens) {
+            screen.draw();
+        }
     }
 
     @Override
