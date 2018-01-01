@@ -158,6 +158,77 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         assertEquals(false, manager.listActiveScreens().contains(screen2));
     }
 
+    @Test
+    public void testProcessInput () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        manager.processInput();
+    }
+
+    @Test
+    public void testProcessInput1 () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new IScreen() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+
+            @Override
+            public void onPause() {
+
+            }
+
+            @Override
+            public void onResume() {
+
+            }
+
+            @Override
+            public boolean processInput() {
+                return true;
+            }
+
+            @Override
+            public void update() {
+
+            }
+
+            @Override
+            public void draw() {
+
+            }
+        });
+        manager.push("dummy_screen");
+
+        manager.processInput();
+    }
+
+    @Test
+    public void testUpdate () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        manager.update();
+    }
+
+    @Test
+    public void testDraw () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        manager.draw();
+    }
+
     protected ScreenManager<IScreen> createScreenManager () {
         ServiceManager serviceManager = new DefaultServiceManager();
         return new DefaultScreenManager(serviceManager);
