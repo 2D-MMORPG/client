@@ -89,6 +89,13 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.addScreen("dummy_screen", new AnotherDummyScreen());
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testAddScreen4 () {
+        ScreenManager<IScreen> manager = createDefaultScreenManager();
+
+        manager.addScreen("dummy_screen", new Dummy1Screen());
+    }
+
     @Test (expected = NullPointerException.class)
     public void testRemoveNullScreen () {
         ScreenManager<IScreen> manager = this.createScreenManager();
