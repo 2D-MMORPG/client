@@ -68,6 +68,10 @@ public class EventBus implements IService {
     * dispatch event so event can be handled
     */
     public <T extends Event> void dispatch (T event) {
+        if (event == null) {
+            throw new NullPointerException("event cannot be null.");
+        }
+
         this.process(event);
     }
 
