@@ -113,6 +113,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
             //beforeDraw game
             this.serviceManager.beforeDraw();
 
+            //draw screens
+            this.screenManager.draw();
+
             //after beforeDraw
             this.serviceManager.afterDraw();
         } catch (Exception e) {
@@ -120,8 +123,6 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
             Gdx.app.error("BaseGame", "exception thrown while updating game: " + e.getLocalizedMessage(), e);
         }
-
-        //TODO: add code here
     }
 
     @Override
