@@ -11,6 +11,7 @@ import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
 import com.jukusoft.mmo.engine.service.impl.WindowService;
 import com.jukusoft.mmo.engine.utils.GameTime;
+import com.jukusoft.mmo.utils.Platform;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,9 +22,6 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
     //instance of game time
     protected GameTime time = GameTime.getInstance();
-
-    //tasks which should be executed in OpenGL context thread
-    protected Queue<Runnable> uiQueue = new ConcurrentLinkedQueue<>();
 
     //last second of FPS warning
     protected long lastFPSWarning = 0;
@@ -97,13 +95,7 @@ public abstract class BaseApp implements ApplicationListener, IApp {
         }
 
         //execute tasks, which should be executed in OpenGL context thread
-        Runnable runnable = uiQueue.poll();
-
-        while (runnable != null) {
-            runnable.run();
-
-            runnable = uiQueue.poll();
-        }
+        Platform.executeQueue();
 
         try {
             //process input
