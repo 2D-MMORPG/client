@@ -183,6 +183,7 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
+							<!-- http://www.javacreed.com/how-to-add-splash-screen-using-maven/ -->
                             <SplashScreen-Image>splash_screen.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
