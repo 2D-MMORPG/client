@@ -57,9 +57,14 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
         //create screen manager
         this.screenManager = new DefaultScreenManager(this.serviceManager);
+
+        //create and initialize screens
+        this.initScreens(this.screenManager);
     }
 
     protected abstract void createServices (ServiceManager serviceManager);
+
+    protected abstract void initScreens (ScreenManager<IScreen> manager);
 
     @Override
     public void resize(int width, int height) {

@@ -58,6 +58,11 @@ public class BaseAppTest {
             protected void createServices(ServiceManager serviceManager) {
                 //
             }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+
+            }
         };
     }
 
@@ -69,6 +74,11 @@ public class BaseAppTest {
             @Override
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
+            }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+
             }
         };
 
@@ -104,6 +114,11 @@ public class BaseAppTest {
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
             }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+
+            }
         };
 
         assertEquals(false, this.created);
@@ -136,6 +151,11 @@ public class BaseAppTest {
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
             }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
+            }
         };
 
         assertEquals(true, app.getFPS() >= 0);
@@ -147,6 +167,11 @@ public class BaseAppTest {
             @Override
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
+            }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
             }
         };
 
@@ -174,6 +199,11 @@ public class BaseAppTest {
             @Override
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
+            }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
             }
 
             @Override
@@ -206,6 +236,11 @@ public class BaseAppTest {
             @Override
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
+            }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
             }
 
             @Override
@@ -286,6 +321,11 @@ public class BaseAppTest {
             }
 
             @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
+            }
+
+            @Override
             public int getFPS () {
                 return 50;
             }
@@ -313,6 +353,11 @@ public class BaseAppTest {
             @Override
             protected void createServices(ServiceManager serviceManager) {
                 created = true;
+            }
+
+            @Override
+            protected void initScreens(ScreenManager<IScreen> manager) {
+                //
             }
 
             @Override
