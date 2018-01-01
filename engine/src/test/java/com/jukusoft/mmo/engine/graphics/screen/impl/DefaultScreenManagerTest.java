@@ -244,6 +244,14 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         manager.draw();
     }
 
+    public void testDispose () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new DummyScreen());
+        manager.push("dummy_screen");
+
+        manager.dispose();
+    }
+
     protected ScreenManager<IScreen> createScreenManager () {
         ServiceManager serviceManager = new DefaultServiceManager();
         return new DefaultScreenManager(serviceManager);
