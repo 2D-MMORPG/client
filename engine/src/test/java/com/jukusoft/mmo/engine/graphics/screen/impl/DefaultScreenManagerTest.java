@@ -49,8 +49,20 @@ public class DefaultScreenManagerTest extends GameUnitTest {
 
     @Test
     public void testAddScreen () {
-        ScreenManager<IScreen> manager = this.createScreenManager();
+        DefaultScreenManager manager = this.createDefaultScreenManager();
+
+        assertEquals(0, manager.screens.size());
+        assertEquals(0, manager.cachedScreenList.size());
+        assertEquals(0, manager.activeScreens.size());
+        assertEquals(0, manager.backActiveScreens.size());
+
         manager.addScreen("dummy_screen", new DummyScreen());
+
+        assertEquals(1, manager.screens.size());
+        assertEquals(1, manager.cachedScreenList.size());
+        assertEquals(0, manager.activeScreens.size());
+        assertEquals(0, manager.backActiveScreens.size());
+
     }
 
     @Test
@@ -114,6 +126,11 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     }
 
     protected ScreenManager<IScreen> createScreenManager () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+        return new DefaultScreenManager(serviceManager);
+    }
+
+    protected DefaultScreenManager createDefaultScreenManager () {
         ServiceManager serviceManager = new DefaultServiceManager();
         return new DefaultScreenManager(serviceManager);
     }
