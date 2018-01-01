@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MessageBus implements IService {
+public class EventBus implements IService {
 
     //map with all event handlers
     protected Map<Class<?>,List<EventHandler>> handlerMap = new ConcurrentHashMap<>();
@@ -78,7 +78,7 @@ public class MessageBus implements IService {
         List<EventHandler> list = this.handlerMap.get(event.getClass());
 
         if (list == null) {
-            Gdx.app.debug("MessageBus", "no event listener found for event '" + event + "'.");
+            Gdx.app.debug("EventBus", "no event listener found for event '" + event + "'.");
 
             //free event
             Events.free(event);

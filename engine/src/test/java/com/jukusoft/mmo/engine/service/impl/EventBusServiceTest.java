@@ -2,11 +2,11 @@ package com.jukusoft.mmo.engine.service.impl;
 
 import org.junit.Test;
 
-public class MessageBusServiceTest {
+public class EventBusServiceTest {
 
     @Test
     public void testConstructor () {
-        new MessageBus();
+        new EventBus();
     }
 
 }
