@@ -1,7 +1,5 @@
 package com.jukusoft.mmo.engine.graphics.screen;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 /**
  * Screen interface - screens are responsible for drawing, not for updating your game state!
  *

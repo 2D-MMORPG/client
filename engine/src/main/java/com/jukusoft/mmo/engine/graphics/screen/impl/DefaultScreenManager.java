@@ -23,6 +23,9 @@ import java.util.logging.Logger;
 public class DefaultScreenManager implements ScreenManager<IScreen> {
 
     protected static final String TAG_INJECT_SERVICE = "inject_service";
+    protected static final String TAG_NAME_CANNOT_NULL = "name cannot be null.";
+    protected static final String TAG_NAME_CANNOT_EMPTY = "name cannot be empty.";
+    protected static final String TAG_SCREENS = "Screens";
 
     /**
      * map with all initialized screens
@@ -59,11 +62,11 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
     @Override
     public void addScreen(String name, IScreen screen) {
         if (name == null) {
-            throw new NullPointerException("name cannot be null.");
+            throw new NullPointerException(TAG_NAME_CANNOT_NULL);
         }
 
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("name cannot be empty.");
+            throw new IllegalArgumentException(TAG_NAME_CANNOT_EMPTY);
         }
 
         if (screen == null) {
@@ -85,17 +88,17 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
         this.cachedScreenList.add(screen);
 
-        Gdx.app.debug("Screens", "add screen: " + name);
+        Gdx.app.debug(TAG_SCREENS, "add screen: " + name);
     }
 
     @Override
     public void removeScreen(String name) {
         if (name == null) {
-            throw new NullPointerException("name cannot be null.");
+            throw new NullPointerException(TAG_NAME_CANNOT_NULL);
         }
 
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("name cannot be empty.");
+            throw new IllegalArgumentException(TAG_NAME_CANNOT_EMPTY);
         }
 
         IScreen screen = this.screens.get(name);
@@ -109,7 +112,7 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
         this.screens.remove(name);
 
-        Gdx.app.debug("Screens", "remove screen: " + name);
+        Gdx.app.debug(TAG_SCREENS, "remove screen: " + name);
     }
 
     protected <T> void injectServices (T target) {
@@ -169,11 +172,11 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
     @Override
     public void push(String name) {
         if (name == null) {
-            throw new NullPointerException("name cannot be null.");
+            throw new NullPointerException(TAG_NAME_CANNOT_NULL);
         }
 
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("name cannot be empty.");
+            throw new IllegalArgumentException(TAG_NAME_CANNOT_EMPTY);
         }
 
         IScreen screen = this.screens.get(name);
@@ -189,7 +192,7 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
         this.backActiveScreens.add(0, screen);
 
-        Gdx.app.debug("Screens", "push screen: " + name);
+        Gdx.app.debug(TAG_SCREENS, "push screen: " + name);
     }
 
     @Override
@@ -198,7 +201,7 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
         IScreen screen = pop();
 
         // pop and pause all active screens
-        while (this.pop() != null) {
+        while (screen != null) {
             screen = pop();
         }
 
@@ -219,7 +222,7 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
             this.backActiveScreens.remove(screen);
         }
 
-        Gdx.app.debug("Screens", "pop screen.");
+        Gdx.app.debug(TAG_SCREENS, "pop screen.");
 
         return screen;
     }
