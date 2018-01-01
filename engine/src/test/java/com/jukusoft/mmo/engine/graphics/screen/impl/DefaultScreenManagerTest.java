@@ -1,13 +1,12 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
 import com.jukusoft.mmo.engine.GameUnitTest;
+import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
-import com.jukusoft.mmo.engine.graphics.screen.DummyScreen;
-import com.jukusoft.mmo.engine.graphics.screen.IScreen;
-import com.jukusoft.mmo.engine.graphics.screen.OtherDummyScreen;
-import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.*;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
+import com.jukusoft.mmo.engine.service.impl.DummyService;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -72,6 +71,22 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     public void testAddScreen1 () {
         ScreenManager<IScreen> manager = this.createScreenManager();
         manager.addScreen("dummy_screen", new OtherDummyScreen());
+    }
+
+    @Test (expected = RequiredServiceNotFoundException.class)
+    public void testAddScreen2 () {
+        ScreenManager<IScreen> manager = this.createScreenManager();
+        manager.addScreen("dummy_screen", new AnotherDummyScreen());
+    }
+
+    @Test
+    public void testAddScreen3 () {
+        ServiceManager serviceManager = new DefaultServiceManager();
+        serviceManager.addService(new DummyService(), DummyService.class);
+
+        ScreenManager<IScreen> manager = new DefaultScreenManager(serviceManager);
+
+        manager.addScreen("dummy_screen", new AnotherDummyScreen());
     }
 
     @Test (expected = NullPointerException.class)

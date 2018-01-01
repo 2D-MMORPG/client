@@ -110,7 +110,7 @@ public class DefaultServiceManager implements ServiceManager {
         IService service = this.serviceMap.get(type);
 
         if (service == null) {
-            throw new IllegalStateException("service " + type.getName() + " isnt registered yet. Add with addService() first.");
+            return null;
         }
 
         return service;

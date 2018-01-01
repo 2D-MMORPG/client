@@ -234,7 +234,7 @@ public class DefaultServiceManagerTest {
         assertEquals(service, serviceManager.getServiceObject(DummyService.class));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test
     public void testGetServiceObject1 () {
         ServiceManager serviceManager = new DefaultServiceManager();
 
