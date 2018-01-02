@@ -8,6 +8,7 @@ import com.jukusoft.mmo.engine.graphics.screen.IScreen;
 import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.graphics.screen.impl.DefaultScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
+import com.jukusoft.mmo.engine.service.asset.AssetManagerService;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
 import com.jukusoft.mmo.engine.service.impl.WindowService;
 import com.jukusoft.mmo.engine.utils.GameTime;
@@ -49,6 +50,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
         //add window service
         this.serviceManager.addService(new WindowService(), WindowService.class);
+
+        //add asset manager service
+        this.serviceManager.addService(new AssetManagerService(), AssetManagerService.class);
 
         this.createServices(this.serviceManager);
 
