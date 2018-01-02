@@ -18,14 +18,14 @@ public interface IScreen {
     public void onStop ();
 
     /**
+     * method is executed, if screen is set to active state now.
+     */
+    public void onResume ();
+
+    /**
     * method is executed, if screen isn't active anymore
     */
     public void onPause ();
-
-    /**
-    * method is executed, if screen is set to active state now.
-    */
-    public void onResume ();
 
     /**
     * process input

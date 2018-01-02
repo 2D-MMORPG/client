@@ -72,6 +72,10 @@ public class AssetManagerService implements IService, UpdateService {
      * @param type asset type
     */
     public <T> T get (String fileName, Class<T> type) {
+        if (!this.assetManager.isLoaded(fileName)) {
+            throw new AssetNotLoadedException("asset '" + fileName + "' isn't loaded yet.");
+        }
+
         return this.assetManager.get(fileName, type);
     }
 
@@ -119,6 +123,14 @@ public class AssetManagerService implements IService, UpdateService {
         }
 
         return cls.cast(asset);
+    }
+
+    public void finishLoading (String fileName) {
+        this.assetManager.finishLoadingAsset(fileName);
+    }
+
+    public void finishLoading () {
+        this.assetManager.finishLoading();
     }
 
 }

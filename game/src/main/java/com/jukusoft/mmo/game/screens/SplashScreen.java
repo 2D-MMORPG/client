@@ -15,12 +15,12 @@ public class SplashScreen implements IScreen {
     }
 
     @Override
-    public void onPause() {
-        //we dont need to do anything here
+    public void onResume() {
+        //TODO: load assets
     }
 
     @Override
-    public void onResume() {
+    public void onPause() {
         //we dont need to do anything here
     }
 
