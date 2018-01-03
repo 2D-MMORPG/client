@@ -2,6 +2,7 @@ package com.jukusoft.mmo.engine.service.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.GameUnitTest;
 import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
 import org.junit.Test;
@@ -186,6 +187,13 @@ public class AssetManagerServiceTest extends GameUnitTest {
         assertEquals(true, value instanceof Texture);
 
         service.removeAssetName("test");
+    }
+
+    @Test (expected = GdxRuntimeException.class)
+    public void testGetNullAssetByName () {
+        AssetManagerService service = new AssetManagerService();
+
+        service.getAssetByName("test", Texture.class);
     }
 
     @Test
