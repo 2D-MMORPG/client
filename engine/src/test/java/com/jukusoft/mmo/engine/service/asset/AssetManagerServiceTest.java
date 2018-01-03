@@ -55,9 +55,7 @@ public class AssetManagerServiceTest extends GameUnitTest {
                 }
             }
         });
-        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> {
-            return Mockito.mock(Texture.class);
-        });
+        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> Mockito.mock(Texture.class));
 
         service.maxLoadingMillis = 0;
 
