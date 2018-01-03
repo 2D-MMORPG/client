@@ -15,7 +15,7 @@ public class AssetInfo {
 
     public enum TYPE {
         TEXTURE, TEXTURE_ATLAS, MUSIC, SOUND, UNKNOWN
-    };
+    }
 
     protected String path = "";
     protected TYPE type = TYPE.UNKNOWN;

@@ -6,6 +6,8 @@ import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.UpdateService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,12 +20,17 @@ public class AssetManagerService implements IService, UpdateService {
     protected AssetManager assetManager = null;
 
     //time limit for every asset manager update() execution
-    protected int max_Loading_Millis = 10;
+    protected int maxLoadingMillis = 10;
 
     protected boolean finished = false;
 
     //if load_assets.json contains name key, this asset is saved in this map
     protected Map<String,Object> assetsMap = new ConcurrentHashMap<>();
+
+    //list with assets to load
+    protected List<AssetInfo> loaderTasks = new ArrayList<>();
+
+    protected List<AssetInfo> tmpList = new ArrayList<>();
 
     @Override
     public void onStart() {
@@ -40,10 +47,29 @@ public class AssetManagerService implements IService, UpdateService {
 
     @Override
     public void update() {
-        if (this.max_Loading_Millis > 0) {
-            this.finished = this.assetManager.update(this.max_Loading_Millis);
+        if (this.maxLoadingMillis > 0) {
+            this.finished = this.assetManager.update(this.maxLoadingMillis);
         } else {
             this.finished = this.assetManager.update();
+        }
+
+        for (AssetInfo asset : this.loaderTasks) {
+            if (this.assetManager.isLoaded(asset.getPath())) {
+                if (asset.hasName()) {
+                    this.assetsMap.put(asset.getPath(), this.assetManager.get(asset.getPath(), asset.getLibGDXAssetClass()));
+                }
+
+                //add asset to temporary list, so it could removed
+                this.tmpList.add(asset);
+            }
+        }
+
+        //remove loader tasks from asset list
+        this.loaderTasks.removeAll(this.tmpList);
+
+        //clear temporary list
+        if (this.tmpList.size() > 0) {
+            this.tmpList.clear();
         }
     }
 
@@ -55,6 +81,10 @@ public class AssetManagerService implements IService, UpdateService {
     public void load (AssetInfo asset) {
         //load asset
         this.assetManager.load(asset.getPath(), asset.getLibGDXAssetClass());
+
+        if (asset.hasName()) {
+            this.loaderTasks.add(asset);
+        }
     }
 
     /**
@@ -63,6 +93,9 @@ public class AssetManagerService implements IService, UpdateService {
     public void unload (AssetInfo asset) {
         //cleanup asset
         this.assetManager.unload(asset.getPath());
+
+        this.loaderTasks.remove(asset);
+        this.assetsMap.remove(asset.getPath());
     }
 
     /**
@@ -131,6 +164,10 @@ public class AssetManagerService implements IService, UpdateService {
 
     public void finishLoading () {
         this.assetManager.finishLoading();
+    }
+
+    public float getProgress () {
+        return this.assetManager.getProgress();
     }
 
 }
