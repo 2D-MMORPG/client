@@ -22,6 +22,14 @@ public class AssetInfo {
     protected String uniqueName = "";
 
     public AssetInfo(String path, TYPE type, String uniqueName) {
+        if (path == null) {
+            throw new NullPointerException("path cannot be null.");
+        }
+
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("path cannot be empty.");
+        }
+
         this.path = path.replace("\\", "/");
         this.path = this.path.replace("\\.\\", "\\");
         this.path = this.path.replace("/./", "/");

@@ -21,6 +21,16 @@ public class AssetInfoTest {
         new AssetInfo("my-image.png", AssetInfo.TYPE.TEXTURE);
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testNullConstructor () {
+        new AssetInfo(null, AssetInfo.TYPE.TEXTURE);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testEmptyPathConstructor () {
+        new AssetInfo("", AssetInfo.TYPE.TEXTURE);
+    }
+
     @Test
     public void testGetPath () {
         AssetInfo asset = new AssetInfo("my-image.png", AssetInfo.TYPE.TEXTURE);

@@ -36,8 +36,6 @@ public class AssetManagerService implements IService, UpdateService {
     public void onStart() {
         //create new asset manager
         this.assetManager = new AssetManager();
-
-        this.assetsMap = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -58,7 +56,13 @@ public class AssetManagerService implements IService, UpdateService {
         for (AssetInfo asset : this.loaderTasks) {
             if (this.assetManager.isLoaded(asset.getPath())) {
                 if (asset.hasName()) {
-                    this.assetsMap.put(asset.getPath(), this.assetManager.get(asset.getPath(), asset.getLibGDXAssetClass()));
+                    Object asset1 = this.assetManager.get(asset.getPath(), asset.getLibGDXAssetClass());
+
+                    if (asset1 == null) {
+                        throw new NullPointerException("loaded assets gets null.");
+                    }
+
+                    this.assetsMap.put(asset.getName(), asset1);
                 }
 
                 //add asset to temporary list, so it could removed

@@ -1,12 +1,15 @@
 package com.jukusoft.mmo.engine.service.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.jukusoft.mmo.engine.GameUnitTest;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +54,9 @@ public class AssetManagerServiceTest extends GameUnitTest {
                     return false;
                 }
             }
+        });
+        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> {
+            return Mockito.mock(Texture.class);
         });
 
         service.maxLoadingMillis = 0;
