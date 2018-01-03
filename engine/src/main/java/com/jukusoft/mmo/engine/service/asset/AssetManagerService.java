@@ -36,6 +36,8 @@ public class AssetManagerService implements IService, UpdateService {
     public void onStart() {
         //create new asset manager
         this.assetManager = new AssetManager();
+
+        this.assetsMap = new ConcurrentHashMap<>();
     }
 
     @Override
