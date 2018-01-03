@@ -60,6 +60,9 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.load(new AssetInfo("test2.png", AssetInfo.TYPE.TEXTURE, "test"));
 
         service.update();
+
+        //update again
+        service.update();
     }
 
 }
