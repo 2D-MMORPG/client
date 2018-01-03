@@ -53,6 +53,12 @@ public class AssetInfoTest {
         assertEquals("name1", asset1.getName());
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void testGetUniqueName1 () {
+        AssetInfo asset = new AssetInfo("my-image.png", AssetInfo.TYPE.TEXTURE);
+        asset.getName();
+    }
+
     @Test
     public void testGetLibGDXAssetClass () {
         AssetInfo asset = new AssetInfo("my-image.png", AssetInfo.TYPE.TEXTURE);

@@ -55,6 +55,10 @@ public class AssetInfo {
     }
 
     public String getName () {
+        if (this.uniqueName.isEmpty()) {
+            throw new IllegalStateException("asset info doesnt contains an unique name.");
+        }
+
         return this.uniqueName;
     }
 
