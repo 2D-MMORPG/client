@@ -64,11 +64,11 @@ public class AssetManagerService implements IService, UpdateService {
             }
         }
 
-        //remove loader tasks from asset list
-        this.loaderTasks.removeAll(this.tmpList);
-
-        //clear temporary list
         if (this.tmpList.size() > 0) {
+            //remove loader tasks from asset list
+            this.loaderTasks.removeAll(this.tmpList);
+
+            //clear temporary list
             this.tmpList.clear();
         }
     }
