@@ -200,4 +200,15 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.finishLoading("test");
     }
 
+    @Test
+    public void testGetProgress () {
+        AssetManagerService service = new AssetManagerService();
+
+        service.onStart();
+
+        assertEquals(1f, service.getProgress(), 0f);
+
+        service.onStop();
+    }
+
 }
