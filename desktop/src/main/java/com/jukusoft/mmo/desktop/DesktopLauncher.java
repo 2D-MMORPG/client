@@ -13,6 +13,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
@@ -88,6 +89,12 @@ public class DesktopLauncher {
         } catch (Exception e) {
 
             Logger.getLogger("DesktopLauncher").log(Level.SEVERE, "an exception was thrown, sended report to server now", e);
+
+            try {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "working directory: " + new File( "." ).getCanonicalPath());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
 
             SwingUtilities.invokeLater(new Runnable() {
                 @Override

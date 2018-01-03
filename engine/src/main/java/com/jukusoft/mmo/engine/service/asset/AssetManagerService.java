@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.engine.service.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
@@ -36,7 +37,7 @@ public class AssetManagerService implements IService, UpdateService {
     @Override
     public void onStart() {
         //create new asset manager
-        this.assetManager = new AssetManager(new ExternalFileHandleResolver());
+        this.assetManager = new AssetManager(new AbsoluteFileHandleResolver());
     }
 
     @Override
@@ -86,6 +87,8 @@ public class AssetManagerService implements IService, UpdateService {
      * @param asset asset
     */
     public void load (AssetInfo asset) {
+        System.err.println("load asset: " + asset.getPath());
+
         //load asset
         this.assetManager.load(asset.getPath(), asset.getLibGDXAssetClass());
 
