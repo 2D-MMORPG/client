@@ -55,15 +55,15 @@ public class AssetManagerService implements IService, UpdateService {
 
         for (AssetInfo asset : this.loaderTasks) {
             if (this.assetManager.isLoaded(asset.getPath())) {
-                if (asset.hasName()) {
-                    Object asset1 = this.assetManager.get(asset.getPath(), asset.getLibGDXAssetClass());
+                //if asset has no unique name, it wasn't added to list
 
-                    if (asset1 == null) {
-                        throw new NullPointerException("loaded assets gets null.");
-                    }
+                Object asset1 = this.assetManager.get(asset.getPath(), asset.getLibGDXAssetClass());
 
-                    this.assetsMap.put(asset.getName(), asset1);
+                if (asset1 == null) {
+                    throw new NullPointerException("loaded assets gets null.");
                 }
+
+                this.assetsMap.put(asset.getName(), asset1);
 
                 //add asset to temporary list, so it could removed
                 this.tmpList.add(asset);

@@ -62,6 +62,26 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE, "test2"));
         service.load(new AssetInfo("test1.png", AssetInfo.TYPE.TEXTURE));
         service.load(new AssetInfo("test2.png", AssetInfo.TYPE.TEXTURE, "test"));
+        service.load(new AssetInfo("test3.png", AssetInfo.TYPE.TEXTURE, "test"));
+
+        service.update();
+
+        //update again
+        service.update();
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testUpdate2 () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(invocation -> true);
+        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> null);
+
+        service.maxLoadingMillis = 0;
+
+        service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE, "test2"));
 
         service.update();
 
