@@ -6,12 +6,15 @@ import com.jukusoft.mmo.desktop.config.WindowConfig;
 import com.jukusoft.mmo.game.Game;
 import com.jukusoft.mmo.launcher.LauncherMain;
 import com.jukusoft.mmo.updater.Updater;
-import com.jukusoft.mmo.utils.AppUtils;
-import com.jukusoft.mmo.utils.LogUtils;
-import com.jukusoft.mmo.utils.MapCacheUtils;
-import com.jukusoft.mmo.utils.ReportUtils;
+import com.jukusoft.mmo.utils.*;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,12 +86,24 @@ public class DesktopLauncher {
             // start game
             new Lwjgl3Application(new Game(), config);
         } catch (Exception e) {
+
             Logger.getLogger("DesktopLauncher").log(Level.SEVERE, "an exception was thrown, sended report to server now", e);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JavaFXUtils.startJavaFX();
+
+                    Platform.runLater(() -> {
+                        JavaFXUtils.showExceptionDialog("Error", "Game crashed!", e);
+
+                        System.exit(-1);
+                    });
+                }
+            });
 
             //send exception to server
             ReportUtils.sendExceptionToServer(e);
-
-            System.exit(-1);
         }
     }
 
