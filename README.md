@@ -25,6 +25,11 @@ First download [PoEdit](https://poedit.net/).
 
   - https://github.com/awkay/easy-i18n/wiki/Gettext-tutorial
   - https://github.com/awkay/easy-i18n/wiki/Getting-Started
+  
+## License
+
+**Code** (and only code!) is licensed under "[CC-BY-SA 3.0](./LICENSE)", assets are under their own, specific license, which is added in directories.\
+Please look also into [CONTRIBUTORS.md](./CONTRIBUTORS.md) for more information!
 
 ## Run Sonarqube
 
