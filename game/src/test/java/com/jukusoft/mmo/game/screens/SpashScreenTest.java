@@ -24,6 +24,12 @@ public class SpashScreenTest extends GameUnitTest {
     }
 
     @Test
+    public void testProcessInput () {
+        SplashScreen screen = new SplashScreen();
+        screen.processInput();
+    }
+
+    @Test
     public void testUpdate () {
         SplashScreen screen = new SplashScreen();
         screen.update();
