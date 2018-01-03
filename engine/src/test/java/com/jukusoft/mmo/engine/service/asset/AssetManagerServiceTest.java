@@ -55,7 +55,8 @@ public class AssetManagerServiceTest extends GameUnitTest {
 
         service.maxLoadingMillis = 0;
 
-        service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+        service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE, "test2"));
+        service.load(new AssetInfo("test1.png", AssetInfo.TYPE.TEXTURE));
         service.load(new AssetInfo("test2.png", AssetInfo.TYPE.TEXTURE, "test"));
 
         service.update();
