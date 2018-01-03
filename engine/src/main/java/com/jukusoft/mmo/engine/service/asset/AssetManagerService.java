@@ -1,6 +1,10 @@
 package com.jukusoft.mmo.engine.service.asset;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
 import com.jukusoft.mmo.engine.service.IService;
@@ -32,10 +36,28 @@ public class AssetManagerService implements IService, UpdateService {
 
     protected List<AssetInfo> tmpList = new ArrayList<>();
 
+    public static boolean isJUnitTest = false;
+
     @Override
     public void onStart() {
-        //create new asset manager
-        this.assetManager = new AssetManager();
+        if (!isJUnitTest) {
+            //create new asset manager
+            this.assetManager = new AssetManager(new ExternalFileHandleResolver());
+        } else {
+            //create new asset manager with own file handler resolver (because of other working directory)
+            this.assetManager = new AssetManager(new FileHandleResolver() {
+                @Override
+                public FileHandle resolve(String fileName) {
+                    if (fileName.startsWith("./")) {
+                        fileName = "." + fileName;
+                    }
+
+                    System.err.println("full file name: " + fileName);
+
+                    return Gdx.files.external(fileName);
+                }
+            });
+        }
     }
 
     @Override

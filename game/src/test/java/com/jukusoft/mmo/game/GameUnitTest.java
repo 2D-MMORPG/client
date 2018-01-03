@@ -9,6 +9,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 public abstract class GameUnitTest {
 
     // This is our "test" application
@@ -27,6 +30,8 @@ public abstract class GameUnitTest {
             @Override public void dispose() {}
         });
 
+        Gdx.app = application;
+
         // Use Mockito to mock the OpenGL methods since we are running headlessly
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
@@ -38,6 +43,8 @@ public abstract class GameUnitTest {
         // Exit the application first
         application.exit();
         application = null;
+
+        Gdx.app = null;
     }
 
 }
