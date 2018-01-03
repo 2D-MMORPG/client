@@ -36,28 +36,10 @@ public class AssetManagerService implements IService, UpdateService {
 
     protected List<AssetInfo> tmpList = new ArrayList<>();
 
-    public static boolean isJUnitTest = false;
-
     @Override
     public void onStart() {
-        if (!isJUnitTest) {
-            //create new asset manager
-            this.assetManager = new AssetManager(new ExternalFileHandleResolver());
-        } else {
-            //create new asset manager with own file handler resolver (because of other working directory)
-            this.assetManager = new AssetManager(new FileHandleResolver() {
-                @Override
-                public FileHandle resolve(String fileName) {
-                    if (fileName.startsWith("./")) {
-                        fileName = "." + fileName;
-                    }
-
-                    System.err.println("full file name: " + fileName);
-
-                    return Gdx.files.external(fileName);
-                }
-            });
-        }
+        //create new asset manager
+        this.assetManager = new AssetManager(new ExternalFileHandleResolver());
     }
 
     @Override

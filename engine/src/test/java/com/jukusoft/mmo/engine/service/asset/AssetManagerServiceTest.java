@@ -36,20 +36,6 @@ public class AssetManagerServiceTest extends GameUnitTest {
     }
 
     @Test
-    public void testStartAndStop1 () {
-        AssetManagerService.isJUnitTest = true;
-        AssetManagerService service = new AssetManagerService();
-
-        //start service
-        service.onStart();
-
-        //stop service and cleanup resources
-        service.onStop();
-
-        AssetManagerService.isJUnitTest = false;
-    }
-
-    @Test
     public void testUpdate () {
         AssetManagerService service = new AssetManagerService();
         service.assetManager = Mockito.mock(AssetManager.class);
