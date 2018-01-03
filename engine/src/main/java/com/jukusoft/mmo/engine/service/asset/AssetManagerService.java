@@ -64,7 +64,7 @@ public class AssetManagerService implements IService, UpdateService {
             }
         }
 
-        if (this.tmpList.size() > 0) {
+        if (!this.tmpList.isEmpty()) {
             //remove loader tasks from asset list
             this.loaderTasks.removeAll(this.tmpList);
 
