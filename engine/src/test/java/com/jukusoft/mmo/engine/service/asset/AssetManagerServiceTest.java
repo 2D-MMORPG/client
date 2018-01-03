@@ -3,11 +3,14 @@ package com.jukusoft.mmo.engine.service.asset;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.jukusoft.mmo.engine.GameUnitTest;
+import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -87,6 +90,62 @@ public class AssetManagerServiceTest extends GameUnitTest {
 
         //update again
         service.update();
+    }
+
+    @Test
+    public void testLoad () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+
+        service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+    }
+
+    @Test
+    public void testUnload () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+
+        service.unload(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+    }
+
+    @Test (expected = AssetNotLoadedException.class)
+    public void testGetNotLoadedAsset () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(i -> false);
+
+        service.get(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+    }
+
+    @Test
+    public void testGet () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(invocation -> true);
+        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> Mockito.mock(Texture.class));
+
+        Object value = service.get(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+        assertNotNull(value);
+        assertEquals("object isnt of type texture: " + value.getClass().getName(), true, value instanceof Texture);
+    }
+
+    @Test
+    public void testIsLoaded () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(invocation -> true);
+
+        assertEquals(true, service.isLoaded("test.png"));
     }
 
 }
