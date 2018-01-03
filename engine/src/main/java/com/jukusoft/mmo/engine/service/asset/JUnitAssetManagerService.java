@@ -1,9 +1,5 @@
 package com.jukusoft.mmo.engine.service.asset;
 
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.jukusoft.mmo.engine.exception.AssetNotLoadedException;
-import com.jukusoft.mmo.engine.service.asset.AssetManagerService;
-
 /**
 * wrapper for asset manager service to correct file paths in junit tests
 */
@@ -14,12 +10,14 @@ public class JUnitAssetManagerService extends AssetManagerService {
      *
      * @param asset asset
      */
+    @Override
     public void load (AssetInfo asset) {
         asset.path = correctFileName(asset.path);
 
         super.load(asset);
     }
 
+    @Override
     public void load (String path, Class<?> cls) {
         super.load(correctFileName(path), cls);
     }
@@ -27,12 +25,14 @@ public class JUnitAssetManagerService extends AssetManagerService {
     /**
      * cleanup memory for asset
      */
+    @Override
     public void unload (AssetInfo asset) {
         asset.path = correctFileName(asset.path);
 
         super.unload(asset);
     }
 
+    @Override
     public void unload (String path) {
         super.unload(correctFileName(path));
     }
@@ -43,6 +43,7 @@ public class JUnitAssetManagerService extends AssetManagerService {
      * @param fileName path to asset file
      * @param type asset type
      */
+    @Override
     public <T> T get (String fileName, Class<T> type) {
         return super.get(correctFileName(fileName), type);
     }
@@ -52,6 +53,7 @@ public class JUnitAssetManagerService extends AssetManagerService {
      *
      * @param filePath path to asset file
      */
+    @Override
     public boolean isLoaded (String filePath) {
         return super.isLoaded(correctFileName(filePath));
     }
@@ -61,12 +63,14 @@ public class JUnitAssetManagerService extends AssetManagerService {
      *
      * @param asset asset info
      */
+    @Override
     public <T> T get (AssetInfo asset) {
         asset.path = correctFileName(asset.path);
 
         return super.get(asset);
     }
 
+    @Override
     public void finishLoading (String fileName) {
         super.finishLoading(correctFileName(fileName));
     }
