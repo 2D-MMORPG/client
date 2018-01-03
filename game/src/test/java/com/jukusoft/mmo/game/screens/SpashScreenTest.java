@@ -6,6 +6,7 @@ import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.graphics.screen.impl.DefaultScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.asset.AssetManagerService;
+import com.jukusoft.mmo.engine.service.asset.JUnitAssetManagerService;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
 import com.jukusoft.mmo.game.GameUnitTest;
@@ -30,7 +31,7 @@ public class SpashScreenTest extends GameUnitTest {
         SpriteBatchService spriteBatchService = new JUnitSpriteBatchService();
         serviceManager.addService(spriteBatchService, SpriteBatchService.class);
 
-        AssetManagerService assetManagerService = Mockito.mock(AssetManagerService.class);
+        AssetManagerService assetManagerService = new JUnitAssetManagerService();
         serviceManager.addService(assetManagerService, AssetManagerService.class);
         ScreenManager<IScreen> screenManager = new DefaultScreenManager(serviceManager);
 
