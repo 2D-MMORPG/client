@@ -93,6 +93,10 @@ public class AssetManagerService implements IService, UpdateService {
         }
     }
 
+    public void load (String path, Class<?> cls) {
+        this.assetManager.load(path, cls);
+    }
+
     /**
     * cleanup memory for asset
     */
@@ -102,6 +106,10 @@ public class AssetManagerService implements IService, UpdateService {
 
         this.loaderTasks.remove(asset);
         this.assetsMap.remove(asset.getPath());
+    }
+
+    public void unload (String path) {
+        this.assetManager.unload(path);
     }
 
     /**

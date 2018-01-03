@@ -101,6 +101,7 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.assetManager = Mockito.mock(AssetManager.class);
 
         service.load(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+        service.load("test2.png", Texture.class);
     }
 
     @Test
@@ -111,6 +112,7 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.assetManager = Mockito.mock(AssetManager.class);
 
         service.unload(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
+        service.unload("test2.png");
     }
 
     @Test (expected = AssetNotLoadedException.class)
