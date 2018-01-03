@@ -18,6 +18,9 @@ public class MathUtilsTest {
         assertEquals(false, MathUtils.overlapping(1, 2.99f, 3, 4));
         assertEquals(true, MathUtils.overlapping(1, 2, 2, 4));
 
+        assertEquals(true, MathUtils.overlapping(4, 6, 2, 4));
+        assertEquals(true, MathUtils.overlapping(3, 6, 2, 4));
+
         //swap values
         assertEquals(false, MathUtils.overlapping(2, 1, 4, 3));
         assertEquals(true, MathUtils.overlapping(3, 1, 4, 2));
