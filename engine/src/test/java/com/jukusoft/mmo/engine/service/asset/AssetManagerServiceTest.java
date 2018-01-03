@@ -123,6 +123,17 @@ public class AssetManagerServiceTest extends GameUnitTest {
         service.get(new AssetInfo("test.png", AssetInfo.TYPE.TEXTURE));
     }
 
+    @Test (expected = AssetNotLoadedException.class)
+    public void testGetNotLoadedAsset1 () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(i -> false);
+
+        service.get("test.png", Texture.class);
+    }
+
     @Test
     public void testGet () {
         AssetManagerService service = new AssetManagerService();
@@ -138,6 +149,20 @@ public class AssetManagerServiceTest extends GameUnitTest {
     }
 
     @Test
+    public void testGet1 () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+        when(service.assetManager.isLoaded(anyString())).thenAnswer(invocation -> true);
+        when(service.assetManager.get(anyString(), any(Class.class))).thenAnswer(i -> Mockito.mock(Texture.class));
+
+        Object value = service.get("test.png", Texture.class);
+        assertNotNull(value);
+        assertEquals("object isnt of type texture: " + value.getClass().getName(), true, value instanceof Texture);
+    }
+
+    @Test
     public void testIsLoaded () {
         AssetManagerService service = new AssetManagerService();
 
@@ -146,6 +171,33 @@ public class AssetManagerServiceTest extends GameUnitTest {
         when(service.assetManager.isLoaded(anyString())).thenAnswer(invocation -> true);
 
         assertEquals(true, service.isLoaded("test.png"));
+    }
+
+    @Test
+    public void testAddAssetByName () {
+        AssetManagerService service = new AssetManagerService();
+
+        Texture texture = Mockito.mock(Texture.class);
+
+        service.addAssetByName("test", texture);
+
+        Texture value = service.getAssetByName("test", Texture.class);
+        assertNotNull(value);
+        assertEquals(true, value instanceof Texture);
+
+        service.removeAssetName("test");
+    }
+
+    @Test
+    public void testFinishLoading () {
+        AssetManagerService service = new AssetManagerService();
+
+        //mock asset manager class
+        service.assetManager = Mockito.mock(AssetManager.class);
+
+        service.finishLoading();
+
+        service.finishLoading("test");
     }
 
 }
