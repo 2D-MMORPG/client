@@ -46,7 +46,7 @@ public class GameTest extends GameUnitTest {
         new Game();
     }
 
-    @Test
+    //@Test
     public void testGameStartUp () throws InterruptedException {
         SpriteBatchService.isJUnitTest = true;
 
