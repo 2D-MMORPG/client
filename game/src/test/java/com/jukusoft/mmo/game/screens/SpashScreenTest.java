@@ -38,12 +38,14 @@ public class SpashScreenTest extends GameUnitTest {
         SplashScreen screen = new SplashScreen();
         screenManager.addScreen("spash_screen", screen);
 
+        //start screen
         screen.onStart();
 
         screen.onResume();
 
         screen.onPause();
 
+        //stop screen
         screen.onStop();
 
         SpriteBatchService.isJUnitTest = false;
