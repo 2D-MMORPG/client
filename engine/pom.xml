@@ -66,6 +66,13 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- High Performance Primitive Collections for Java, https://github.com/carrotsearch/hppc -->
+        <dependency>
+            <groupId>com.carrotsearch</groupId>
+            <artifactId>hppc</artifactId>
+            <version>${hppc.version}</version>
+        </dependency>
+
         <!-- libGDX controller support -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>

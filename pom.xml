@@ -48,6 +48,9 @@
         <!-- for libGDX tests -->
         <mockito.version>2.2.7</mockito.version>
 
+        <!-- hppc, high performance lists & maps, https://github.com/carrotsearch/hppc -->
+        <hppc.version>0.7.3</hppc.version>
+
         <!-- file encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
