@@ -190,7 +190,7 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
                 } catch (IllegalAccessException e) {
                     Logger.getAnonymousLogger().log(Level.SEVERE, "IllegalAccessException while inject screen manager: ", e);
 
-                    throw new GdxRuntimeException("Could not inject screen manager for field '" + field.getName() + "' in class: " + target.getClass().getName());
+                    throw new IllegalStateException("Could not inject screen manager for field '" + field.getName() + "' in class: " + target.getClass().getName());
                 }
             }
         }

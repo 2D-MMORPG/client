@@ -1,4 +1,8 @@
-package com.jukusoft.mmo.engine.graphics.screen;
+package com.jukusoft.mmo.engine.graphics.screen.impl;
+
+import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.InjectScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 
 public class Dummy3Screen implements IScreen {
 

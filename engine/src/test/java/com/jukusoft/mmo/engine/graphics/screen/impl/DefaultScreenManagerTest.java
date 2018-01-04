@@ -119,10 +119,16 @@ public class DefaultScreenManagerTest extends GameUnitTest {
     public void testAddScreen7 () {
         ScreenManager<IScreen> manager = createDefaultScreenManager();
 
-        manager.addScreen("dummy_screen", new Dummy3Screen());
+        Dummy3Screen screen = new Dummy3Screen();
+
+        assertNull(screen.screenManager);
+
+        manager.addScreen("dummy_screen", screen);
+
+        assertNotNull(screen.screenManager);
     }
 
-    @Test (expected = GdxRuntimeException.class)
+    @Test (expected = IllegalStateException.class)
     public void testAddScreen8 () {
         ScreenManager<IScreen> manager = createDefaultScreenManager();
 
