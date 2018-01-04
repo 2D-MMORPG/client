@@ -9,6 +9,9 @@ public class Dummy3Screen implements IScreen {
     @InjectScreenManager
     protected ScreenManager<IScreen> screenManager;
 
+    @InjectScreenManager
+    protected String testStr = "";
+
     @Override
     public void onStart() {
 

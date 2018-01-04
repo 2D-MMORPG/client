@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
