@@ -53,13 +53,13 @@ public class SpashScreenTest extends GameUnitTest {
 
     @Test
     public void testProcessInput () {
-        SplashScreen screen = new SplashScreen();
+        SplashScreen screen = createScreen();
         screen.processInput();
     }
 
     @Test
     public void testUpdate () {
-        SplashScreen screen = new SplashScreen();
+        SplashScreen screen = createScreen();
 
         screen.update();
 
@@ -86,6 +86,7 @@ public class SpashScreenTest extends GameUnitTest {
 
         SplashScreen screen = new SplashScreen();
         screenManager.addScreen("spash_screen", screen);
+        screenManager.addScreen("serverlist", new DummyScreen());
 
         return screen;
     }
