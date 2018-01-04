@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
@@ -188,6 +189,8 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
                     field.set(target, this);
                 } catch (IllegalAccessException e) {
                     Logger.getAnonymousLogger().log(Level.SEVERE, "IllegalAccessException while inject screen manager: ", e);
+
+                    throw new GdxRuntimeException("Could not inject screen manager for field '" + field.getName() + "' in class: " + target.getClass().getName());
                 }
             }
         }

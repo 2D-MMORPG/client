@@ -60,6 +60,11 @@ public class SpashScreenTest extends GameUnitTest {
     @Test
     public void testUpdate () {
         SplashScreen screen = new SplashScreen();
+
+        screen.update();
+
+        screen.elapsed = screen.screenDuration + 100;
+
         screen.update();
     }
 

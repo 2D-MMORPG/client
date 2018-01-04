@@ -64,7 +64,7 @@ public class SplashScreen implements IScreen {
 
     @Override
     public void update() {
-        this.elapsed += GameTime.getInstance().getDeltaTime();
+        this.elapsed += GameTime.getInstance().getDeltaTime() * 1000;
 
         if (this.elapsed >= this.screenDuration) {
             //go to next screen

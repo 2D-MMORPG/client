@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.jukusoft.mmo.engine.GameUnitTest;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
@@ -112,6 +113,20 @@ public class DefaultScreenManagerTest extends GameUnitTest {
         ScreenManager<IScreen> manager = createDefaultScreenManager();
 
         manager.addScreen("dummy_screen", new DummyNullableInjectionScreen());
+    }
+
+    @Test
+    public void testAddScreen7 () {
+        ScreenManager<IScreen> manager = createDefaultScreenManager();
+
+        manager.addScreen("dummy_screen", new Dummy3Screen());
+    }
+
+    @Test (expected = GdxRuntimeException.class)
+    public void testAddScreen8 () {
+        ScreenManager<IScreen> manager = createDefaultScreenManager();
+
+        manager.addScreen("dummy_screen", new Dummy4Screen());
     }
 
     @Test (expected = NullPointerException.class)
