@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.InjectScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.asset.AssetManagerService;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
+import com.jukusoft.mmo.engine.utils.GameTime;
 
 public class SplashScreen implements IScreen {
 
@@ -20,6 +23,12 @@ public class SplashScreen implements IScreen {
 
     //background texture
     protected Texture bgTexture = null;
+
+    @InjectScreenManager
+    protected ScreenManager<IScreen> screenManager;
+
+    protected float elapsed = 0;
+    protected float screenDuration = 1000;
 
     @Override
     public void onStart() {
@@ -37,6 +46,9 @@ public class SplashScreen implements IScreen {
         this.assetManager.load(BG_TEXTURE_PATH, Texture.class);
         this.assetManager.finishLoading(BG_TEXTURE_PATH);
         this.bgTexture = this.assetManager.get(BG_TEXTURE_PATH, Texture.class);
+
+        //reset elapsed time
+        this.elapsed = 0;
     }
 
     @Override
@@ -52,7 +64,12 @@ public class SplashScreen implements IScreen {
 
     @Override
     public void update() {
-        //
+        this.elapsed += GameTime.getInstance().getDeltaTime();
+
+        if (this.elapsed >= this.screenDuration) {
+            //go to next screen
+            screenManager.leaveAllAndEnter("serverlist");
+        }
     }
 
     @Override

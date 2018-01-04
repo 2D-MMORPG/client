@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.jukusoft.mmo.engine.exception.RequiredServiceNotFoundException;
 import com.jukusoft.mmo.engine.exception.ScreenNotFoundException;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.InjectScreenManager;
 import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
@@ -80,6 +81,9 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
 
         //inject services first
         this.injectServices(screen);
+
+        //inject screen manager
+        this.injectScreenManager(screen);
 
         // initialize screen first
         screen.onStart();
@@ -166,6 +170,26 @@ public class DefaultScreenManager implements ScreenManager<IScreen> {
                     + "' is required by class '" + field.getDeclaringClass().getName() + "' but does not exist.");
         } else {
             Gdx.app.error(TAG_INJECT_SERVICE, "Service doesnt exists: " + field.getType().getSimpleName());
+        }
+    }
+
+    protected void injectScreenManager (Object target) {
+        //iterate through all fields in class
+        for (Field field : target.getClass().getDeclaredFields()) {
+            //get annotation
+            InjectScreenManager annotation = field.getAnnotation(InjectScreenManager.class);
+
+            if (annotation != null && ScreenManager.class.isAssignableFrom(field.getType())) {
+                //set field accessible, so we can change value
+                field.setAccessible(true);
+
+                //set value of field
+                try {
+                    field.set(target, this);
+                } catch (IllegalAccessException e) {
+                    Logger.getAnonymousLogger().log(Level.SEVERE, "IllegalAccessException while inject screen manager: ", e);
+                }
+            }
         }
     }
 
