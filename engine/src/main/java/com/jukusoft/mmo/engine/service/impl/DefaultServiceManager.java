@@ -207,7 +207,7 @@ public class DefaultServiceManager implements ServiceManager {
     }
 
     protected <T extends IService> boolean canProcessInput (T service) {
-        return service instanceof InputService;
+        return service instanceof InputProcessorService;
     }
 
     protected <T extends IService> boolean canUpdate (T service) {

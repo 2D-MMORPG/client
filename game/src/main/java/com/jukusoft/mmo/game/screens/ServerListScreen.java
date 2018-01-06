@@ -1,41 +1,17 @@
 package com.jukusoft.mmo.game.screens;
 
-import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.jukusoft.mmo.engine.graphics.screen.impl.BaseUIScreen;
 
-public class ServerListScreen implements IScreen {
+public class ServerListScreen extends BaseUIScreen {
 
     @Override
-    public void onStart() {
+    public void initStage(Stage stage) {
 
     }
 
     @Override
-    public void onStop() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public boolean processInput() {
-        return false;
-    }
-
-    @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void draw() {
+    public void cleanUpStage(Stage stage) {
 
     }
 
