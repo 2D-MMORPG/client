@@ -10,6 +10,7 @@ import com.jukusoft.mmo.engine.graphics.screen.impl.DefaultScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.asset.AssetManagerService;
 import com.jukusoft.mmo.engine.service.impl.DefaultServiceManager;
+import com.jukusoft.mmo.engine.service.impl.InputProcessorService;
 import com.jukusoft.mmo.engine.service.impl.WindowService;
 import com.jukusoft.mmo.engine.utils.GameTime;
 import com.jukusoft.mmo.utils.Platform;
@@ -53,6 +54,9 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
         //add asset manager service
         this.serviceManager.addService(new AssetManagerService(), AssetManagerService.class);
+
+        //add input processor service
+        this.serviceManager.addService(new InputProcessorService(), InputProcessorService.class);
 
         this.createServices(this.serviceManager);
 

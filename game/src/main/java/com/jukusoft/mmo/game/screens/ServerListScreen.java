@@ -7,7 +7,7 @@ public class ServerListScreen extends BaseUIScreen {
 
     @Override
     public void initStage(Stage stage) {
-
+        //https://github.com/kotcrab/vis-editor/wiki/VisUI
     }
 
     @Override
