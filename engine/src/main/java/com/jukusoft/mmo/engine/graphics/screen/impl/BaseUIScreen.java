@@ -1,6 +1,9 @@
 package com.jukusoft.mmo.engine.graphics.screen.impl;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jukusoft.mmo.engine.graphics.screen.IScreen;
 import com.jukusoft.mmo.engine.service.InjectService;
@@ -20,6 +23,11 @@ public abstract class BaseUIScreen implements IScreen {
     //ui stage
     protected Stage stage = null;
 
+    //screen dimension
+    protected float width = 0;
+    protected float height = 0;
+    protected boolean stretch = true;
+
     @Override
     public void onStart() {
         VisUI.load();
@@ -30,10 +38,30 @@ public abstract class BaseUIScreen implements IScreen {
         VisUI.dispose();
     }
 
+    /**
+    * default constructor
+     *
+     * @param width width of window / ui screen
+     * @param height width of window / ui screen
+    */
+    public BaseUIScreen (float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public BaseUIScreen () {
+        this.width = Gdx.graphics.getWidth();
+        this.height = Gdx.graphics.getHeight();
+    }
+
     @Override
     public void onResume() {
         //create new stage
-        this.stage = new Stage(new ScreenViewport());
+        if (this.stretch) {
+            this.stage = new Stage(new ScalingViewport(Scaling.stretch, this.width, this.height));
+        } else {
+            this.stage = new Stage(new ScreenViewport());
+        }
 
         this.initStage(this.stage);
 
