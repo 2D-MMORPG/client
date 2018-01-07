@@ -34,7 +34,6 @@ public abstract class BaseUIScreen implements IScreen {
     public void onResume() {
         //create new stage
         this.stage = new Stage(new ScreenViewport());
-        //Gdx.input.setInputProcessor(stage);
 
         this.initStage(this.stage);
 

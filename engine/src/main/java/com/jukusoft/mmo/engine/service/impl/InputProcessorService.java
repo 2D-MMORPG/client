@@ -20,7 +20,8 @@ public class InputProcessorService implements IService {
 
     @Override
     public void onStop() {
-
+        this.inputMultiplexer = null;
+        Gdx.input.setInputProcessor(null);
     }
 
     public void addInputProcessor (InputProcessor inputProcessor) {

@@ -58,6 +58,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- VisUI -->
+        <dependency>
+            <groupId>com.kotcrab.vis</groupId>
+            <artifactId>vis-ui</artifactId>
+            <version>${vis.ui.version}</version>
+        </dependency>
+
         <!-- libGDX controller support -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
