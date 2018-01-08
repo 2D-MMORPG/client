@@ -72,7 +72,7 @@ public class ServerListScreen extends BaseUIScreen {
         this.errorLabel = new VisLabel("Error!");
         this.errorLabel.setVisible(false);
         this.errorLabel.setColor(Color.RED);
-        this.errorLabel.setPosition(600, 0);
+        this.errorLabel.setPosition(400, 600);
         stage.addActor(this.errorLabel);
 
         try {

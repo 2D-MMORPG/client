@@ -5,6 +5,7 @@ import com.jukusoft.mmo.engine.graphics.screen.IScreen;
 import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.CameraService;
+import com.jukusoft.mmo.engine.service.impl.NetworkService;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
 import com.jukusoft.mmo.game.screens.ServerListScreen;
 import com.jukusoft.mmo.game.screens.SplashScreen;
@@ -22,6 +23,9 @@ public class Game extends BaseApp {
 
         //add service for camera
         manager.addService(new CameraService(), CameraService.class);
+
+        //add network service
+        manager.addService(new NetworkService(), NetworkService.class);
     }
 
     @Override

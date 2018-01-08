@@ -44,6 +44,14 @@ public class UpdaterTest {
             new File("../my-test-file").delete();
         }
 
+        if (new File("../null").exists()) {
+            new File("../null").delete();
+        }
+
+        if (new File("null").exists()) {
+            new File("null").delete();
+        }
+
         //override files
         FileUtils.writeFile("../junit-tests/my-file1.txt", "file1", StandardCharsets.UTF_8);
         FileUtils.writeFile("../junit-tests/my-file2.txt", "file2", StandardCharsets.UTF_8);
@@ -73,6 +81,14 @@ public class UpdaterTest {
 
         if (new File("my-test-file").exists()) {
             new File("my-test-file").delete();
+        }
+
+        if (new File("../null").exists()) {
+            new File("../null").delete();
+        }
+
+        if (new File("null").exists()) {
+            new File("null").delete();
         }
 
         //override files
@@ -237,6 +253,12 @@ public class UpdaterTest {
     public void testStartUpdate2 () throws Exception {
         Updater updater = new Updater();
         updater.load("../junit-tests/updater", "../");
+    }
+
+    @Test
+    public void testStartUpdate3 () throws Exception {
+        Updater updater = new Updater();
+        updater.load("../junit-tests/updater", "../");
         updater.prepareFileHashes("../");
 
         //create new channel
@@ -265,7 +287,7 @@ public class UpdaterTest {
     }
 
     @Test
-    public void testStartUpdate3 () throws IOException {
+    public void testStartUpdate4 () throws IOException {
         Updater updater = new Updater();
         updater.load("../junit-tests/updater", "../");
 

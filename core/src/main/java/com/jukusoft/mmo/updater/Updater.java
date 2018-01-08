@@ -95,6 +95,8 @@ public class Updater {
     public void prepareFileHashes (String baseDir) throws Exception {
         File f = new File(this.updaterDir + FILES_JSON_FILE);
 
+        Logger.getAnonymousLogger().log(Level.INFO, "files.json path: " + this.updaterDir + FILES_JSON_FILE);
+
         if (!f.exists()) {
             //generate file hashes
             generateFileHashes(f, new File(baseDir));
