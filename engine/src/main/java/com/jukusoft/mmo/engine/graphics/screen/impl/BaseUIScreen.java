@@ -68,9 +68,9 @@ public abstract class BaseUIScreen implements IScreen {
         //add input handling
         this.inputService.addInputProcessor(this.stage);
 
-        this.windowService.addResizeListener(((width, height) ->
+        this.windowService.addResizeListener(((newWidth, newHeight) ->
                 // See below for what true means.
-                stage.getViewport().update(width, height, true)
+                stage.getViewport().update(newWidth, newHeight, true)
         ));
     }
 

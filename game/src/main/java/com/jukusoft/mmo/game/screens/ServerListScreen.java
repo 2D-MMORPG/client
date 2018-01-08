@@ -85,7 +85,7 @@ public class ServerListScreen extends BaseUIScreen {
             this.errorLabel.setText("Error! Couldn't load serverlist! Is internet connection active? " + e.getLocalizedMessage());
         }
 
-        float listXPos = (Gdx.graphics.getWidth() - 100) / 2 - 50;
+        float listXPos = (Gdx.graphics.getWidth() - 100) / 2 - 50f;
 
         this.listAdapter = new ServerListAdapter(this.modelList);
         this.listView = new ListView<>(this.listAdapter);
