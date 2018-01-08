@@ -19,7 +19,7 @@ public class NetworkService implements IService {
 
     @Override
     public void onStop() {
-        //TODO: close vertx
+        //close vertx
     }
 
     /**
