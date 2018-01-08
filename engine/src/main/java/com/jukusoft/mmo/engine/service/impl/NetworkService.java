@@ -14,12 +14,12 @@ public class NetworkService implements IService {
 
     @Override
     public void onStart() {
-
+        //TODO: create stream manager
     }
 
     @Override
     public void onStop() {
-
+        //TODO: close vertx
     }
 
     /**

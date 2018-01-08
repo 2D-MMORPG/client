@@ -19,8 +19,6 @@ import com.jukusoft.mmo.game.listview.ServerListAdapter;
 import com.jukusoft.mmo.server.Server;
 import com.jukusoft.mmo.server.ServerFinder;
 import com.jukusoft.mmo.utils.Platform;
-import com.jukusoft.mmo.utils.PlatformUtils;
-import com.kotcrab.vis.ui.util.adapter.SimpleListAdapter;
 import com.kotcrab.vis.ui.widget.ListView;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -56,6 +54,8 @@ public class ServerListScreen extends BaseUIScreen {
 
     @InjectScreenManager
     protected ScreenManager<IScreen> screenManager;
+
+    protected static final String SUBMIT_BUTTON_TEXT = "Submit";
 
     @Override
     public void initStage(Stage stage) {
@@ -99,21 +99,17 @@ public class ServerListScreen extends BaseUIScreen {
         footerTable.add("Choose server!");
         listView.setFooter(footerTable);
 
-        listView.setItemClickListener(new ListView.ItemClickListener<Server>() {
-            @Override
-            public void clicked(Server item) {
-                selectedServer = item;
-            }
-        });
+        listView.setItemClickListener(item -> this.selectedServer = item);
 
         listView.setUpdatePolicy(ListView.UpdatePolicy.ON_DRAW);
 
         stage.addActor(table);
 
         //add button
-        this.submitButton = new VisTextButton("Submit");
+        this.submitButton = new VisTextButton(SUBMIT_BUTTON_TEXT);
         this.submitButton.setBounds(listXPos, 200, 200, 50);
         this.submitButton.addListener(new ClickListener() {
+            @Override
             public void clicked (InputEvent event, float x, float y) {
                 click(selectedServer);
             }
@@ -172,7 +168,7 @@ public class ServerListScreen extends BaseUIScreen {
 
                         //enable button
                         this.submitButton.setDisabled(false);
-                        this.submitButton.setText("Submit");
+                        this.submitButton.setText(SUBMIT_BUTTON_TEXT);
                     }
                 });
             }));
@@ -183,7 +179,7 @@ public class ServerListScreen extends BaseUIScreen {
 
             //enable button
             this.submitButton.setDisabled(false);
-            this.submitButton.setText("Submit");
+            this.submitButton.setText(SUBMIT_BUTTON_TEXT);
         }
     }
 
