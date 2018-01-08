@@ -9,10 +9,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.jukusoft.mmo.EngineVersion;
+import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.InjectScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.graphics.screen.impl.BaseUIScreen;
+import com.jukusoft.mmo.engine.service.InjectService;
+import com.jukusoft.mmo.engine.service.impl.NetworkService;
 import com.jukusoft.mmo.game.listview.ServerListAdapter;
 import com.jukusoft.mmo.server.Server;
 import com.jukusoft.mmo.server.ServerFinder;
+import com.jukusoft.mmo.utils.Platform;
+import com.jukusoft.mmo.utils.PlatformUtils;
 import com.kotcrab.vis.ui.util.adapter.SimpleListAdapter;
 import com.kotcrab.vis.ui.widget.ListView;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -43,6 +50,12 @@ public class ServerListScreen extends BaseUIScreen {
     protected String configFile = "./data/config/server.cfg";
 
     protected Server selectedServer = null;
+
+    @InjectService
+    protected NetworkService networkService;
+
+    @InjectScreenManager
+    protected ScreenManager<IScreen> screenManager;
 
     @Override
     public void initStage(Stage stage) {
@@ -135,9 +148,43 @@ public class ServerListScreen extends BaseUIScreen {
             return;
         }
 
+        //disable button
+        this.submitButton.setDisabled(true);
+        this.submitButton.setText("Connecting...");
+
         this.errorLabel.setVisible(false);
 
-        Logger.getAnonymousLogger().log(Level.SEVERE, "click.");
+        Logger.getAnonymousLogger().log(Level.SEVERE, "try to connect to proxy server " + selectedServer.getProxyIP() + ":" + selectedServer.getProxyPort());
+
+        //check, if server is online
+        if (networkService.isOnline(selectedServer)) {
+            //set proxy server
+            networkService.connect(selectedServer, (res -> {
+                //run ui changes in UI thread
+                Platform.runOnUIThread(() -> {
+                    if (res.succeeded()) {
+                        //connection was established, change screen
+                        screenManager.leaveAllAndEnter("login");
+                    } else {
+                        //show error message
+                        errorLabel.setVisible(true);
+                        errorLabel.setText("Couldn't connect to proxy server '" + selectedServer.getName() + "'!");
+
+                        //enable button
+                        this.submitButton.setDisabled(false);
+                        this.submitButton.setText("Submit");
+                    }
+                });
+            }));
+        } else {
+            //show error message
+            errorLabel.setVisible(true);
+            errorLabel.setText("Game server '" + selectedServer.getName() + "' (Channel: " + selectedServer.getChannel() + ") isn't online!");
+
+            //enable button
+            this.submitButton.setDisabled(false);
+            this.submitButton.setText("Submit");
+        }
     }
 
 }
