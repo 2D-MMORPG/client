@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.network.traffic;
 
 import com.jukusoft.mmo.network.NetworkManager;
+import com.jukusoft.mmo.network.Protocol;
 
 public class TrafficCounter {
 
@@ -19,16 +20,16 @@ public class TrafficCounter {
         //
     }
 
-    public void addSendBytes (int bytes, NetworkManager.PROTOCOL protocol) {
-        if (protocol == NetworkManager.PROTOCOL.TCP) {
+    public void addSendBytes (int bytes, Protocol protocol) {
+        if (protocol == Protocol.TCP) {
             this.outboundTCPBytes += bytes;
         } else {
             this.outboundUDPBytes += bytes;
         }
     }
 
-    public void addReceiveBytes (int bytes, NetworkManager.PROTOCOL protocol) {
-        if (protocol == NetworkManager.PROTOCOL.TCP) {
+    public void addReceiveBytes (int bytes, Protocol protocol) {
+        if (protocol == Protocol.TCP) {
             this.inboundTCPBytes += bytes;
         } else {
             this.inboundUDPBytes += bytes;

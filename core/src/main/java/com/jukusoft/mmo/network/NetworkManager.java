@@ -5,11 +5,7 @@ import com.jukusoft.mmo.network.message.MessageReceiver;
 
 public interface NetworkManager<T> extends IThreadPool {
 
-    public enum PROTOCOL {
-        TCP, UDP
-    }
-
-    public void send (T msg, PROTOCOL protocol);
+    public void send (T msg, Protocol protocol);
 
     public void setMessageReceiver (MessageReceiver<T> receiver);
 

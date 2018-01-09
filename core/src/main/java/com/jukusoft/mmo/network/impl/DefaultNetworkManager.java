@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.network.impl;
 
 import com.jukusoft.mmo.network.NetworkManager;
+import com.jukusoft.mmo.network.Protocol;
 import com.jukusoft.mmo.network.backend.TCPConnection;
 import com.jukusoft.mmo.network.backend.UDPConnection;
 import com.jukusoft.mmo.network.backend.impl.VertxTCPConnection;
@@ -60,7 +61,7 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
             this.receive(msg);
 
             //count traffic
-            this.counter.addReceiveBytes(msg.length(), PROTOCOL.TCP);
+            this.counter.addReceiveBytes(msg.length(), Protocol.TCP);
         });
 
         this.udpConnection = new VertxUDPConnection(this.vertx);
@@ -69,7 +70,7 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
             this.receive(msg);
 
             //count traffic
-            this.counter.addReceiveBytes(msg.length(), PROTOCOL.UDP);
+            this.counter.addReceiveBytes(msg.length(), Protocol.UDP);
         });
 
         //set message listener
@@ -94,29 +95,29 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
     }
 
     @Override
-    public void send(Buffer msg, PROTOCOL protocol) {
+    public void send(Buffer msg, Protocol Protocol) {
         //check for delay
         if (this.config.getSendDelay() > 0) {
             //send message with delay
             this.executeDelayed(this.config.getSendDelay(), () -> {
-                this.executeSending(msg, protocol);
+                this.executeSending(msg, Protocol);
             });
         } else {
             //dont use delay
-            this.executeSending(msg, protocol);
+            this.executeSending(msg, Protocol);
         }
     }
 
-    protected void executeSending (Buffer msg, PROTOCOL protocol) {
+    protected void executeSending (Buffer msg, Protocol Protocol) {
         //send message to specific network backend
-        if (protocol == PROTOCOL.TCP) {
+        if (Protocol == Protocol.TCP) {
             this.tcpConnection.send(msg);
         } else {
             this.udpConnection.send(msg);
         }
 
         //count traffic
-        this.counter.addSendBytes(msg.length(), protocol);
+        this.counter.addSendBytes(msg.length(), Protocol);
     }
 
     @Override
