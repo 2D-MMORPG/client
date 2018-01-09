@@ -108,6 +108,12 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         }
     }
 
+    @Override
+    public boolean canSend() {
+        //because we are using vertx, vertx is handling this for us
+        return true;
+    }
+
     protected void executeSending (Buffer msg, Protocol Protocol) {
         //send message to specific network backend
         if (Protocol == Protocol.TCP) {

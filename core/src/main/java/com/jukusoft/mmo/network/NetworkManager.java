@@ -7,6 +7,8 @@ public interface NetworkManager<T> extends IThreadPool {
 
     public void send (T msg, Protocol protocol);
 
+    public boolean canSend ();
+
     public void setMessageReceiver (MessageReceiver<T> receiver);
 
     public void shutdown ();

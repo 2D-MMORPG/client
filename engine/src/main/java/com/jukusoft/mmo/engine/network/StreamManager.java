@@ -12,11 +12,6 @@ import io.vertx.core.buffer.Buffer;
 public interface StreamManager<T extends Message> {
 
     /**
-    * initialize stream manager
-    */
-    public void init (NetworkManager<Buffer> networkManager);
-
-    /**
     * send message without return value / ack response
      *
      * @param msg instance of message

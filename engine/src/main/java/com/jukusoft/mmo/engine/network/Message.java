@@ -27,6 +27,14 @@ public class Message implements Pool.Poolable, Comparable<Message> {
         this.reset();
     }
 
+    public int getAckID () {
+        return this.ackID;
+    }
+
+    public void setAckID (int ackID) {
+        this.ackID = ackID;
+    }
+
     /**
     * increment priority (each frame)
     */
@@ -79,4 +87,9 @@ public class Message implements Pool.Poolable, Comparable<Message> {
     public int compareTo(Message o) {
         return ((Integer) this.priority).compareTo(o.priority);
     }
+
+    public short getVersion () {
+        return this.version;
+    }
+
 }
