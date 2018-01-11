@@ -6,7 +6,7 @@ public abstract class SimpleMessageCodec<T> implements MessageCodec<T, T> {
 
     @Override
     public T transform(T t) {
-        return null;
+        return t;
     }
 
     @Override
