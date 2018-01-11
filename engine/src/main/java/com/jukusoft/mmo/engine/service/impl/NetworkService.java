@@ -66,7 +66,7 @@ public class NetworkService implements IService, UpdateService {
     }
 
     public void connect (Server proxyServer, Callback<NetworkResult<Boolean>> callback) {
-        //
+        this.networkManager.connectTCP(proxyServer.getProxyIP(), proxyServer.getProxyPort(), callback);
     }
 
     public void disconnect () {
