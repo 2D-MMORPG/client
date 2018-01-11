@@ -7,6 +7,7 @@ import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.CameraService;
 import com.jukusoft.mmo.engine.service.impl.NetworkService;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
+import com.jukusoft.mmo.game.screens.LoginScreen;
 import com.jukusoft.mmo.game.screens.ServerListScreen;
 import com.jukusoft.mmo.game.screens.SplashScreen;
 
@@ -35,6 +36,9 @@ public class Game extends BaseApp {
 
         //add screen to show serverlist, so user can choose game server
         manager.addScreen("serverlist", new ServerListScreen());
+
+        //add login screen
+        manager.addScreen("login", new LoginScreen());
 
         //push screen so screen will be active
         manager.push("splash_screen");

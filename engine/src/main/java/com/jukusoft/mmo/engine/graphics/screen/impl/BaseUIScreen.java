@@ -30,7 +30,9 @@ public abstract class BaseUIScreen implements IScreen {
 
     @Override
     public void onStart() {
-        VisUI.load();
+        if (!VisUI.isLoaded()) {
+            VisUI.load();
+        }
     }
 
     @Override
