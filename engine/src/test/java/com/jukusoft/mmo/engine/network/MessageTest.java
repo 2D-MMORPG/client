@@ -166,4 +166,24 @@ public class MessageTest {
         msg.setProtocol(Protocol.TCP);
     }
 
+    @Test
+    public void testGetterAndSetter () {
+        Message msg = new Message();
+        msg.setAckID(20);
+        assertEquals(20, msg.getAckID());
+
+        msg.version = 10;
+        assertEquals(10, msg.getVersion());
+    }
+
+    @Test
+    public void testEquals () {
+        Message msg = new Message();
+        Message msg1 = new Message();
+        assertEquals(false, msg.equals(msg1));
+        assertEquals(false, msg1.equals(msg));
+        assertEquals(true, msg.equals(msg));
+        assertEquals(true, msg1.equals(msg1));
+    }
+
 }

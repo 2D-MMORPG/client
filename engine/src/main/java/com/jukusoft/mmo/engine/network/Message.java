@@ -93,9 +93,7 @@ public class Message implements Pool.Poolable, Comparable<Message> {
             throw new IllegalArgumentException("to compare objects, object has to be of same type");
         }
 
-        Message msg = (Message) o;
-
-        return this.messageType == msg.messageType && this.version == msg.version && this.priority == msg.priority && this.protocol == msg.protocol && this.ackID == msg.ackID;
+        return this == o;
     }
 
     public short getVersion () {
