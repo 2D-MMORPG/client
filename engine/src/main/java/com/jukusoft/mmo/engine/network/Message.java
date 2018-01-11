@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.engine.network;
 
 import com.badlogic.gdx.utils.Pool;
-import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.Protocol;
 
 public class Message implements Pool.Poolable, Comparable<Message> {
@@ -86,6 +85,17 @@ public class Message implements Pool.Poolable, Comparable<Message> {
     @Override
     public int compareTo(Message o) {
         return ((Integer) this.priority).compareTo(o.priority);
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        if (!(o instanceof Message)) {
+            throw new IllegalArgumentException("to compare objects, object has to be of same type");
+        }
+
+        Message msg = (Message) o;
+
+        return this.messageType == msg.messageType && this.version == msg.version && this.priority == msg.priority && this.protocol == msg.protocol && this.ackID == msg.ackID;
     }
 
     public short getVersion () {

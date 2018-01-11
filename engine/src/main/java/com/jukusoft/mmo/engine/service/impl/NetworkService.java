@@ -11,7 +11,6 @@ import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.impl.DefaultNetworkManager;
 import com.jukusoft.mmo.server.Server;
 import com.jukusoft.mmo.utils.SocketUtils;
-import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 
 import java.io.IOException;

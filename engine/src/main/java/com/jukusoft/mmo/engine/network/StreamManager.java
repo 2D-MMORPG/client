@@ -1,10 +1,8 @@
 package com.jukusoft.mmo.engine.network;
 
 import com.jukusoft.mmo.network.Callback;
-import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;
-import io.vertx.core.buffer.Buffer;
 
 /**
 * network layer on top of NetworkManager, priorizes messages, check if messages can be sended and so on (with queue)

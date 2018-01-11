@@ -95,16 +95,16 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
     }
 
     @Override
-    public void send(Buffer msg, Protocol Protocol) {
+    public void send(Buffer msg, Protocol protocol) {
         //check for delay
         if (this.config.getSendDelay() > 0) {
             //send message with delay
             this.executeDelayed(this.config.getSendDelay(), () -> {
-                this.executeSending(msg, Protocol);
+                this.executeSending(msg, protocol);
             });
         } else {
             //dont use delay
-            this.executeSending(msg, Protocol);
+            this.executeSending(msg, protocol);
         }
     }
 
@@ -114,16 +114,16 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
         return true;
     }
 
-    protected void executeSending (Buffer msg, Protocol Protocol) {
+    protected void executeSending (Buffer msg, Protocol protocol) {
         //send message to specific network backend
-        if (Protocol == Protocol.TCP) {
+        if (protocol == Protocol.TCP) {
             this.tcpConnection.send(msg);
         } else {
             this.udpConnection.send(msg);
         }
 
         //count traffic
-        this.counter.addSendBytes(msg.length(), Protocol);
+        this.counter.addSendBytes(msg.length(), protocol);
     }
 
     @Override

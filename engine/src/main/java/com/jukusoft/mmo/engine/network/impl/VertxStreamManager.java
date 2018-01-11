@@ -9,10 +9,9 @@ import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;
-import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 
-public class VertxStreamManager implements StreamManager<Message> {
+public class VertxStreamManager implements StreamManager<Message>, MessageReceiver<Buffer> {
 
     //network manager
     protected NetworkManager<Buffer> networkManager = null;
@@ -26,11 +25,17 @@ public class VertxStreamManager implements StreamManager<Message> {
     //map with encoder & decoder
     protected IntMap<SimpleMessageCodec> codecMap = new IntMap<>();
 
+    //map for message receivers
+    protected IntMap<MessageReceiver> receiverMap = new IntMap<>();
+
     /**
     * default constructor
     */
     public VertxStreamManager (NetworkManager<Buffer> networkManager) {
         this.networkManager = networkManager;
+
+        //set message receiver
+        this.networkManager.setMessageReceiver(this);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class VertxStreamManager implements StreamManager<Message> {
 
     @Override
     public <V extends Message> void addMessageReceiver(MessageReceiver<V> receiver, Class<V> messageType) {
-
+        this.receiverMap.put(messageType.getSimpleName().hashCode(), receiver);
     }
 
     @Override
@@ -121,4 +126,8 @@ public class VertxStreamManager implements StreamManager<Message> {
         return buffer;
     }
 
+    @Override
+    public void onReceive(Buffer msg) {
+        //TODO: add code here
+    }
 }
