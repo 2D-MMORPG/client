@@ -150,7 +150,7 @@ public abstract class BaseApp implements ApplicationListener, IApp {
 
     @Override
     public void dispose() {
-
+        this.serviceManager.shutdown();
     }
 
     /**

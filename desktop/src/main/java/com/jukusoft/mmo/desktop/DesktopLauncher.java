@@ -76,10 +76,6 @@ public class DesktopLauncher {
             WindowConfig windowConfig = new WindowConfig("./data/config/window.cfg");
 
             Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-            config.setTitle("2D MMORPG");
-            config.setWindowedMode(WIDTH, HEIGHT);
-            config.setWindowIcon("./data/icon/icon.png");
-            config.setResizable(true);
 
             //load window config
             windowConfig.fillConfig(config);

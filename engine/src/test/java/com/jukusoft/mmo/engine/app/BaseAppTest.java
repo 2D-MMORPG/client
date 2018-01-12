@@ -294,6 +294,11 @@ public class BaseAppTest {
             public void afterDraw() {
                 //
             }
+
+            @Override
+            public void shutdown() {
+
+            }
         };
 
         // Note that we don't need to implement any of the listener's methods

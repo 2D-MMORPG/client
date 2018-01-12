@@ -152,6 +152,13 @@ public class DefaultServiceManager implements ServiceManager {
         }
     }
 
+    @Override
+    public void shutdown() {
+        for (Map.Entry<Class<?>,IService> entry : this.serviceMap.entrySet()) {
+            this.removeService((Class<IService> )entry.getKey());
+        }
+    }
+
     protected <T> void injectServices (T target) {
         //iterate through all fields in class
         for (Field field : target.getClass().getDeclaredFields()) {

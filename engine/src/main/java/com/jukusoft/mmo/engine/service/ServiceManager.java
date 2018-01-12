@@ -58,4 +58,10 @@ public interface ServiceManager {
     * execute after beforeDraw methods to push things to gpu and so on
     */
     public void afterDraw ();
+
+    /**
+    * shutdown all services
+    */
+    public void shutdown ();
+
 }
