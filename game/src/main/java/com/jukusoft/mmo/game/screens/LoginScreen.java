@@ -43,6 +43,10 @@ public class LoginScreen extends BaseUIScreen {
         this.passwordLabel.setPosition(listXPos, 350);
         stage.addActor(this.passwordLabel);
 
+        this.registerLabel = new LinkLabel("Registration (open link in browser)", "http://mmo.jukusoft.com/registration.php");
+        this.registerLabel.setPosition(listXPos - 15, 100);
+        stage.addActor(this.registerLabel);
+
         //create input fields
         this.usernameTextField = new VisTextField();
         float originHeight = this.usernameTextField.getHeight();
