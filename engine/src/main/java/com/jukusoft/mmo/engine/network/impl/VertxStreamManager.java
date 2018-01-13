@@ -9,6 +9,7 @@ import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;
+import com.jukusoft.mmo.utils.MessageIDGenerator;
 import io.vertx.core.buffer.Buffer;
 
 public class VertxStreamManager implements StreamManager<Message>, MessageReceiver<Buffer> {
@@ -46,6 +47,9 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
 
     @Override
     public <V extends Message> void sendACKMessage(Message msg, Class<V> cls, Callback<NetworkResult<V>> callback) {
+        //generate ackID
+        msg.setAckID(MessageIDGenerator.generateID());
+
         //add message to callback map
         this.callbackMap.put(msg.getAckID(), callback);
 
@@ -98,20 +102,11 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
             throw new IllegalArgumentException("message has to be a instance of Message, but cannot be of class Message itself. Please create a new class and extend from Message.");
         }
 
-        /**
-        * add message header
-        */
+        //convert message to extra buffer
+        Buffer content = Buffer.buffer();
+        int startLength = content.length();
 
         int msgType = cls.getSimpleName().hashCode();
-
-        //add message type header
-        buffer.appendInt(msgType);
-
-        //add protocol version
-        buffer.appendShort(msg.getVersion());
-
-        //add ackID
-        buffer.appendInt(msg.getAckID());
 
         //get codec
         SimpleMessageCodec<T> codec = this.codecMap.get(msgType);
@@ -123,7 +118,51 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
         //encode message
         codec.encodeToWire(buffer, msg);
 
+        /**
+        * add message header
+        */
+
+        buffer.appendInt(content.length() - startLength);
+
+        //add message type header
+        buffer.appendInt(msgType);
+
+        //add protocol version
+        buffer.appendShort(msg.getVersion());
+
+        //add ackID
+        buffer.appendInt(msg.getAckID());
+
+        //add message content
+        buffer.appendBuffer(content);
+
         return buffer;
+    }
+
+    protected <T extends Message> T decodeBufferToMessage (Buffer buffer) {
+        // My custom message starting from this *position* of buffer
+        int _pos = 0;
+
+        // Length of JSON
+        int length = buffer.getInt(_pos);
+
+        //get message type
+        int msgType = buffer.getInt(_pos + 4);
+
+        //get message version
+        short version = buffer.getShort(_pos + 8);
+
+        //get ackID
+        int ackID = buffer.getInt(_pos + 10);
+
+        //get codec
+        SimpleMessageCodec<T> codec = this.codecMap.get(msgType);
+
+        if (codec == null) {
+            throw new IllegalStateException("no codec is specified for received message type: " + msgType);
+        }
+
+        return codec.decodeFromWire(_pos + 14, buffer);
     }
 
     @Override
