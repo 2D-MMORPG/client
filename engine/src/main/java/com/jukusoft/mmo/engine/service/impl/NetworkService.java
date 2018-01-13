@@ -1,10 +1,6 @@
 package com.jukusoft.mmo.engine.service.impl;
 
-import com.jukusoft.mmo.engine.network.Message;
-import com.jukusoft.mmo.engine.network.StreamManager;
-import com.jukusoft.mmo.engine.network.impl.VertxStreamManager;
 import com.jukusoft.mmo.engine.service.IService;
-import com.jukusoft.mmo.engine.service.UpdateService;
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
@@ -17,11 +13,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NetworkService implements IService, UpdateService {
+public class NetworkService implements IService {
 
     protected NetworkManager<Buffer> networkManager = null;
-
-    protected StreamManager<Message> streamManager = null;
 
     /**
     * default constructor
@@ -34,16 +28,10 @@ public class NetworkService implements IService, UpdateService {
     public void onStart() {
         //create network manager
         this.networkManager = DefaultNetworkManager.getManagerInstance();
-
-        //create stream manager
-        this.streamManager = new VertxStreamManager(this.networkManager);
     }
 
     @Override
     public void onStop() {
-        //close vertx
-        this.streamManager = null;
-
         //shutdown network manager and close all open connections
         this.networkManager.shutdown();
     }
@@ -73,11 +61,12 @@ public class NetworkService implements IService, UpdateService {
         //
     }
 
-    @Override
-    public void update() {
-        if (this.streamManager != null) {
-            //send messages from queue to client
-            this.streamManager.update();
-        }
+    public NetworkManager<Buffer> getNetworkManager() {
+        return this.networkManager;
     }
+
+    public boolean isConnected () {
+        return this.networkManager.isConnected();
+    }
+
 }

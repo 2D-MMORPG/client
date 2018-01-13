@@ -7,9 +7,11 @@ import com.jukusoft.mmo.engine.service.ServiceManager;
 import com.jukusoft.mmo.engine.service.impl.CameraService;
 import com.jukusoft.mmo.engine.service.impl.NetworkService;
 import com.jukusoft.mmo.engine.service.impl.SpriteBatchService;
+import com.jukusoft.mmo.engine.service.impl.StreamManagerService;
 import com.jukusoft.mmo.game.screens.LoginScreen;
 import com.jukusoft.mmo.game.screens.ServerListScreen;
 import com.jukusoft.mmo.game.screens.SplashScreen;
+import com.jukusoft.mmo.game.service.AccountService;
 
 public class Game extends BaseApp {
 
@@ -27,6 +29,12 @@ public class Game extends BaseApp {
 
         //add network service
         manager.addService(new NetworkService(), NetworkService.class);
+
+        //add stream manager service
+        manager.addService(new StreamManagerService(), StreamManagerService.class);
+
+        //add account manager service
+        manager.addService(new AccountService(), AccountService.class);
     }
 
     @Override

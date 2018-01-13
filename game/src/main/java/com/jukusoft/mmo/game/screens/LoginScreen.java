@@ -6,7 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.jukusoft.mmo.EngineVersion;
+import com.jukusoft.mmo.engine.graphics.screen.IScreen;
+import com.jukusoft.mmo.engine.graphics.screen.InjectScreenManager;
+import com.jukusoft.mmo.engine.graphics.screen.ScreenManager;
 import com.jukusoft.mmo.engine.graphics.screen.impl.BaseUIScreen;
+import com.jukusoft.mmo.engine.service.InjectService;
+import com.jukusoft.mmo.game.service.AccountService;
+import com.jukusoft.mmo.utils.Platform;
 import com.kotcrab.vis.ui.widget.LinkLabel;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -16,6 +22,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginScreen extends BaseUIScreen {
+
+    @InjectService
+    protected AccountService accountService;
+
+    @InjectScreenManager
+    protected ScreenManager<IScreen> screenManager;
 
     //labels
     protected VisLabel usernameLabel = null;
@@ -78,14 +90,33 @@ public class LoginScreen extends BaseUIScreen {
 
     @Override
     public void cleanUpStage(Stage stage) {
-
+        //we dont need to to anything here
     }
 
     /**
     * try to login user
     */
     protected void login (String username, String password) {
-        Logger.getAnonymousLogger().log(Level.INFO, "try to login user '" + username + "'.");
+        Logger.getAnonymousLogger().log(Level.INFO, "try to login user '{0}'.", username);
+
+        //disable login button
+        this.loginButton.setDisabled(true);
+        this.loginButton.setText("Login...");
+
+        this.accountService.login(username, password, res -> {
+            Platform.runOnUIThread(() -> {
+                if (res.succeeded()) {
+                    //go to next screen
+                    this.screenManager.leaveAllAndEnter("character_chooser");
+                } else {
+                    //enable login button again
+                    this.loginButton.setDisabled(false);
+                    this.loginButton.setText("Login");
+
+                    //TODO: show error message
+                }
+            });
+        });
     }
 
 }

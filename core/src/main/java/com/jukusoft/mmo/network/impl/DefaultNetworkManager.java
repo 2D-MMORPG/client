@@ -148,6 +148,11 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
     }
 
     @Override
+    public boolean isConnected() {
+        return this.tcpConnection.isConnected() || this.udpConnection.isConnected();
+    }
+
+    @Override
     public void executeBlocking(Runnable runnable) {
         this.vertx.executeBlocking(future -> {
             //execute blocking code

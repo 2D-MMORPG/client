@@ -58,7 +58,7 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
     }
 
     @Override
-    public <V extends Message> void addMessageReceiver(MessageReceiver<V> receiver, Class<V> messageType) {
+    public <V extends Message> void addMessageReceiver(Class<V> messageType, MessageReceiver<V> receiver) {
         this.receiverMap.put(messageType.getSimpleName().hashCode(), receiver);
     }
 
@@ -130,4 +130,15 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
     public void onReceive(Buffer msg) {
         //TODO: add code here
     }
+
+    @Override
+    public void onStart() {
+        //
+    }
+
+    @Override
+    public void onStop() {
+        //
+    }
+
 }

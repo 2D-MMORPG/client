@@ -15,6 +15,11 @@ public interface NetworkManager<T> extends IThreadPool {
 
     public void shutdown ();
 
+    /**
+     * check, if a connection is established
+     */
+    public boolean isConnected ();
+
     public static NetworkManager getInstance () {
         return DefaultNetworkManager.getManagerInstance();
     }

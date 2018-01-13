@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.engine.network;
 
+import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;
@@ -7,7 +8,7 @@ import com.jukusoft.mmo.network.message.MessageReceiver;
 /**
 * network layer on top of NetworkManager, priorizes messages, check if messages can be sended and so on (with queue)
 */
-public interface StreamManager<T extends Message> {
+public interface StreamManager<T extends Message> extends IService {
 
     /**
     * send message without return value / ack response
@@ -25,7 +26,7 @@ public interface StreamManager<T extends Message> {
     */
     public <V extends Message> void sendACKMessage (T msg, Class<V> cls, Callback<NetworkResult<V>> callback);
 
-    public <V extends Message>  void addMessageReceiver (MessageReceiver<V> receiver, Class<V> messageType);
+    public <V extends Message>  void addMessageReceiver (Class<V> messageType, MessageReceiver<V> receiver);
 
     /**
     * check, if messages are in queue and send them, if neccessary
