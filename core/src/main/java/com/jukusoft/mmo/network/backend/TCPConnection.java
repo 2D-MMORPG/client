@@ -21,6 +21,11 @@ public interface TCPConnection<T> {
     public void disconnect ();
 
     /**
+    * enable SSL
+    */
+    public void enableSSL ();
+
+    /**
     * check, if connection is established and open
      *
      * @return true, if client is connected

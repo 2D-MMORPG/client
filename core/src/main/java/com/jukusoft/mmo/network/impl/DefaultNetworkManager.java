@@ -98,6 +98,10 @@ public class DefaultNetworkManager implements NetworkManager<Buffer> {
 
     @Override
     public void connectTCP(String host, int port, Callback<NetworkResult<Boolean>> callback) {
+        //enable SSL encryption
+        this.tcpConnection.enableSSL();
+
+        //connect to tcp server
         this.tcpConnection.connect(host, port, callback);
     }
 

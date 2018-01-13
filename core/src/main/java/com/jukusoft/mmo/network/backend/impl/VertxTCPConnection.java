@@ -45,6 +45,9 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
     protected static final Logger LOGGER = Logger.getLogger("VertxTCPConnection");
 
+    //flag, if ssl is activated
+    protected boolean sslActivated = false;
+
     public VertxTCPConnection(Vertx vertx) {
         this.vertx = vertx;
     }
@@ -63,6 +66,12 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
     public void connect(String server, int port, Callback<NetworkResult<Boolean>> callback) {
         if (this.messageReceiver == null) {
             throw new IllegalStateException("You have to set an message receiver first.");
+        }
+
+        if (this.sslActivated) {
+            //enable SSL and dont check certificate
+            this.netClientOptions.setSsl(true).
+                    setTrustAll(true);
         }
 
         //create new network client
@@ -108,6 +117,11 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
     }
 
     @Override
+    public void enableSSL() {
+        this.sslActivated = true;
+    }
+
+    @Override
     public boolean isConnected() {
         return this.connected.get();
     }
@@ -129,6 +143,12 @@ public class VertxTCPConnection implements TCPConnection<Buffer> {
 
             this.messageReceiver.onReceive(buffer);
         });
+
+        //add exception handler
+        socket.exceptionHandler(e -> Logger.getAnonymousLogger().log(Level.SEVERE, "Exception occurred in VertxTCPConnection: ", e));
+
+        //add close handler
+        socket.closeHandler(res -> Logger.getAnonymousLogger().log(Level.SEVERE, "Server connection was closed."));
     }
 
     @Override

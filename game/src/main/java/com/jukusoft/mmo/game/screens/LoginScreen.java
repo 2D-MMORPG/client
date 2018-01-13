@@ -34,6 +34,7 @@ public class LoginScreen extends BaseUIScreen {
     protected VisLabel passwordLabel = null;
     protected VisLabel versionLabel = null;
     protected LinkLabel registerLabel = null;
+    protected VisLabel errorLabel = null;
 
     //input fields
     protected VisTextField usernameTextField = null;
@@ -58,6 +59,13 @@ public class LoginScreen extends BaseUIScreen {
         this.registerLabel = new LinkLabel("Registration (open link in browser)", "http://mmo.jukusoft.com/registration.php");
         this.registerLabel.setPosition(listXPos - 15, 100);
         stage.addActor(this.registerLabel);
+
+        //create error label
+        this.errorLabel = new VisLabel("Error!");
+        this.errorLabel.setColor(Color.RED);
+        this.errorLabel.setVisible(false);
+        this.errorLabel.setPosition(listXPos - 50, 600);
+        stage.addActor(this.errorLabel);
 
         //create input fields
         this.usernameTextField = new VisTextField();
@@ -113,7 +121,9 @@ public class LoginScreen extends BaseUIScreen {
                     this.loginButton.setDisabled(false);
                     this.loginButton.setText("Login");
 
-                    //TODO: show error message
+                    //show error message
+                    this.errorLabel.setVisible(true);
+                    this.errorLabel.setText("Couldnt not login!");
                 }
             });
         });
