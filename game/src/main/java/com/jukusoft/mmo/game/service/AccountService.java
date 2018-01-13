@@ -3,6 +3,7 @@ package com.jukusoft.mmo.game.service;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.impl.StreamManagerService;
+import com.jukusoft.mmo.game.network.codec.LoginRequestCodec;
 import com.jukusoft.mmo.game.network.codec.LoginRequestMessage;
 import com.jukusoft.mmo.game.network.codec.LoginResponseMessage;
 import com.jukusoft.mmo.network.Callback;
@@ -21,7 +22,8 @@ public class AccountService implements IService {
 
     @Override
     public void onStart() {
-        //
+        //register codec
+        this.streamManagerService.addCodec(new LoginRequestCodec(), LoginRequestMessage.class);
     }
 
     @Override

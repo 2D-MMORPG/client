@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.engine.service.impl;
 
 import com.jukusoft.mmo.engine.network.Message;
+import com.jukusoft.mmo.engine.network.SimpleMessageCodec;
 import com.jukusoft.mmo.engine.network.StreamManager;
 import com.jukusoft.mmo.engine.network.impl.VertxStreamManager;
 import com.jukusoft.mmo.engine.service.IService;
@@ -71,6 +72,11 @@ public class StreamManagerService implements IService, UpdateService, StreamMana
     @Override
     public <V extends Message>  void addMessageReceiver (Class<V> messageType, MessageReceiver<V> receiver) {
         this.streamManager.addMessageReceiver(messageType, receiver);
+    }
+
+    @Override
+    public <V extends Message> void addCodec(SimpleMessageCodec<V> codec, Class<V> cls) {
+        this.streamManager.addCodec(codec, cls);
     }
 
 }

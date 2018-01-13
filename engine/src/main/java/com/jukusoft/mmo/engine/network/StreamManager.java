@@ -28,6 +28,8 @@ public interface StreamManager<T extends Message> extends IService {
 
     public <V extends Message>  void addMessageReceiver (Class<V> messageType, MessageReceiver<V> receiver);
 
+    public <V extends Message> void addCodec (SimpleMessageCodec<V> codec, Class<V> cls);
+
     /**
     * check, if messages are in queue and send them, if neccessary
     */

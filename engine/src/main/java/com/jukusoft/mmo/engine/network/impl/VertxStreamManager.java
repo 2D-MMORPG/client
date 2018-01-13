@@ -67,6 +67,11 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
     }
 
     @Override
+    public <V extends Message> void addCodec(SimpleMessageCodec<V> codec, Class<V> cls) {
+        this.codecMap.put(cls.getSimpleName().hashCode(), codec);
+    }
+
+    @Override
     public void update() {
         if (this.messageQueue.size > 0) {
             //sort message queue
@@ -116,7 +121,7 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
         }
 
         //encode message
-        codec.encodeToWire(buffer, msg);
+        codec.encodeToWire(content, msg);
 
         /**
         * add message header
