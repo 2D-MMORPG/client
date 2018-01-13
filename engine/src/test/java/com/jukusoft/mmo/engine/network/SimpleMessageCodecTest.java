@@ -28,7 +28,7 @@ public class SimpleMessageCodecTest {
         codec.encodeToWire(buffer, msg);
 
         //decode message
-        Message receivedMessage = codec.decodeFromWire(0, buffer);
+        Message receivedMessage = codec.decodeFromWire(0, buffer, (short) 1);
     }
 
     @Test

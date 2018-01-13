@@ -48,11 +48,11 @@ public class LoginScreen extends BaseUIScreen {
         float listXPos = ((float) (Gdx.graphics.getWidth() - 100) / 2) - 50f;
 
         //create labels
-        this.usernameLabel = new VisLabel("Username: ");
+        this.usernameLabel = new VisLabel("Account Name: ");
         this.usernameLabel.setPosition(listXPos, 430);
         stage.addActor(this.usernameLabel);
 
-        this.passwordLabel = new VisLabel("Password: ");
+        this.passwordLabel = new VisLabel("Account Password: ");
         this.passwordLabel.setPosition(listXPos, 350);
         stage.addActor(this.passwordLabel);
 
