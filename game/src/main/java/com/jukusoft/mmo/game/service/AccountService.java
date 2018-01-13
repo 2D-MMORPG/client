@@ -3,6 +3,8 @@ package com.jukusoft.mmo.game.service;
 import com.jukusoft.mmo.engine.service.IService;
 import com.jukusoft.mmo.engine.service.InjectService;
 import com.jukusoft.mmo.engine.service.impl.StreamManagerService;
+import com.jukusoft.mmo.game.network.codec.LoginRequestMessage;
+import com.jukusoft.mmo.game.network.codec.LoginResponseMessage;
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkResult;
 
@@ -32,9 +34,22 @@ public class AccountService implements IService {
             throw new IllegalStateException("User is already logged in.");
         }
 
-        //TODO: add code here
+        //create new message
+        LoginRequestMessage msg = new LoginRequestMessage(username, password);
 
-        throw new UnsupportedOperationException("this method isnt implemented yet.");
+        //send login request message to server
+        this.streamManagerService.sendACKMessage(msg, LoginResponseMessage.class, res -> {
+            if (res.succeeded()) {
+                //check, if login was successful
+                if (res.result().isLoggedIn()) {
+                    callback.handle(NetworkResult.complete(true));
+                } else {
+                    callback.handle(NetworkResult.complete(false));
+                }
+            } else {
+                callback.handle(NetworkResult.fail(res.cause()));
+            }
+        });
     }
 
     /**

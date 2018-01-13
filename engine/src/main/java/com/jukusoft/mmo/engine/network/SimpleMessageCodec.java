@@ -3,7 +3,7 @@ package com.jukusoft.mmo.engine.network;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.MessageCodec;
 
-public interface SimpleMessageCodec<T> {
+public interface SimpleMessageCodec<T extends Message> {
 
     /**
      * Called by Vert.x when marshalling a message to the wire.
