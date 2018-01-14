@@ -1,9 +1,12 @@
 package com.jukusoft.mmo.game.network.codec;
 
 import com.jukusoft.mmo.engine.network.SimpleMessageCodec;
+import com.jukusoft.mmo.utils.ByteUtils;
 import io.vertx.core.buffer.Buffer;
 
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginRequestCodec implements SimpleMessageCodec<LoginRequestMessage> {
 
@@ -12,6 +15,8 @@ public class LoginRequestCodec implements SimpleMessageCodec<LoginRequestMessage
         //convert username and password to byte arrays
         byte[] usernameBytes = msg.username.getBytes(StandardCharsets.UTF_8);
         byte[] passwordBytes = msg.password.getBytes(StandardCharsets.UTF_8);
+
+        System.err.println("username bytes: " + ByteUtils.bytesToHex(usernameBytes));
 
         //add username
         buffer.appendShort((short) usernameBytes.length);

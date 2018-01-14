@@ -9,8 +9,12 @@ import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;
+import com.jukusoft.mmo.utils.ByteUtils;
 import com.jukusoft.mmo.utils.MessageIDGenerator;
 import io.vertx.core.buffer.Buffer;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VertxStreamManager implements StreamManager<Message>, MessageReceiver<Buffer> {
 
@@ -140,6 +144,10 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
 
         //add message content
         buffer.appendBuffer(content);
+
+        Logger.getAnonymousLogger().log(Level.INFO, "send message with " + buffer.length() + " bytes.");
+
+        Logger.getAnonymousLogger().log(Level.INFO, "send message: " + ByteUtils.bytesToHex(buffer.getBytes()));
 
         return buffer;
     }
