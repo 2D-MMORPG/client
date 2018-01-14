@@ -176,10 +176,10 @@ public class MessageTest {
         assertEquals(10, msg.getVersion());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void testEquals () {
         Message msg = new Message();
-        msg.equals("new string");
+        assertEquals(false, msg.equals("new string"));
     }
 
     @Test
