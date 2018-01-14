@@ -167,7 +167,12 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
             throw new IllegalStateException("no codec is specified for received message type: " + msgType);
         }
 
-        return codec.decodeFromWire(_pos + 14, buffer, version);
+        T msg = codec.decodeFromWire(_pos + 14, buffer, version);
+
+        //set ackID
+        msg.setAckID(ackID);
+
+        return msg;
     }
 
     @Override

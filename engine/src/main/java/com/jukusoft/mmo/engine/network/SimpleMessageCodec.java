@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.engine.network;
 
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.eventbus.MessageCodec;
 
 public interface SimpleMessageCodec<T extends Message> {
 

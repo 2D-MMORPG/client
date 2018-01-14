@@ -87,15 +87,6 @@ public class Message implements Pool.Poolable, Comparable<Message> {
         return ((Integer) this.priority).compareTo(o.priority);
     }
 
-    @Override
-    public boolean equals (Object o) {
-        if (!(o instanceof Message)) {
-            throw new IllegalArgumentException("to compare objects, object has to be of same type");
-        }
-
-        return this == o;
-    }
-
     public short getVersion () {
         return this.version;
     }
