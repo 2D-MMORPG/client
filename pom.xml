@@ -58,6 +58,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-2d-mmorpg-com.jukusoft.mmo</id>
+            <name>2d-mmorpg-com.jukusoft.mmo</name>
+            <url>https://api.bintray.com/maven/2d-mmorpg/com.jukusoft.mmo/client/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!-- JUnit tests -->
         <dependency>
