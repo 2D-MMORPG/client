@@ -53,6 +53,10 @@
 
         <vis.ui.version>1.4.0</vis.ui.version>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bintray.repo>com.jukusoft.mmo/client</bintray.repo>
+        <bintray.package>mmorpg-client</bintray.package>
+
         <!-- file encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
