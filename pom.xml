@@ -11,11 +11,11 @@
 
     <modules>
         <module>core</module>
+        <module>network-shared</module>
         <module>engine</module>
         <module>game</module>
         <module>launcher</module>
         <module>desktop</module>
-        <module>../shared</module>
     </modules>
 
     <name>mmorpg-client</name>
