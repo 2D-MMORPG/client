@@ -17,6 +17,22 @@
         <module>desktop</module>
 	</modules>
 
+    <name>mmorpg-client</name>
+    <description>Client for 2D MMORPG</description>
+    <url>http://mmo.jukusoft.com</url>
+
+    <scm>
+        <url>https://github.com/2D-MMORPG/client</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <!-- Java version -->
         <java.version>1.8</java.version>
@@ -54,6 +70,7 @@
         <vis.ui.version>1.4.0</vis.ui.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bintray.subject>2d-mmorpg</bintray.subject>
         <bintray.repo>com.jukusoft.mmo/client</bintray.repo>
         <bintray.package>mmorpg-client</bintray.package>
 
@@ -62,11 +79,33 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <distributionManagement>
+    <!-- http://central.sonatype.org/pages/releasing-the-deployment.html -->
+    <!-- https://oss.sonatype.org/ -->
+    <!-- https://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/ -->
+    <!-- <url>https://api.bintray.com/maven/2d-mmorpg/com.jukusoft.mmo/client/;publish=1</url> -->
+    <!-- <distributionManagement>
         <repository>
             <id>bintray-2d-mmorpg-com.jukusoft.mmo</id>
             <name>2d-mmorpg-com.jukusoft.mmo</name>
+            <url>https://api.bintray.com/maven/${bintray.subject}/${bintray.repo}/${bintray.package}/;publish=1</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>bintray-2d-mmorpg-com.jukusoft.mmo</id>
+            <name>2d-mmorpg-com.jukusoft.mmo</name>
             <url>https://api.bintray.com/maven/2d-mmorpg/com.jukusoft.mmo/client/;publish=1</url>
+        </snapshotRepository>
+    </distributionManagement> -->
+
+    <!-- SonaType Nexus Deployment (to maven central) -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -91,6 +130,34 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
