@@ -15,7 +15,8 @@
         <module>game</module>
         <module>launcher</module>
         <module>desktop</module>
-	</modules>
+        <module>../shared</module>
+    </modules>
 
     <name>mmorpg-client</name>
     <description>Client for 2D MMORPG</description>
