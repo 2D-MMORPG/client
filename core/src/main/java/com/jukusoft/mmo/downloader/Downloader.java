@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 /**
 * Downloader class to download files
  *
- * @link https://www.java-tips.org/java-se-tips-100019/15-javax-swing/1391-how-to-create-a-download-manager-in-java.html
+ * https://www.java-tips.org/java-se-tips-100019/15-javax-swing/1391-how-to-create-a-download-manager-in-java.html
 */
 public class Downloader extends Observable implements Runnable {
 

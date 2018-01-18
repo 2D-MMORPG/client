@@ -38,6 +38,8 @@ public class Channel {
 
     /**
     * load channel from json object
+     *
+     * @param json json object
     */
     public void load (JsonObject json) {
         if (json == null) {

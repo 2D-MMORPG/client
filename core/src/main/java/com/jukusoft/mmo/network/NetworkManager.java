@@ -17,6 +17,8 @@ public interface NetworkManager<T> extends IThreadPool {
 
     /**
      * check, if a connection is established
+     *
+     * @return true, if client is connected
      */
     public boolean isConnected ();
 

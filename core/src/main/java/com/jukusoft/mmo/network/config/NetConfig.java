@@ -26,6 +26,8 @@ public class NetConfig {
      * default constructor
      *
      * @param filePath path to config file
+     *
+     * @return network configuration
      */
     public NetConfig (String filePath) throws IOException {
         if (filePath == null) {

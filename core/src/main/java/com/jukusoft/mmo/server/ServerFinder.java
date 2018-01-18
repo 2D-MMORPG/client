@@ -37,6 +37,10 @@ public class ServerFinder {
     * default constructor
      *
      * @param filePath path to configuration file
+     *
+     * @throws IOException if app cannot read network config file
+     *
+     * @return instance of server finder
     */
     public ServerFinder (String filePath) throws IOException {
         if (filePath == null) {
