@@ -145,9 +145,7 @@ public class VertxStreamManager implements StreamManager<Message>, MessageReceiv
         //add message content
         buffer.appendBuffer(content);
 
-        Logger.getAnonymousLogger().log(Level.INFO, "send message with " + buffer.length() + " bytes.");
-
-        Logger.getAnonymousLogger().log(Level.INFO, "send message: " + ByteUtils.bytesToHex(buffer.getBytes()));
+        Logger.getAnonymousLogger().log(Level.INFO, "send message: " + ByteUtils.bytesToHex(buffer.getBytes()) + " (" + buffer.length() + " bytes).");
 
         return buffer;
     }
