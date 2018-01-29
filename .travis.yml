@@ -23,17 +23,7 @@ cache:
 
 addons:
   sonarcloud:
-    organization: "2d-mmorpg" # the key of the org you chose at step #3
-    #token:
-      #secure: "NItjZOaVZcttS1k7bZP3ryWgAdamwHcbSwPrxl1vuxuqXjxrgn0zpk2QI2gUHb0xbqUXiRvyUizg0xmdFw1UIpzdGpET24dQbVeybRFsZsA8wh40J1jMjjPipvEj/eHqN1pdYzKKgxjl02XKpN8TfwDqjcSH5s+bVmc+jy1Jp9fBrDDAX8RP5Q225WkMVNV5el5AqAySwm8Ww6JdfPNxEuzEx7atM/SQdL73oc+9I7KhoE2JT7Cv81DC4E9+xtmZyDqe798R0pPSPaJXo5JmVJiodQZOtgxD5wn1/nx2ybycURN9a6oWOLYtaJoMIJZUhyznxHOxKXBYlCp6M71g4TVR15UwFI2aWG8mNFNC4pOCdtXewTryilB1O2JE6h/WjW34zQAkxd4G83FxbErNMf7inKYU7DjXAK0dDo98OKkBxKSnMNvvHRvy95VN2AB+vPKqt5e4XJ9RkJvudL9cvTeNgXLq9YDrjMsUUGOyHUCsFVeSoHEBsWDmBdFTfdH17EzTz1NbGvsvFbWKdR8nkdRSY73o0+7vNkNvnm3ow32LISdmdQPPWpVg7LDDLpkXV3ZN1BNW5l38NGkpF8n4/CoaSVLMAWq4B5ryYMf6tqpMHHSQqAd6j1FrLSQEPz/ZkbbB+Tk92DPaJ8ouVQ1POe2LNK5GkFtw3dcGEoO4VEA="
-      #secure: ${SONAR_TOKEN}
-      #secure: $SONAR_TOKEN
-      #secure: "GrLpXChahiJRYJ7FGRgKL9nUh0a+oPCbEEu6O9e0WXhio7zGuUp3P4RoiVVbN1ISB7AWbrnVwrfiZMBuL+0qOMqi/7Ch6jftyTUMFX1718VGP9XePxnNA6lMVaRim0BROw3yt7FUAMF+QrT2MSB++KjUM6gpLDlV6Oy6b3Wljaw1TYbKtZp4yTL4GWhKlfU06gWhRrf4mlt39Jp+NxauLSfHeugd4hXl2F4gSlGoNUCIsVonctyuGk+My7G3JY+igJttbRLvvbsSdGZGA17zK9cCcKuV4Qd6WrO0dW6GTMu9PppLaNyYXV/73gKLwn/xZ28p2pB1qax+WTglXT0fKNJkY80gbGXjJnLxUCibPgMk0qdAVDMUQ3P9UVHbIGPIxM7P3Y1roC64dtO2j50pMG2Cvyj2+KZDDcHdydnrD5kKHkWLdp2lWamBuBZ/zVNcSU/VESkv782MMHO1abDUtLAmwgD1eINScjbQ9n5tvneGoMMLtCs+XFaYC2x6pS4mLXzTbmivL3IvgPt0VwdadesOyZu/jt02H9/tTkGfJmOCQQrdwksItcIsO6lZqlD5rbf17IlsbDFaWm6sYI89kSdCrs5n8Z0YR1Wh/f+p0uZyykG0XJ2ap7sXBKdnNg8DP5FodW36y0Lp6xJ6f2uzwEy+zGYQqAJ4oVtYH0B3amw=" # encrypted value of your token
-
-#before_install:
-# - chmod +x gradlew
-
-# https://github.com/SonarSource/sq-com_example_java-maven-travis
+    organization: "2d-mmorpg"
 
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
@@ -41,6 +31,13 @@ script:
   - mvn clean install
   - mvn -e clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=${SONAR_TOKEN}
   - bash <(curl -s https://codecov.io/bash) --t ${CODEDOV_TOKEN}
+
+deploy:
+  provider: script
+  script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
+  skip_cleanup: true
+  on:
+    tags: true
 
 #  - sonar-scanner
 #  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
