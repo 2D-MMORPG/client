@@ -1,6 +1,5 @@
-package com.jukusoft.mmo.engine.network;
+package com.jukusoft.mmo.message;
 
-import com.badlogic.gdx.utils.Array;
 import com.jukusoft.mmo.Protocol;
 import com.jukusoft.mmo.message.Message;
 import org.junit.Test;
@@ -119,7 +118,7 @@ public class MessageTest {
         assertEquals(msg3, list.get(3));
     }
 
-    @Test
+    /*@Test
     public void testOrderWithLibGDXArray () {
         //create4 4 messages
         Message msg1 = new Message();
@@ -149,7 +148,7 @@ public class MessageTest {
         assertEquals(msg2, list.get(1));
         assertEquals(msg4, list.get(2));
         assertEquals(msg3, list.get(3));
-    }
+    }*/
 
     @Test (expected = NullPointerException.class)
     public void testSetNullProtocol () {
