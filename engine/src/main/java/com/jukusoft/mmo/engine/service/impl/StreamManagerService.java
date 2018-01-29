@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.engine.service.impl;
 
-import com.jukusoft.mmo.engine.network.Message;
+import com.jukusoft.mmo.message.Message;
 import com.jukusoft.mmo.engine.network.SimpleMessageCodec;
 import com.jukusoft.mmo.engine.network.StreamManager;
 import com.jukusoft.mmo.engine.network.impl.VertxStreamManager;

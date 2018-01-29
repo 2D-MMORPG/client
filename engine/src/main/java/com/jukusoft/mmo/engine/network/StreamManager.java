@@ -1,6 +1,7 @@
 package com.jukusoft.mmo.engine.network;
 
 import com.jukusoft.mmo.engine.service.IService;
+import com.jukusoft.mmo.message.Message;
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkResult;
 import com.jukusoft.mmo.network.message.MessageReceiver;

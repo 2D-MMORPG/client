@@ -20,6 +20,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- shared network module -->
+        <dependency>
+            <groupId>com.jukusoft.mmo</groupId>
+            <artifactId>network-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- i18n support (translations) -->
         <dependency>
             <groupId>com.teamunify</groupId>

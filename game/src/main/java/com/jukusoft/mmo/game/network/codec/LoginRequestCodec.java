@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.game.network.codec;
 
 import com.jukusoft.mmo.engine.network.SimpleMessageCodec;
-import com.jukusoft.mmo.utils.ByteUtils;
 import io.vertx.core.buffer.Buffer;
 
 import java.nio.charset.StandardCharsets;

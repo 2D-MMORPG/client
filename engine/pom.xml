@@ -26,6 +26,13 @@
 			<version>${project.version}</version>
 		</dependency>
 
+        <!-- shared network module -->
+        <dependency>
+            <groupId>com.jukusoft.mmo</groupId>
+            <artifactId>network-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- libGDX -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>

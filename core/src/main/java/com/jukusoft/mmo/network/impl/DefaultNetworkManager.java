@@ -3,7 +3,7 @@ package com.jukusoft.mmo.network.impl;
 import com.jukusoft.mmo.network.Callback;
 import com.jukusoft.mmo.network.NetworkManager;
 import com.jukusoft.mmo.network.NetworkResult;
-import com.jukusoft.mmo.network.Protocol;
+import com.jukusoft.mmo.Protocol;
 import com.jukusoft.mmo.network.backend.TCPConnection;
 import com.jukusoft.mmo.network.backend.UDPConnection;
 import com.jukusoft.mmo.network.backend.impl.VertxTCPConnection;

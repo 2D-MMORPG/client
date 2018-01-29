@@ -1,7 +1,6 @@
 package com.jukusoft.mmo.network.traffic;
 
-import com.jukusoft.mmo.network.NetworkManager;
-import com.jukusoft.mmo.network.Protocol;
+import com.jukusoft.mmo.Protocol;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

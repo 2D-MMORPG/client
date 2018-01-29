@@ -1,9 +1,9 @@
-package com.jukusoft.mmo.engine.network;
+package com.jukusoft.mmo.message;
 
-import com.badlogic.gdx.utils.Pool;
-import com.jukusoft.mmo.network.Protocol;
+import com.jukusoft.mmo.Protocol;
+import com.jukusoft.mmo.pool.Poolable;
 
-public class Message implements Pool.Poolable, Comparable<Message> {
+public class Message implements Poolable, Comparable<Message> {
 
     //message type
     protected short messageType = 0;

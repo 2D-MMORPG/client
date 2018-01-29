@@ -1,5 +1,6 @@
 package com.jukusoft.mmo.network;
 
+import com.jukusoft.mmo.Protocol;
 import com.jukusoft.mmo.network.impl.DefaultNetworkManager;
 import com.jukusoft.mmo.network.message.MessageReceiver;
 

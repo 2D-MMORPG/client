@@ -2,7 +2,7 @@ package com.jukusoft.mmo.engine.network.impl;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.jukusoft.mmo.engine.network.Message;
+import com.jukusoft.mmo.message.Message;
 import com.jukusoft.mmo.engine.network.SimpleMessageCodec;
 import com.jukusoft.mmo.engine.network.StreamManager;
 import com.jukusoft.mmo.network.Callback;

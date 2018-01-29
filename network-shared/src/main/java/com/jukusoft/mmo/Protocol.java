@@ -1,4 +1,4 @@
-package com.jukusoft.mmo.network;
+package com.jukusoft.mmo;
 
 public enum Protocol {
 

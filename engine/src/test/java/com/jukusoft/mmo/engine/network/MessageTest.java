@@ -1,9 +1,8 @@
 package com.jukusoft.mmo.engine.network;
 
 import com.badlogic.gdx.utils.Array;
-import com.jukusoft.mmo.network.NetworkManager;
-import com.jukusoft.mmo.network.Protocol;
-import com.jukusoft.mmo.network.backend.UDPConnection;
+import com.jukusoft.mmo.Protocol;
+import com.jukusoft.mmo.message.Message;
 import org.junit.Test;
 
 import java.util.ArrayList;

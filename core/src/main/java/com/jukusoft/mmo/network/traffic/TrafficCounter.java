@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.network.traffic;
 
-import com.jukusoft.mmo.network.Protocol;
+import com.jukusoft.mmo.Protocol;
 
 public class TrafficCounter {
 

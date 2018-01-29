@@ -1,6 +1,6 @@
 package com.jukusoft.mmo.game.network.codec;
 
-import com.jukusoft.mmo.engine.network.Message;
+import com.jukusoft.mmo.message.Message;
 
 public class LoginRequestMessage extends Message {
 
