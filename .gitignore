@@ -26,6 +26,8 @@ sonarqube.cfg
 !assembly.xml
 !*assembly.xml
 
+!.travis.settings.xml
+
 ### Windows ###
 # Windows image file caches
 Thumbs.db
